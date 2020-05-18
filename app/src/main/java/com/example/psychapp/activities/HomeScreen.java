@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
@@ -115,28 +116,36 @@ public class HomeScreen extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        ImageButton deprButton = findViewById(R.id.depressants);
+        ImageView deprButton = findViewById(R.id.depressants);
 
-        deprButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-                intent.putExtra("substanceClass", "depressant");
-                startActivity(intent);
-            }
+        deprButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "depressant");
+            startActivity(intent);
         });
 
-        ImageButton stimButton = findViewById(R.id.stimulants);
+        ImageView stimButton = findViewById(R.id.stimulants);
 
-        stimButton.setOnClickListener(new View.OnClickListener(){
+        stimButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "stimulants");
+            startActivity(intent);
+        });
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-                intent.putExtra("substanceClass", "stimulants");
-                startActivity(intent);
-            }
+        ImageView cannaButton = findViewById(R.id.cannabinoids);
+
+        cannaButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "cannabinoid");
+            startActivity(intent);
+        });
+
+        ImageView psychButton = findViewById(R.id.psychedelics);
+
+        psychButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "psychedelic");
+            startActivity(intent);
         });
     }
 

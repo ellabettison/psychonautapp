@@ -44,30 +44,64 @@
             android:textAlignment="textStart"
             android:textSize="30sp" />
 
-        <ImageButton
-            android:id="@+id/stimulants"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:background="#00FFFFFF"
+            android:layout_height="280dp"
+            android:gravity="bottom|center"
+            android:orientation="horizontal"
             android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/stims" />
+            android:paddingRight="20dp">
 
-        <ImageButton
-            android:id="@+id/depressants"
+            <ImageView
+                android:id="@+id/depressants"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/depres" />
+
+            <ImageView
+                android:id="@+id/stimulants"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/stims2" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:background="#00FFFFFF"
-            android:cropToPadding="false"
+            android:layout_height="280dp"
+            android:gravity="center|top"
+            android:orientation="horizontal"
             android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/depr" />
+            android:paddingRight="20dp">
+
+            <ImageView
+                android:id="@+id/cannabinoids"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/canna" />
+
+            <ImageView
+                android:id="@+id/psychedelics"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/psyche" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>
