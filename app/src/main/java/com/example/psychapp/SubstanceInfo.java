@@ -1,36 +1,20 @@
-package com.example.psychapp.activities;
+package com.example.psychapp;
 
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
-import com.example.psychapp.R;
-import com.example.psychapp.api.APIClient;
-import com.example.psychapp.api.QueryBuilder;
-import com.example.psychapp.api.QueryObjects.SubstanceObject;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SubstanceSelector extends AppCompatActivity {
-
-    private String substanceClass;
+public class SubstanceInfo extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -76,7 +60,7 @@ public class SubstanceSelector extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-//            mControlsView.setVisibility(View.VISIBLE);
+            mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -105,9 +89,10 @@ public class SubstanceSelector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_substance_selector);
+        setContentView(R.layout.activity_substance_info);
 
         mVisible = true;
+        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -119,35 +104,10 @@ public class SubstanceSelector extends AppCompatActivity {
             }
         });
 
-        substanceClass = getIntent().getSerializableExtra("substanceClass").toString();
-
-        try {
-            createButtons();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void createButtons() throws ExecutionException, InterruptedException {
-        APIClient apiClient = new APIClient();
-        QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.queryByClass(substanceClass).withName().getQuery();
-
-        ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
-
-        for (SubstanceObject substance: substances){
-            Button myButton = new Button(this);
-            myButton.setTypeface(manjari);
-            myButton.setText(substance.getName());
-
-            LinearLayout ll = (LinearLayout)findViewById(R.id.substanceList);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
-        }
-
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -174,7 +134,7 @@ public class SubstanceSelector extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
+        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
