@@ -9,13 +9,19 @@ import androidx.core.content.res.ResourcesCompat;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
 import com.example.psychapp.api.APIClient;
 import com.example.psychapp.api.QueryBuilder;
+import com.example.psychapp.api.QueryObjects.EffectObject;
 import com.example.psychapp.api.QueryObjects.RoaObject;
 import com.example.psychapp.api.QueryObjects.SubstanceObject;
 import com.example.psychapp.api.QueryObjects.UnitsObject;
@@ -143,10 +149,13 @@ public class SubstanceInfo extends AppCompatActivity {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         APIClient apiClient = new APIClient();
         QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.queryByName(substanceName).withName().withRoas().getQuery();
+        String query = queryBuilder.queryByName(substanceName).withName().withRoas()
+                .withEffects().withInteractions().getQuery();
 
         substanceObject = apiClient.execute(query).get().get(0);
         RoaObject mainRoa = substanceObject.getRoas().get(0);
+        String units = mainRoa.getDosage().getUnits();
+        System.out.printf("\nUNITS: %s\n", units);
 
         TextView lightText = findViewById(R.id.lightStrength);
         lightText.setTypeface(manjari);
@@ -160,7 +169,7 @@ public class SubstanceInfo extends AppCompatActivity {
         String lightDosageString = String.format("%d - %d %s",
                 lightUnitsDosage.getMin(),
                 lightUnitsDosage.getMax(),
-                lightUnitsDosage.getUnits());
+                units);
         lightDosage.setText(lightDosageString);
         lightDosage.setTypeface(manjari);
 
@@ -169,7 +178,7 @@ public class SubstanceInfo extends AppCompatActivity {
         String commonDosageString = String.format("%d - %d %s",
                 commonUnitsDosage.getMin(),
                 commonUnitsDosage.getMax(),
-                commonUnitsDosage.getUnits());
+                units);
         commonDosage.setText(commonDosageString);
         commonDosage.setTypeface(manjari);
 
@@ -178,9 +187,22 @@ public class SubstanceInfo extends AppCompatActivity {
         String strongDosageString = String.format("%d - %d %s",
                 strongUnitsDosage.getMin(),
                 strongUnitsDosage.getMax(),
-                strongUnitsDosage.getUnits());
+                units);
         strongDosage.setText(strongDosageString);
         strongDosage.setTypeface(manjari);
+
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+
+        LinearLayout contentLayout = findViewById(R.id.effectsList);
+        for (EffectObject effect: substanceObject.getEffects()){
+            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            effectText.setTypeface(manjari);
+            effectText.setText(effect.getName());
+            contentLayout.addView(effectText);
+            ImageView divider = new ImageView(this);
+            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+            contentLayout.addView(divider);
+        }
 
     }
 

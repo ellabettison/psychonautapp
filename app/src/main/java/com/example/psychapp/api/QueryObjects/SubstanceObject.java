@@ -12,6 +12,18 @@ public class SubstanceObject {
     private ArrayList<EffectObject> effects;
     @JsonProperty("roas")
     private ArrayList<RoaObject> roas;
+    @JsonProperty("unsafeInteractions")
+    private ArrayList<SubstanceObject> unsafeInteractions;
+    @JsonProperty("dangerousInteractions")
+    private ArrayList<SubstanceObject> dangerousInteractions;
+
+    public ArrayList<SubstanceObject> getUnsafeInteractions() {
+        return unsafeInteractions;
+    }
+
+    public ArrayList<SubstanceObject> getDangerousInteractions() {
+        return dangerousInteractions;
+    }
 
     public String getName() {
         return name;

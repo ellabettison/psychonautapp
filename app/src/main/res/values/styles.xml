@@ -45,4 +45,14 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="EffectLabel" parent="android:Widget.TextView">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+
 </resources>

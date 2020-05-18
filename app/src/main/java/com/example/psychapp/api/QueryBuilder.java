@@ -26,9 +26,14 @@ public class QueryBuilder {
         queryHead.append(" effects { name} ");
         return this;
     }
+
+    public QueryBuilder withInteractions(){
+        queryHead.append(" unsafeInteractions { name} dangerousInteractions {name}");
+        return this;
+    }
     
     public QueryBuilder withRoas(){
-        queryHead.append(" roas { name dose {light {min max} common {min max} strong {min max}}} ");
+        queryHead.append(" roas { name dose {units light {min max} common {min max} strong {min max}}} ");
         return this;
     }
     
