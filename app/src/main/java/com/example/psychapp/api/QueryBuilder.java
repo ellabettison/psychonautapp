@@ -28,7 +28,7 @@ public class QueryBuilder {
     }
     
     public QueryBuilder withRoas(){
-        queryHead.append(" roas { name} ");
+        queryHead.append(" roas { name dose {light {min max} common {min max} strong {min max}}} ");
         return this;
     }
     

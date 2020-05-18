@@ -6,12 +6,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.psychapp.R;
@@ -138,14 +140,21 @@ public class SubstanceSelector extends AppCompatActivity {
         ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
-        for (SubstanceObject substance: substances){
-            Button myButton = new Button(this);
-            myButton.setTypeface(manjari);
-            myButton.setText(substance.getName());
+        for (int i = 0; i < substances.size(); i++){
+            Button btn = new Button(this);
+            btn.setId(i);
+            btn.setTypeface(manjari);
+            btn.setText(substances.get(i).getName());
 
-            LinearLayout ll = (LinearLayout)findViewById(R.id.substanceList);
+            LinearLayout ll = findViewById(R.id.substanceList);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
+            ll.addView(btn, lp);
+
+            btn.setOnClickListener(v -> {
+                Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
+                intent.putExtra("substanceName", btn.getText());
+                startActivity(intent);
+            });
         }
 
     }

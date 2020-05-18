@@ -8,8 +8,6 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="android:buttonStyle">@style/SubstanceButton</item>
         <item name="buttonStyle">@style/SubstanceButton</item>
-        <item name="fontFamily">@fonts/Manjari-Bold</item>
-        <item name="android:fontFamily">@fonts/Manjari-Bold</item>
     </style>
 
     <!--    <style name="FullscreenTheme" parent="AppTheme">-->

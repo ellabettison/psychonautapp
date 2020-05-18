@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SubstanceInfo"
+            android:name=".activities.SubstanceInfo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_substance_info"
             android:theme="@style/FullscreenTheme"></activity>

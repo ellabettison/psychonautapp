@@ -1,20 +1,36 @@
-package com.example.psychapp;
+package com.example.psychapp.activities;
 
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.psychapp.R;
+import com.example.psychapp.api.APIClient;
+import com.example.psychapp.api.QueryBuilder;
+import com.example.psychapp.api.QueryObjects.RoaObject;
+import com.example.psychapp.api.QueryObjects.SubstanceObject;
+import com.example.psychapp.api.QueryObjects.UnitsObject;
+
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class SubstanceInfo extends AppCompatActivity {
+
+    private String substanceName;
+    private SubstanceObject substanceObject;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -51,7 +67,7 @@ public class SubstanceInfo extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
-    private View mControlsView;
+    //private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -60,7 +76,7 @@ public class SubstanceInfo extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+            //mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -87,12 +103,13 @@ public class SubstanceInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_substance_info);
 
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        //mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -104,10 +121,67 @@ public class SubstanceInfo extends AppCompatActivity {
             }
         });
 
+        substanceName = Objects.requireNonNull(getIntent()
+                .getSerializableExtra("substanceName")).toString();
+        TextView substanceText = findViewById(R.id.substanceName);
+        substanceText.setTypeface(manjari);
+        substanceText.setText(substanceName);
+
+        try {
+            getSubstanceInfo();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
+
+    protected void getSubstanceInfo() throws ExecutionException, InterruptedException {
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        APIClient apiClient = new APIClient();
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.queryByName(substanceName).withName().withRoas().getQuery();
+
+        substanceObject = apiClient.execute(query).get().get(0);
+        RoaObject mainRoa = substanceObject.getRoas().get(0);
+
+        TextView lightText = findViewById(R.id.lightStrength);
+        lightText.setTypeface(manjari);
+        TextView commonText = findViewById(R.id.commonStrength);
+        commonText.setTypeface(manjari);
+        TextView strongText = findViewById(R.id.strongStrength);
+        strongText.setTypeface(manjari);
+
+        UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
+        TextView lightDosage = findViewById(R.id.lightDosage);
+        String lightDosageString = String.format("%d - %d %s",
+                lightUnitsDosage.getMin(),
+                lightUnitsDosage.getMax(),
+                lightUnitsDosage.getUnits());
+        lightDosage.setText(lightDosageString);
+        lightDosage.setTypeface(manjari);
+
+        UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
+        TextView commonDosage = findViewById(R.id.commonDosage);
+        String commonDosageString = String.format("%d - %d %s",
+                commonUnitsDosage.getMin(),
+                commonUnitsDosage.getMax(),
+                commonUnitsDosage.getUnits());
+        commonDosage.setText(commonDosageString);
+        commonDosage.setTypeface(manjari);
+
+        UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
+        TextView strongDosage = findViewById(R.id.strongDosage);
+        String strongDosageString = String.format("%d - %d %s",
+                strongUnitsDosage.getMin(),
+                strongUnitsDosage.getMax(),
+                strongUnitsDosage.getUnits());
+        strongDosage.setText(strongDosageString);
+        strongDosage.setTypeface(manjari);
+
     }
 
     @Override
@@ -134,7 +208,7 @@ public class SubstanceInfo extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+        //mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
