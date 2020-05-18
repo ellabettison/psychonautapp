@@ -57,4 +57,5 @@ dependencies {
     implementation 'org.msgpack:jackson-dataformat-msgpack:0.8.20'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.0'
     implementation 'org.codehaus.httpcache4j.uribuilder:uribuilder:2.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }

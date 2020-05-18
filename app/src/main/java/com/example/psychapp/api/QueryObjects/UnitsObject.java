@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UnitsObject {
     @JsonProperty("min")
-    private int min;
+    private float min;
     @JsonProperty("max")
-    private int max;
+    private float max;
     @JsonProperty("units")
     private String units;
 
-    public int getMin() {
+    public float getMin() {
         return min;
     }
 
-    public int getMax() {
+    public float getMax() {
         return max;
     }
 
