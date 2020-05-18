@@ -12,14 +12,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.psychapp.R;
 import com.example.psychapp.api.APIClient;
 import com.example.psychapp.api.QueryBuilder;
 import com.example.psychapp.api.QueryObjects.SubstanceObject;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -140,6 +146,9 @@ public class SubstanceSelector extends AppCompatActivity {
         ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
+        TextView header = findViewById(R.id.header);
+        header.setTypeface(manjari);
+
         for (int i = 0; i < substances.size(); i++){
             Button btn = new Button(this);
             btn.setId(i);
@@ -155,6 +164,11 @@ public class SubstanceSelector extends AppCompatActivity {
                 intent.putExtra("substanceName", btn.getText());
                 startActivity(intent);
             });
+
+            int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+            ImageView divider = new ImageView(this);
+            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+            ll.addView(divider);
         }
 
     }

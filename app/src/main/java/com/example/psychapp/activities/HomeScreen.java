@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.psychapp.R;
 
@@ -87,8 +90,12 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         setContentView(R.layout.activity_fullscreen);
+
+        TextView header = findViewById(R.id.header);
+        header.setTypeface(manjari);
 
         mVisible = true;
         //mControlsView = findViewById(R.id.fullscreen_content_controls);

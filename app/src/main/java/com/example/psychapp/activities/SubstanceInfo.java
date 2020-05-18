@@ -26,6 +26,7 @@ import com.example.psychapp.api.QueryObjects.RoaObject;
 import com.example.psychapp.api.QueryObjects.SubstanceObject;
 import com.example.psychapp.api.QueryObjects.UnitsObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -203,6 +204,28 @@ public class SubstanceInfo extends AppCompatActivity {
             divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
             contentLayout.addView(divider);
         }
+
+        ArrayList<SubstanceObject> unsafeInteractions = substanceObject.getUnsafeInteractions();
+        LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
+        StringBuilder unsafeString = new StringBuilder();
+        for (SubstanceObject substance: unsafeInteractions){
+            unsafeString.append(substance.getName()).append("\n");
+        }
+        TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+        effectText.setTypeface(manjari);
+        effectText.setText(unsafeString.toString());
+        unsafeLayout.addView(effectText);
+
+        ArrayList<SubstanceObject> dangerousInteractions = substanceObject.getDangerousInteractions();
+        LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
+        StringBuilder dangerousString = new StringBuilder();
+        for (SubstanceObject substance: dangerousInteractions){
+            dangerousString.append(substance.getName()).append("\n");
+        }
+        TextView effectText2 = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+        effectText2.setTypeface(manjari);
+        effectText2.setText(dangerousString.toString());
+        dangerousLayout.addView(effectText2);
 
     }
 
