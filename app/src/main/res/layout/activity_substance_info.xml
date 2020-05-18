@@ -38,7 +38,6 @@
             android:paddingLeft="30dp"
             android:paddingTop="50dp"
             android:paddingRight="30dp"
-            android:text="TextView"
             android:textAlignment="textStart"
             android:textSize="30sp" />
 
@@ -60,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="dosage" />
+                    android:text="@string/dosage" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +67,7 @@
                     android:foregroundGravity="center|center_horizontal"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:paddingStart="10dp">
 
                     <LinearLayout
                         android:id="@+id/lightInfo"
@@ -94,7 +93,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="light" />
+                            android:text="@string/light" />
 
                         <ProgressBar
                             android:id="@+id/lightProgress"
@@ -110,7 +109,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="TextView" />
+                            android:text="" />
 
                     </LinearLayout>
 
@@ -137,7 +136,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="common" />
+                            android:text="@string/common" />
 
                         <ProgressBar
                             android:id="@+id/commonProgress"
@@ -153,7 +152,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="TextView" />
+                            android:text="" />
 
                     </LinearLayout>
 
@@ -180,7 +179,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="strong" />
+                            android:text="@string/strong" />
 
                         <ProgressBar
                             android:id="@+id/strongProgress"
@@ -196,7 +195,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="TextView" />
+                            android:text="" />
 
                     </LinearLayout>
 
@@ -208,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="interactions" />
+                    android:text="@string/interactions" />
 
                 <LinearLayout
                     android:id="@+id/interactions"
@@ -264,7 +263,7 @@
                             android:gravity="center"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="dangerous"
+                            android:text="@string/dangerous"
                             android:textColor="#C62828" />
                     </LinearLayout>
                 </LinearLayout>
@@ -275,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="effects" />
+                    android:text="@string/effects" />
 
                 <LinearLayout
                     android:id="@+id/effectsList"

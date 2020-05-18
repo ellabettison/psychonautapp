@@ -10,4 +10,12 @@
 
     <string name="title_activity_substance_info">SubstanceInfo</string>
     <string name="unsafe">unsafe</string>
+    <string name="cool_app_name_here">drugs</string>
+    <string name="dosage">dosage</string>
+    <string name="light">light</string>
+    <string name="common">common</string>
+    <string name="strong">strong</string>
+    <string name="interactions">interactions</string>
+    <string name="dangerous">dangerous</string>
+    <string name="effects">effects</string>
 </resources>

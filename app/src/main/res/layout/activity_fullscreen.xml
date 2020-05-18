@@ -40,7 +40,7 @@
             android:paddingLeft="30dp"
             android:paddingTop="50dp"
             android:paddingRight="30dp"
-            android:text="cool app name here"
+            android:text="@string/cool_app_name_here"
             android:textAlignment="textStart"
             android:textSize="30sp" />
 
