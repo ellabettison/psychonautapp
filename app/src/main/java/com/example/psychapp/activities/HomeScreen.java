@@ -116,7 +116,8 @@ public class HomeScreen extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        ImageView deprButton = findViewById(R.id.depressants);
+        //TODO: pls change lol this is gross
+        ImageButton deprButton = findViewById(R.id.depressants);
 
         deprButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
@@ -124,15 +125,15 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(intent);
         });
 
-        ImageView stimButton = findViewById(R.id.stimulants);
+        ImageButton stimButton = findViewById(R.id.stimulants);
 
         stimButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "stimulants");
+            intent.putExtra("substanceClass", "stimulant");
             startActivity(intent);
         });
 
-        ImageView cannaButton = findViewById(R.id.cannabinoids);
+        ImageButton cannaButton = findViewById(R.id.cannabinoids);
 
         cannaButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
@@ -140,11 +141,59 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(intent);
         });
 
-        ImageView psychButton = findViewById(R.id.psychedelics);
+        ImageButton psychButton = findViewById(R.id.psychedelics);
 
         psychButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
             intent.putExtra("substanceClass", "psychedelic");
+            startActivity(intent);
+        });
+
+        ImageButton delirButton = findViewById(R.id.deliriants);
+
+        delirButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "deliriant");
+            startActivity(intent);
+        });
+
+        ImageButton dissocButton = findViewById(R.id.dissociatives);
+
+        dissocButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "dissociative");
+            startActivity(intent);
+        });
+
+        ImageButton enactButton = findViewById(R.id.entactogens);
+
+        enactButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "enactogen");
+            startActivity(intent);
+        });
+
+        ImageButton enthButton = findViewById(R.id.entheogens);
+
+        enthButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "entheogen");
+            startActivity(intent);
+        });
+
+        ImageButton nootButton = findViewById(R.id.nootropics);
+
+        nootButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "nootropic");
+            startActivity(intent);
+        });
+
+        ImageButton miscButton = findViewById(R.id.miscellaneous);
+
+        miscButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+            intent.putExtra("substanceClass", "antipsychotic");
             startActivity(intent);
         });
     }

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.psychapp.R;
 import com.example.psychapp.api.APIClient;
@@ -30,6 +31,7 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -120,21 +122,22 @@ public class SubstanceSelector extends AppCompatActivity {
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
+        mContentView.setOnClickListener(view -> toggle());
 
-        substanceClass = getIntent().getSerializableExtra("substanceClass").toString();
+        substanceClass = Objects.requireNonNull(getIntent()
+                .getSerializableExtra("substanceClass")).toString();
+
+        TextView header = findViewById(R.id.header);
+        String headerString = substanceClass + "s";
+        header.setText(headerString);
 
         try {
             createButtons();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ExecutionException e) {
+            String alertMessage = "sorry, something went wrong";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
     }
 
@@ -149,26 +152,35 @@ public class SubstanceSelector extends AppCompatActivity {
         TextView header = findViewById(R.id.header);
         header.setTypeface(manjari);
 
-        for (int i = 0; i < substances.size(); i++){
-            Button btn = new Button(this);
-            btn.setId(i);
-            btn.setTypeface(manjari);
-            btn.setText(substances.get(i).getName());
+        if (substances != null) {
+            for (int i = 0; i < substances.size(); i++) {
+                Button btn = new Button(this);
+                btn.setId(i);
+                btn.setTypeface(manjari);
+                btn.setText(substances.get(i).getName().toLowerCase());
 
-            LinearLayout ll = findViewById(R.id.substanceList);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(btn, lp);
+                LinearLayout ll = findViewById(R.id.substanceList);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
+                        .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                ll.addView(btn, lp);
 
-            btn.setOnClickListener(v -> {
-                Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
-                intent.putExtra("substanceName", btn.getText());
-                startActivity(intent);
-            });
+                btn.setOnClickListener(v -> {
+                    Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
+                    intent.putExtra("substanceName", btn.getText());
+                    startActivity(intent);
+                });
 
-            int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-            ImageView divider = new ImageView(this);
-            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-            ll.addView(divider);
+                int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
+                        .MATCH_PARENT, dividerHeight));
+                ll.addView(divider);
+            }
+        } else {
+            String alertMessage = "sorry, could not display substances";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
 
     }

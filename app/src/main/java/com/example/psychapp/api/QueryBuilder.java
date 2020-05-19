@@ -31,7 +31,12 @@ public class QueryBuilder {
         queryHead.append(" unsafeInteractions { name} dangerousInteractions {name}");
         return this;
     }
-    
+
+    public QueryBuilder withToxicity(){
+        queryHead.append(" toxicity ");
+        return this;
+    }
+
     public QueryBuilder withRoas(){
         queryHead.append(" roas { name dose {units light {min max} common {min max} strong {min max}}} ");
         return this;

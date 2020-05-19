@@ -202,7 +202,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/interactionsLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
@@ -267,6 +267,26 @@
                             android:textColor="#C62828" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/toxicityLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="toxicity" />
+
+                <TextView
+                    android:id="@+id/toxicityList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/layout_bg"
+                    android:padding="10dp"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/effectsLabel"

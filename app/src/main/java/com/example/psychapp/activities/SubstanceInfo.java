@@ -30,6 +30,8 @@ import com.example.psychapp.api.QueryObjects.SubstanceObject;
 import com.example.psychapp.api.QueryObjects.UnitsObject;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.w3c.dom.Text;
+
 import java.nio.file.FileAlreadyExistsException;
 import java.security.GeneralSecurityException;
 import java.text.DecimalFormat;
@@ -135,91 +137,17 @@ public class SubstanceInfo extends AppCompatActivity {
     }
 
     protected void getSubstanceInfo() throws ExecutionException, InterruptedException {
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         APIClient apiClient = new APIClient();
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = queryBuilder.queryByName(substanceName).withName().withRoas()
-                .withEffects().withInteractions().getQuery();
+                .withEffects().withInteractions().withToxicity().getQuery();
 
-        substanceObject = apiClient.execute(query).get().get(0);
         try {
-            RoaObject mainRoa = substanceObject.getRoas().get(0);
-            String units = mainRoa.getDosage().getUnits();
-
-            TextView lightText = findViewById(R.id.lightStrength);
-            lightText.setTypeface(manjari);
-            TextView commonText = findViewById(R.id.commonStrength);
-            commonText.setTypeface(manjari);
-            TextView strongText = findViewById(R.id.strongStrength);
-            strongText.setTypeface(manjari);
-
-            DecimalFormat df = new DecimalFormat("###.#");
-
-            UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
-            TextView lightDosage = findViewById(R.id.lightDosage);
-            String lightDosageString = String.format("%s - %s %s",
-                    df.format(lightUnitsDosage.getMin()),
-                    df.format(lightUnitsDosage.getMax()),
-                    units);
-            lightDosage.setText(lightDosageString);
-            lightDosage.setTypeface(manjari);
-
-            UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
-            TextView commonDosage = findViewById(R.id.commonDosage);
-            String commonDosageString = String.format("%s - %s %s",
-                    df.format(commonUnitsDosage.getMin()),
-                    df.format(commonUnitsDosage.getMax()),
-                    units);
-            commonDosage.setText(commonDosageString);
-            commonDosage.setTypeface(manjari);
-
-            UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
-            TextView strongDosage = findViewById(R.id.strongDosage);
-            String strongDosageString = String.format("%s - %s %s",
-                    df.format(strongUnitsDosage.getMin()),
-                    df.format(strongUnitsDosage.getMax()),
-                    units);
-            strongDosage.setText(strongDosageString);
-            strongDosage.setTypeface(manjari);
-
-            int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-
-            LinearLayout contentLayout = findViewById(R.id.effectsList);
-            for (EffectObject effect : substanceObject.getEffects()) {
-                TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
-                effectText.setTypeface(manjari);
-                effectText.setText(effect.getName());
-                contentLayout.addView(effectText);
-                ImageView divider = new ImageView(this);
-                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-                contentLayout.addView(divider);
-            }
-
-            ArrayList<SubstanceObject> unsafeInteractions = substanceObject.getUnsafeInteractions();
-            if (unsafeInteractions != null) {
-                LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
-                StringBuilder unsafeString = new StringBuilder();
-                for (SubstanceObject substance : unsafeInteractions) {
-                    unsafeString.append(substance.getName()).append("\n");
-                }
-                TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
-                effectText.setTypeface(manjari);
-                effectText.setText(unsafeString.toString());
-                unsafeLayout.addView(effectText);
-            }
-
-            ArrayList<SubstanceObject> dangerousInteractions = substanceObject.getDangerousInteractions();
-            if (dangerousInteractions != null) {
-                LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
-                StringBuilder dangerousString = new StringBuilder();
-                for (SubstanceObject substance : dangerousInteractions) {
-                    dangerousString.append(substance.getName()).append("\n");
-                }
-                TextView effectText2 = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
-                effectText2.setTypeface(manjari);
-                effectText2.setText(dangerousString.toString());
-                dangerousLayout.addView(effectText2);
-            }
+            substanceObject = apiClient.execute(query).get().get(0);
+            getDosage();
+            getEffects();
+            getInteractions();
+            getToxicity();
 
         } catch (IndexOutOfBoundsException e) {
             String alertMessage = "sorry, the substance could not be found";
@@ -227,6 +155,129 @@ public class SubstanceInfo extends AppCompatActivity {
             toast.show();
             finish();
         }
+    }
+
+    protected void getToxicity(){
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        ArrayList<String> toxicity = substanceObject.getToxicity();
+        TextView toxicityList = findViewById(R.id.toxicityList);
+
+        if (toxicity != null && toxicity.size() > 0) {
+
+            for (int i = 0; i < toxicity.size(); i++) {
+                toxicityList.append(toxicity.get(i));
+                if (i != toxicity.size() - 1)
+                    toxicityList.append("\n");
+            }
+
+            toxicityList.setTypeface(manjari);
+        } else {
+            // remove toxicity info
+            ViewGroup contentLayout = findViewById(R.id.contentLayout);
+            contentLayout.removeView(toxicityList);
+            TextView toxicityLabel = findViewById(R.id.toxicityLabel);
+            contentLayout.removeView(toxicityLabel);
+        }
+
+    }
+
+    protected void getInteractions(){
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        ArrayList<SubstanceObject> unsafeInteractions = substanceObject.getUnsafeInteractions();
+        boolean visible = true;
+        LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
+        if (unsafeInteractions != null) {
+            StringBuilder unsafeString = new StringBuilder();
+            for (SubstanceObject substance : unsafeInteractions) {
+                unsafeString.append(substance.getName()).append("\n");
+            }
+            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            effectText.setTypeface(manjari);
+            effectText.setText(unsafeString.toString());
+            unsafeLayout.addView(effectText);
+        } else {
+            visible = false;
+        }
+
+        ArrayList<SubstanceObject> dangerousInteractions = substanceObject.getDangerousInteractions();
+        LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
+        if (dangerousInteractions != null) {
+            StringBuilder dangerousString = new StringBuilder();
+            for (SubstanceObject substance : dangerousInteractions) {
+                dangerousString.append(substance.getName()).append("\n");
+            }
+            TextView effectText2 = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            effectText2.setTypeface(manjari);
+            effectText2.setText(dangerousString.toString());
+            dangerousLayout.addView(effectText2);
+        } else {
+            // remove interactions view if there are no interactions listed
+            if (!visible){
+                LinearLayout interactions = findViewById(R.id.interactions);
+                TextView interactionsLabel = findViewById(R.id.interactionsLabel);
+                ViewGroup contentLayout = findViewById(R.id.contentLayout);
+                contentLayout.removeView(interactions);
+                contentLayout.removeView(interactionsLabel);
+            }
+        }
+    }
+
+    protected void getEffects(){
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+
+        LinearLayout contentLayout = findViewById(R.id.effectsList);
+        for (EffectObject effect : substanceObject.getEffects()) {
+            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            effectText.setTypeface(manjari);
+            effectText.setText(effect.getName());
+            contentLayout.addView(effectText);
+            ImageView divider = new ImageView(this);
+            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+            contentLayout.addView(divider);
+        }
+    }
+
+    protected void getDosage(){
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        RoaObject mainRoa = substanceObject.getRoas().get(0);
+        String units = mainRoa.getDosage().getUnits();
+
+        TextView lightText = findViewById(R.id.lightStrength);
+        lightText.setTypeface(manjari);
+        TextView commonText = findViewById(R.id.commonStrength);
+        commonText.setTypeface(manjari);
+        TextView strongText = findViewById(R.id.strongStrength);
+        strongText.setTypeface(manjari);
+
+        DecimalFormat df = new DecimalFormat("###.#");
+
+        UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
+        TextView lightDosage = findViewById(R.id.lightDosage);
+        String lightDosageString = String.format("%s - %s %s",
+                df.format(lightUnitsDosage.getMin()),
+                df.format(lightUnitsDosage.getMax()),
+                units);
+        lightDosage.setText(lightDosageString);
+        lightDosage.setTypeface(manjari);
+
+        UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
+        TextView commonDosage = findViewById(R.id.commonDosage);
+        String commonDosageString = String.format("%s - %s %s",
+                df.format(commonUnitsDosage.getMin()),
+                df.format(commonUnitsDosage.getMax()),
+                units);
+        commonDosage.setText(commonDosageString);
+        commonDosage.setTypeface(manjari);
+
+        UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
+        TextView strongDosage = findViewById(R.id.strongDosage);
+        String strongDosageString = String.format("%s - %s %s",
+                df.format(strongUnitsDosage.getMin()),
+                df.format(strongUnitsDosage.getMax()),
+                units);
+        strongDosage.setText(strongDosageString);
+        strongDosage.setTypeface(manjari);
     }
 
     @Override
