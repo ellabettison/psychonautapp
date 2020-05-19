@@ -38,7 +38,11 @@ public class QueryBuilder {
     }
 
     public QueryBuilder withRoas(){
-        queryHead.append(" roas { name dose {units light {min max} common {min max} strong {min max}}} ");
+        queryHead.append(" roas { name dose {units light {min max} common {min max} strong {min max}}" +
+                " duration { afterglow { min max units } comeup { min max units }" +
+                " duration { min max units } offset { min max units }" +
+                " onset { min max units } peak { min max units }" +
+                " total { min max units } }} ");
         return this;
     }
     

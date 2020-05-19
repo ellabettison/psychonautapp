@@ -4,7 +4,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DosageObject {
     public String getUnits() {
-        return units;
+        if (units!=null) {
+            switch (units) {
+                case "seconds":
+                    return "secs";
+                case "minutes":
+                    return "mins";
+                case "hours":
+                    return "hrs";
+                default:
+                    return units;
+            }
+        } else {
+            return "";
+        }
     }
 
     @JsonProperty("units")

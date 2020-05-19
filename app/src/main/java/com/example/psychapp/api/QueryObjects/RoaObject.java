@@ -7,6 +7,12 @@ public class RoaObject {
     private String name;
     @JsonProperty("dose")
     private DosageObject dosage;
+    @JsonProperty("duration")
+    private DurationObject duration;
+
+    public DurationObject getDuration() {
+        return duration;
+    }
 
     public DosageObject getDosage() {
         return dosage;

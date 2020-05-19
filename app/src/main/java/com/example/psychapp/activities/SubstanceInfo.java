@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.example.psychapp.R;
 import com.example.psychapp.api.APIClient;
 import com.example.psychapp.api.QueryBuilder;
+import com.example.psychapp.api.QueryObjects.DosageObject;
+import com.example.psychapp.api.QueryObjects.DurationObject;
 import com.example.psychapp.api.QueryObjects.EffectObject;
 import com.example.psychapp.api.QueryObjects.RoaObject;
 import com.example.psychapp.api.QueryObjects.SubstanceObject;
@@ -132,6 +134,8 @@ public class SubstanceInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        getDuration();
+
         ImageButton overdoseButton1 = findViewById(R.id.overdoseButton1);
         Button overdoseButton2 = findViewById(R.id.overdoseButton2);
 
@@ -150,6 +154,60 @@ public class SubstanceInfo extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
+
+    protected void getDuration() {
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        DurationObject durationObject = substanceObject.getRoas().get(0).getDuration();
+
+        TextView onset = findViewById(R.id.onset);
+        if (durationObject.getOnset() != null) {
+            onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
+            onset.setTypeface(manjari);
+        } else {
+            onset.setVisibility(View.INVISIBLE);
+        }
+
+        TextView comeup = findViewById(R.id.comeup);
+        if (durationObject.getComeup() != null) {
+            comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
+            comeup.setTypeface(manjari);
+        } else {
+            comeup.setVisibility(View.INVISIBLE);
+        }
+
+        TextView peak = findViewById(R.id.peak);
+        if (durationObject.getPeak() != null) {
+            peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
+            peak.setTypeface(manjari);
+        } else {
+            peak.setVisibility(View.INVISIBLE);
+        }
+
+        TextView offset = findViewById(R.id.offset);
+        if (durationObject.getOffset() != null) {
+            offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
+            offset.setTypeface(manjari);
+        } else {
+            offset.setVisibility(View.INVISIBLE);
+        }
+
+        TextView aftereffects = findViewById(R.id.aftereffects);
+        if (durationObject.getAfterglow() != null) {
+            aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
+            aftereffects.setTypeface(manjari);
+        } else {
+            aftereffects.setVisibility(View.INVISIBLE);
+        }
+
+        TextView total = findViewById(R.id.total);
+        if (durationObject.getTotal() != null) {
+            total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
+            total.setTypeface(manjari);
+        } else {
+            total.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     protected void getSubstanceInfo() throws ExecutionException, InterruptedException {
@@ -173,7 +231,7 @@ public class SubstanceInfo extends AppCompatActivity {
         }
     }
 
-    protected void getToxicity(){
+    protected void getToxicity() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         ArrayList<String> toxicity = substanceObject.getToxicity();
         TextView toxicityList = findViewById(R.id.toxicityList);
@@ -197,16 +255,16 @@ public class SubstanceInfo extends AppCompatActivity {
 
     }
 
-    protected void getInteractions(){
+    protected void getInteractions() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         ArrayList<SubstanceObject> unsafeInteractions = substanceObject.getUnsafeInteractions();
         boolean visible = true;
         LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
         if (unsafeInteractions != null) {
             StringBuilder unsafeString = new StringBuilder();
-            for (int i = 0; i < unsafeInteractions.size(); i ++){
+            for (int i = 0; i < unsafeInteractions.size(); i++) {
                 unsafeString.append(unsafeInteractions.get(i).getName());
-                if (i != unsafeInteractions.size()-1){
+                if (i != unsafeInteractions.size() - 1) {
                     unsafeString.append("\n");
                 }
             }
@@ -222,9 +280,9 @@ public class SubstanceInfo extends AppCompatActivity {
         LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
         if (dangerousInteractions != null) {
             StringBuilder dangerousString = new StringBuilder();
-            for (int i = 0; i < dangerousInteractions.size(); i ++){
+            for (int i = 0; i < dangerousInteractions.size(); i++) {
                 dangerousString.append(dangerousInteractions.get(i).getName());
-                if (i != dangerousInteractions.size()-1){
+                if (i != dangerousInteractions.size() - 1) {
                     dangerousString.append("\n");
                 }
             }
@@ -234,7 +292,7 @@ public class SubstanceInfo extends AppCompatActivity {
             dangerousLayout.addView(effectText2);
         } else {
             // remove interactions view if there are no interactions listed
-            if (!visible){
+            if (!visible) {
                 LinearLayout interactions = findViewById(R.id.interactions);
                 TextView interactionsLabel = findViewById(R.id.interactionsLabel);
                 ViewGroup contentLayout = findViewById(R.id.contentLayout);
@@ -244,7 +302,7 @@ public class SubstanceInfo extends AppCompatActivity {
         }
     }
 
-    protected void getEffects(){
+    protected void getEffects() {
         int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
@@ -260,7 +318,7 @@ public class SubstanceInfo extends AppCompatActivity {
         }
     }
 
-    protected void getDosage(){
+    protected void getDosage() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         RoaObject mainRoa = substanceObject.getRoas().get(0);
         String units = mainRoa.getDosage().getUnits();
@@ -272,39 +330,25 @@ public class SubstanceInfo extends AppCompatActivity {
         TextView strongText = findViewById(R.id.strongStrength);
         strongText.setTypeface(manjari);
 
-        DecimalFormat df = new DecimalFormat("###.#");
-
         UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
         TextView lightDosage = findViewById(R.id.lightDosage);
         lightDosage.setTypeface(manjari);
         if (lightUnitsDosage != null) {
-            String lightDosageString = String.format("%s - %s %s",
-                    df.format(lightUnitsDosage.getMin()),
-                    df.format(lightUnitsDosage.getMax()),
-                    units);
-            lightDosage.setText(lightDosageString);
+            lightDosage.setText(String.format("%s%s", lightUnitsDosage.toString(), units));
         }
 
         UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
         TextView commonDosage = findViewById(R.id.commonDosage);
         commonDosage.setTypeface(manjari);
         if (commonUnitsDosage != null) {
-            String commonDosageString = String.format("%s - %s %s",
-                    df.format(commonUnitsDosage.getMin()),
-                    df.format(commonUnitsDosage.getMax()),
-                    units);
-            commonDosage.setText(commonDosageString);
+            commonDosage.setText(String.format("%s%s", commonUnitsDosage.toString(), units));
         }
 
         UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
         TextView strongDosage = findViewById(R.id.strongDosage);
         strongDosage.setTypeface(manjari);
         if (strongUnitsDosage != null) {
-            String strongDosageString = String.format("%s - %s %s",
-                    df.format(strongUnitsDosage.getMin()),
-                    df.format(strongUnitsDosage.getMax()),
-                    units);
-            strongDosage.setText(strongDosageString);
+            strongDosage.setText(String.format("%s%s",strongUnitsDosage.toString(), units));
         }
     }
 

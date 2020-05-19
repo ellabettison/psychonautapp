@@ -125,10 +125,21 @@ public class OverdoseInfo extends AppCompatActivity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
-
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(view -> toggle());
 
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+
+        getOdInfo();
+
+        TextView treatmentLabel = findViewById(R.id.treatmentLabel);
+        treatmentLabel.setTypeface(manjari);
+        TextView symptomsLabel = findViewById(R.id.symptomsLabel);
+        symptomsLabel.setTypeface(manjari);
+
+    }
+
+    private String readFile(){
         substanceClasses = (ArrayList<String>) Objects.requireNonNull(getIntent()
                 .getSerializableExtra("substanceClasses"));
 
@@ -150,8 +161,12 @@ public class OverdoseInfo extends AppCompatActivity {
                 }
             }
         }
+        return content;
+    }
 
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+    private void getOdInfo(){
+
+        String content = readFile();
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, JsonNode> classMap = null;
@@ -176,6 +191,13 @@ public class OverdoseInfo extends AppCompatActivity {
             }
         }
 
+        setInfo(substanceClassFinal, odInfo);
+
+    }
+
+    private void setInfo(String substanceClassFinal, JsonNode odInfo){
+        ObjectMapper objectMapper = new ObjectMapper();
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         TextView header = findViewById(R.id.header);
         header.setTypeface(manjari);
         String headerText = String.format("%s overdose", standardise(substanceClassFinal));
@@ -197,27 +219,8 @@ public class OverdoseInfo extends AppCompatActivity {
             toast.show();
             finish();
         }
-
-
-        TextView treatmentLabel = findViewById(R.id.treatmentLabel);
-        treatmentLabel.setTypeface(manjari);
-        TextView symptomsLabel = findViewById(R.id.symptomsLabel);
-        symptomsLabel.setTypeface(manjari);
-
-//        if (odInfo == null){
-//            String alertMessage = "sorry, something went wrong";
-//            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-//            toast.show();
-//            finish();
-//        } else {
-//            System.out.print(odInfo);
-//        }
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
+
 
     protected void getSymptoms(ArrayList<JsonNode> symptoms) throws JsonProcessingException {
 

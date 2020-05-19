@@ -20,4 +20,8 @@
     <string name="effects">effects</string>
 
     <string name="title_activity_overdose_info">OverdoseInfo</string>
+    <string name="unknownDose">\? - ?</string>
+    <string name="unknownDOse">\? - ?</string>
+    <string name="overdose">overdose</string>
+    <string name="toxicity">toxicity</string>
 </resources>
