@@ -15,6 +15,8 @@ import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -130,6 +132,20 @@ public class SubstanceInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        ImageButton overdoseButton1 = findViewById(R.id.overdoseButton1);
+        Button overdoseButton2 = findViewById(R.id.overdoseButton2);
+
+        overdoseButton1.setOnClickListener(v -> {
+            Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
+            intent.putExtra("substanceClasses", substanceObject.getSubstanceClass().getPsychoactive());
+            startActivity(intent);
+        });
+        overdoseButton2.setOnClickListener(v -> {
+            Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
+            intent.putExtra("substanceClasses", substanceObject.getSubstanceClass().getPsychoactive());
+            startActivity(intent);
+        });
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -188,8 +204,11 @@ public class SubstanceInfo extends AppCompatActivity {
         LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
         if (unsafeInteractions != null) {
             StringBuilder unsafeString = new StringBuilder();
-            for (SubstanceObject substance : unsafeInteractions) {
-                unsafeString.append(substance.getName()).append("\n");
+            for (int i = 0; i < unsafeInteractions.size(); i ++){
+                unsafeString.append(unsafeInteractions.get(i).getName());
+                if (i != unsafeInteractions.size()-1){
+                    unsafeString.append("\n");
+                }
             }
             TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
             effectText.setTypeface(manjari);
@@ -203,8 +222,11 @@ public class SubstanceInfo extends AppCompatActivity {
         LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
         if (dangerousInteractions != null) {
             StringBuilder dangerousString = new StringBuilder();
-            for (SubstanceObject substance : dangerousInteractions) {
-                dangerousString.append(substance.getName()).append("\n");
+            for (int i = 0; i < dangerousInteractions.size(); i ++){
+                dangerousString.append(dangerousInteractions.get(i).getName());
+                if (i != dangerousInteractions.size()-1){
+                    dangerousString.append("\n");
+                }
             }
             TextView effectText2 = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
             effectText2.setTypeface(manjari);
@@ -254,30 +276,36 @@ public class SubstanceInfo extends AppCompatActivity {
 
         UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
         TextView lightDosage = findViewById(R.id.lightDosage);
-        String lightDosageString = String.format("%s - %s %s",
-                df.format(lightUnitsDosage.getMin()),
-                df.format(lightUnitsDosage.getMax()),
-                units);
-        lightDosage.setText(lightDosageString);
         lightDosage.setTypeface(manjari);
+        if (lightUnitsDosage != null) {
+            String lightDosageString = String.format("%s - %s %s",
+                    df.format(lightUnitsDosage.getMin()),
+                    df.format(lightUnitsDosage.getMax()),
+                    units);
+            lightDosage.setText(lightDosageString);
+        }
 
         UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
         TextView commonDosage = findViewById(R.id.commonDosage);
-        String commonDosageString = String.format("%s - %s %s",
-                df.format(commonUnitsDosage.getMin()),
-                df.format(commonUnitsDosage.getMax()),
-                units);
-        commonDosage.setText(commonDosageString);
         commonDosage.setTypeface(manjari);
+        if (commonUnitsDosage != null) {
+            String commonDosageString = String.format("%s - %s %s",
+                    df.format(commonUnitsDosage.getMin()),
+                    df.format(commonUnitsDosage.getMax()),
+                    units);
+            commonDosage.setText(commonDosageString);
+        }
 
         UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
         TextView strongDosage = findViewById(R.id.strongDosage);
-        String strongDosageString = String.format("%s - %s %s",
-                df.format(strongUnitsDosage.getMin()),
-                df.format(strongUnitsDosage.getMax()),
-                units);
-        strongDosage.setText(strongDosageString);
         strongDosage.setTypeface(manjari);
+        if (strongUnitsDosage != null) {
+            String strongDosageString = String.format("%s - %s %s",
+                    df.format(strongUnitsDosage.getMin()),
+                    df.format(strongUnitsDosage.getMax()),
+                    units);
+            strongDosage.setText(strongDosageString);
+        }
     }
 
     @Override

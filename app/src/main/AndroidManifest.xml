@@ -12,10 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.OverdoseInfo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_overdose_info"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
             android:name=".activities.SubstanceInfo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_substance_info"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.SubstanceSelector"
             android:configChanges="orientation|keyboardHidden|screenSize"

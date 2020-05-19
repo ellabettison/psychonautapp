@@ -18,6 +18,12 @@ public class SubstanceObject {
     private ArrayList<SubstanceObject> dangerousInteractions;
     @JsonProperty("toxicity")
     private ArrayList<String> toxicity;
+    @JsonProperty("class")
+    private SubstanceClassObject substanceClass;
+
+    public SubstanceClassObject getSubstanceClass() {
+        return substanceClass;
+    }
 
     public ArrayList<String> getToxicity() {
         return toxicity;

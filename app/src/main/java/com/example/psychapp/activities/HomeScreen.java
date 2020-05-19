@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -73,30 +74,35 @@ public class HomeScreen extends AppCompatActivity {
     };
     private boolean mVisible;
     private final Runnable mHideRunnable = this::hide;
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
+
+    protected void search(String searchTerm){
+        Intent intent = new Intent(HomeScreen.this, SubstanceInfo.class);
+        intent.putExtra("substanceName", searchTerm);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         setContentView(R.layout.activity_fullscreen);
 
-        TextView header = findViewById(R.id.header);
-        header.setTypeface(manjari);
+        TextView searchText = findViewById(R.id.searchText);
+//        searchText.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    search(searchText.getText().toString());
+//                }
+//                return true;
+//            }
+//        });
+        ImageButton searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(v -> {
+            search(searchText.getText().toString());
+            searchText.setText("");
+        });
+
 
         mVisible = true;
         //mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -104,12 +110,7 @@ public class HomeScreen extends AppCompatActivity {
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
+        mContentView.setOnClickListener(view -> toggle());
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -169,7 +170,7 @@ public class HomeScreen extends AppCompatActivity {
 
         enactButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "enactogen");
+            intent.putExtra("substanceClass", "entactogen");
             startActivity(intent);
         });
 

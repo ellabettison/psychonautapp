@@ -18,4 +18,6 @@
     <string name="interactions">interactions</string>
     <string name="dangerous">dangerous</string>
     <string name="effects">effects</string>
+
+    <string name="title_activity_overdose_info">OverdoseInfo</string>
 </resources>

@@ -43,6 +43,7 @@
             android:paddingRight="30dp"
             android:text="@string/cool_app_name_here"
             android:textAlignment="textStart"
+            android:textColor="@android:color/secondary_text_dark_nodisable"
             android:textSize="30sp" />
 
         <ScrollView

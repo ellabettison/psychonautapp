@@ -18,7 +18,7 @@ public class QueryBuilder {
     
     public QueryBuilder withName(){
         queryHead.append("{name");
-        queryTail.insert(0,"}");
+        queryTail.insert(0," class {psychoactive}}");
         return this;
     }
     
