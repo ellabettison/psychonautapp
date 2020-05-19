@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.psychapp.R;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -153,39 +154,56 @@ public class OverdoseInfo extends AppCompatActivity {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, JsonNode> classMap = null;
         try {
-            Map<String, JsonNode> classMap = objectMapper.readValue(content,
+            classMap = objectMapper.readValue(content,
                     new TypeReference<Map<String, JsonNode>>() {});
-            for (String substanceClass: substanceClasses){
-                if (classMap.containsKey(standardise(substanceClass))){
-
-                    TextView header = findViewById(R.id.header);
-                    header.setTypeface(manjari);
-                    String headerText = String.format("%s overdose", standardise(substanceClass));
-                    header.setText(headerText);
-                    JsonNode odInfo = classMap.get(standardise(substanceClass));
-
-                    Map<String, JsonNode> symptomsTreatmentMap =
-                            objectMapper.readValue(objectMapper.writeValueAsString(odInfo),
-                                    new TypeReference<Map<String, JsonNode>>() {});
-                    TextView treatmentInfo = findViewById(R.id.treatmentInfo);
-                    String treatmentString = objectMapper.writeValueAsString(symptomsTreatmentMap.get("treatment"));
-                    treatmentInfo.setText(treatmentString.substring(1, treatmentString.length()-1).toLowerCase());
-                    treatmentInfo.setTypeface(manjari);
-
-                    ArrayList<JsonNode> symptomsList = objectMapper.readValue(objectMapper
-                            .writeValueAsString(symptomsTreatmentMap.get("symptoms")), new TypeReference<ArrayList<JsonNode>>() {});
-                    getSymptoms(symptomsList);
-
-                    TextView treatmentLabel = findViewById(R.id.treatmentLabel);
-                    treatmentLabel.setTypeface(manjari);
-                    TextView symptomsLabel = findViewById(R.id.symptomsLabel);
-                    symptomsLabel.setTypeface(manjari);
-                }
-            }
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            String alertMessage = "sorry, something went wrong";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
+        assert classMap != null;
+        JsonNode odInfo = classMap.get("general");
+        String substanceClassFinal = "general";
+
+        for (String substanceClass: substanceClasses){
+            if (classMap.containsKey(standardise(substanceClass))){
+                odInfo = classMap.get(standardise(substanceClass));
+                substanceClassFinal = substanceClass;
+
+            }
+        }
+
+        TextView header = findViewById(R.id.header);
+        header.setTypeface(manjari);
+        String headerText = String.format("%s overdose", standardise(substanceClassFinal));
+        header.setText(headerText);
+
+        try {
+            Map<String, JsonNode> symptomsTreatmentMap = objectMapper.readValue(objectMapper.writeValueAsString(odInfo),
+                    new TypeReference<Map<String, JsonNode>>() {});
+            TextView treatmentInfo = findViewById(R.id.treatmentInfo);
+            String treatmentString = objectMapper.writeValueAsString(symptomsTreatmentMap.get("treatment"));
+            treatmentInfo.setText(treatmentString.substring(1, treatmentString.length()-1).toLowerCase());
+            treatmentInfo.setTypeface(manjari);
+            ArrayList<JsonNode> symptomsList = objectMapper.readValue(objectMapper
+                    .writeValueAsString(symptomsTreatmentMap.get("symptoms")), new TypeReference<ArrayList<JsonNode>>() {});
+            getSymptoms(symptomsList);
+        } catch (JsonProcessingException e) {
+            String alertMessage = "sorry, something went wrong";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
+        }
+
+
+        TextView treatmentLabel = findViewById(R.id.treatmentLabel);
+        treatmentLabel.setTypeface(manjari);
+        TextView symptomsLabel = findViewById(R.id.symptomsLabel);
+        symptomsLabel.setTypeface(manjari);
+
 //        if (odInfo == null){
 //            String alertMessage = "sorry, something went wrong";
 //            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);

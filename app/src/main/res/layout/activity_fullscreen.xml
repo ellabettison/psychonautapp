@@ -233,7 +233,7 @@
                     app:srcCompat="@drawable/noot" />
 
                 <ImageButton
-                    android:id="@+id/miscellaneous"
+                    android:id="@+id/opioids"
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
@@ -242,7 +242,7 @@
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/misc" />
+                    app:srcCompat="@drawable/opioid" />
             </LinearLayout>
 
         </LinearLayout>

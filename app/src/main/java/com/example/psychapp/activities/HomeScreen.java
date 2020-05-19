@@ -4,17 +4,12 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
@@ -190,11 +185,11 @@ public class HomeScreen extends AppCompatActivity {
             startActivity(intent);
         });
 
-        ImageButton miscButton = findViewById(R.id.miscellaneous);
+        ImageButton miscButton = findViewById(R.id.opioids);
 
         miscButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "antipsychotic");
+            intent.putExtra("substanceClass", "opioids");
             startActivity(intent);
         });
     }
