@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
@@ -188,10 +190,20 @@ public class SubstanceInfo extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
 
+        float dip = 35f;
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                r.getDisplayMetrics()
+        );
+
+        System.out.printf("\n\n             ~~~~~ PIXELS: %ft \n\n", px);
+
         for (View roa: roas){
             if (roa != null) {
                 ViewGroup.LayoutParams params = roa.getLayoutParams();
-                params.width = (width - 190);
+                params.width = (int) (width - (px*2));
                 roa.setLayoutParams(params);
                 roa.requestLayout();
             }
