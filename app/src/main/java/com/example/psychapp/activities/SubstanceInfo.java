@@ -15,7 +15,9 @@ import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +42,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.security.GeneralSecurityException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -130,7 +133,6 @@ public class SubstanceInfo extends AppCompatActivity {
 
         try {
             getSubstanceInfo();
-            getDuration();
         } catch (ExecutionException | InterruptedException | NullPointerException e) {
             String alertMessage = "sorry, the substance could not be found";
             Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
@@ -152,19 +154,41 @@ public class SubstanceInfo extends AppCompatActivity {
             startActivity(intent);
         });
 
+        HorizontalScrollView scrollView = findViewById(R.id.roaScroll);
+
+        View roa1 = findViewById(R.id.roa1);
+        View roa2 = findViewById(R.id.roa2);
+        View roa3 = findViewById(R.id.roa3);
+        ArrayList<View> roas = new ArrayList<>(Arrays.asList(roa1, roa2, roa3));
+        int centre = this.getResources().getDisplayMetrics().widthPixels / 2;
+
+        TextView dosageLabel = findViewById(R.id.dosageLabel);
+
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            for (View roa: roas){
+                if (roa != null) {
+                    int[] roaLoc = new int[2];
+                    roa.getLocationInWindow(roaLoc);
+                    if (roaLoc[0]-100 < centre && roaLoc[0]+100 > centre) {
+                        dosageLabel.setText(String.format("dosage - %s", roa.getTag()));
+                    }
+                }
+            }
+        });
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
-    protected void getDuration() {
+    protected void getDuration(View view, int roaNo) {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         if (substanceObject.getRoas() != null && substanceObject.getRoas().size() > 0) {
-            DurationObject durationObject = substanceObject.getRoas().get(0).getDuration();
+            DurationObject durationObject = substanceObject.getRoas().get(roaNo).getDuration();
 
-            TextView onset = findViewById(R.id.onset);
+            TextView onset = view.findViewById(R.id.onset);
             if (durationObject.getOnset() != null) {
                 onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
                 onset.setTypeface(manjari);
@@ -172,7 +196,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 onset.setVisibility(View.INVISIBLE);
             }
 
-            TextView comeup = findViewById(R.id.comeup);
+            TextView comeup = view.findViewById(R.id.comeup);
             if (durationObject.getComeup() != null) {
                 comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
                 comeup.setTypeface(manjari);
@@ -180,7 +204,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 comeup.setVisibility(View.INVISIBLE);
             }
 
-            TextView peak = findViewById(R.id.peak);
+            TextView peak = view.findViewById(R.id.peak);
             if (durationObject.getPeak() != null) {
                 peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
                 peak.setTypeface(manjari);
@@ -188,7 +212,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 peak.setVisibility(View.INVISIBLE);
             }
 
-            TextView offset = findViewById(R.id.offset);
+            TextView offset = view.findViewById(R.id.offset);
             if (durationObject.getOffset() != null) {
                 offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
                 offset.setTypeface(manjari);
@@ -196,7 +220,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 offset.setVisibility(View.INVISIBLE);
             }
 
-            TextView aftereffects = findViewById(R.id.aftereffects);
+            TextView aftereffects = view.findViewById(R.id.aftereffects);
             if (durationObject.getAfterglow() != null) {
                 aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
                 aftereffects.setTypeface(manjari);
@@ -204,7 +228,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 aftereffects.setVisibility(View.INVISIBLE);
             }
 
-            TextView total = findViewById(R.id.total);
+            TextView total = view.findViewById(R.id.total);
             if (durationObject.getTotal() != null) {
                 total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
                 total.setTypeface(manjari);
@@ -223,10 +247,27 @@ public class SubstanceInfo extends AppCompatActivity {
 
         try {
             substanceObject = apiClient.execute(query).get().get(0);
-            getDosage();
+            TextView dosageLabel = findViewById(R.id.dosageLabel);
+            dosageLabel.setText(String.format("dosage - %s", substanceObject.getRoas().get(0).getName()));
+            getDosage(findViewById(R.id.roa1), 0);
             getEffects();
             getInteractions();
+            getDuration(findViewById(R.id.roa1), 0);
             getToxicity();
+            if (substanceObject.getRoas().size()>1){
+                getDosage(findViewById(R.id.roa2), 1);
+                getDuration(findViewById(R.id.roa2), 1);
+            } else {
+                View roa2 = findViewById(R.id.roa2);
+                ((ViewGroup) roa2.getParent()).removeView(roa2);
+            }
+            if (substanceObject.getRoas().size()>2){
+                getDosage(findViewById(R.id.roa3), 2);
+                getDuration(findViewById(R.id.roa3), 2);
+            } else {
+                View roa3 = findViewById(R.id.roa3);
+                ((ViewGroup) roa3.getParent()).removeView(roa3);
+            }
 
         } catch (IndexOutOfBoundsException e) {
             String alertMessage = "sorry, the substance could not be found";
@@ -327,37 +368,38 @@ public class SubstanceInfo extends AppCompatActivity {
         }
     }
 
-    protected void getDosage() {
+    protected void getDosage(View view, int roaNo) {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
-        RoaObject mainRoa = substanceObject.getRoas().get(0);
+        RoaObject mainRoa = substanceObject.getRoas().get(roaNo);
+        view.setTag(mainRoa.getName());
 
         if (mainRoa.getDosage() != null) {
 
             String units = mainRoa.getDosage().getUnits();
 
-            TextView lightText = findViewById(R.id.lightStrength);
+            TextView lightText = view.findViewById(R.id.lightStrength);
             lightText.setTypeface(manjari);
-            TextView commonText = findViewById(R.id.commonStrength);
+            TextView commonText = view.findViewById(R.id.commonStrength);
             commonText.setTypeface(manjari);
-            TextView strongText = findViewById(R.id.strongStrength);
+            TextView strongText = view.findViewById(R.id.strongStrength);
             strongText.setTypeface(manjari);
 
             UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
-            TextView lightDosage = findViewById(R.id.lightDosage);
+            TextView lightDosage = view.findViewById(R.id.lightDosage);
             lightDosage.setTypeface(manjari);
             if (lightUnitsDosage != null) {
                 lightDosage.setText(String.format("%s%s", lightUnitsDosage.toString(), units));
             }
 
             UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
-            TextView commonDosage = findViewById(R.id.commonDosage);
+            TextView commonDosage = view.findViewById(R.id.commonDosage);
             commonDosage.setTypeface(manjari);
             if (commonUnitsDosage != null) {
                 commonDosage.setText(String.format("%s%s", commonUnitsDosage.toString(), units));
             }
 
             UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
-            TextView strongDosage = findViewById(R.id.strongDosage);
+            TextView strongDosage = view.findViewById(R.id.strongDosage);
             strongDosage.setTypeface(manjari);
             if (strongUnitsDosage != null) {
                 strongDosage.setText(String.format("%s%s", strongUnitsDosage.toString(), units));
