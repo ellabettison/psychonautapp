@@ -279,6 +279,7 @@
         </ScrollView>
 
         <include
+            android:id="@+id/navegationBar"
             layout="@layout/navegation_bar"
             android:layout_width="match_parent"
             android:layout_height="80dp"

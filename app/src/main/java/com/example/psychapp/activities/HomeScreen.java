@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.psychapp.NavegationBar;
 import com.example.psychapp.R;
 
 import java.util.ArrayList;
@@ -151,6 +152,13 @@ public class HomeScreen extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
 
         resize(width, height);
+
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+
+        NavegationBar navegationBar = new NavegationBar(HomeScreen.this, navegationBarLayout);
+
+        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+
 
 
     }

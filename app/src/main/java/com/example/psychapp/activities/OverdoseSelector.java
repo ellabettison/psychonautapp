@@ -1,14 +1,42 @@
-package com.example.psychonautapp;
+package com.example.psychapp.activities;
 
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.psychapp.NavegationBar;
+import com.example.psychapp.R;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -103,11 +131,91 @@ public class OverdoseSelector extends AppCompatActivity {
                 toggle();
             }
         });
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        TextView header = findViewById(R.id.header);
+        header.setTypeface(manjari);
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        createButtons();
+
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+        NavegationBar navegationBar = new NavegationBar(OverdoseSelector.this, navegationBarLayout);
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+    }
+
+    // TODO: extract into seperate file + for od info
+    private String readFile(){
+
+        BufferedReader reader = null;
+        String content = "";
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open("od.txt")));
+
+            content = reader.readLine();
+        } catch (IOException e) {
+            //log the exception
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    //log the exception
+                }
+            }
+        }
+        return content;
+    }
+
+    private void createButtons(){
+        String content = readFile();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, JsonNode> classMap = null;
+        try {
+            classMap = objectMapper.readValue(content,
+                    new TypeReference<Map<String, JsonNode>>() {});
+        } catch (JsonProcessingException e) {
+            String alertMessage = "sorry, something went wrong";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
+        }
+
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        // TODO: extract to button creator
+        // TODO: -->  MANJARI!!!  <--
+        if (classMap != null){
+            Set<String> odCategories = classMap.keySet();
+            for (String od: odCategories) {
+                Button btn = new Button(this);
+                btn.setId(od.hashCode());
+                btn.setTypeface(manjari);
+                btn.setText(od.toLowerCase());
+
+                LinearLayout ll = findViewById(R.id.odSelector);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
+                        .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                ll.addView(btn, lp);
+
+                btn.setOnClickListener(v -> {
+                    Intent intent = new Intent(OverdoseSelector.this, OverdoseInfo.class);
+                    intent.putExtra("substanceClasses", new ArrayList<String>(){{add(btn.getText().toString());}});
+                    startActivity(intent);
+                });
+
+                int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
+                        .MATCH_PARENT, dividerHeight));
+                ll.addView(divider);
+            }
+        }
+
     }
 
     @Override
