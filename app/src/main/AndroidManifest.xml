@@ -15,7 +15,7 @@
             android:name=".activities.OverdoseInfo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_overdose_info"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.SubstanceInfo"
             android:configChanges="orientation|keyboardHidden|screenSize"

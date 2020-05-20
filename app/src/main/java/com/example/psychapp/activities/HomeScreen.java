@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,8 @@ import java.util.Arrays;
  * status bar and navigation/system bar) with user interaction.
  */
 public class HomeScreen extends AppCompatActivity {
+
+    private int totalChildren;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -120,25 +123,10 @@ public class HomeScreen extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        int BUTTON_WIDTH = 250;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                BUTTON_WIDTH,
-                r.getDisplayMetrics()
-        );
-
         LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
         LinearLayout subLayout;
 
-        int buttonsPerLayout = (int) (width/px);
-        int totalChildren = 0;
+        int totalChildrenCount = 0;
 
         // generate onclick events for each button
         for (int i = 0; i < buttonsLayout.getChildCount(); i++){
@@ -154,6 +142,41 @@ public class HomeScreen extends AppCompatActivity {
             }
 
         }
+
+        totalChildren = totalChildrenCount;
+
+        resize();
+
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        resize();
+    }
+
+    protected void resize(){
+
+        LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
+        LinearLayout subLayout;
+
+        int BUTTON_WIDTH = 250;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                BUTTON_WIDTH,
+                r.getDisplayMetrics()
+        );
+
+        int buttonsPerLayout = (int) (width/px);
 
         int rowsWithChildren = (totalChildren/buttonsPerLayout)-1;
         int childrenOnLastRow = totalChildren % buttonsPerLayout;
@@ -199,10 +222,6 @@ public class HomeScreen extends AppCompatActivity {
             }
 
         }
-    }
-
-    protected void resize(){
-
     }
 
     @Override

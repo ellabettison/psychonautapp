@@ -144,7 +144,7 @@ public class SubstanceSelector extends AppCompatActivity {
     private void createButtons() throws ExecutionException, InterruptedException {
         APIClient apiClient = new APIClient();
         QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.queryByClass(substanceClass).withName().getQuery();
+        String query = queryBuilder.queryByClass(substanceClass).withName().withEffects().getQuery();
 
         ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
@@ -154,27 +154,29 @@ public class SubstanceSelector extends AppCompatActivity {
 
         if (substances != null) {
             for (int i = 0; i < substances.size(); i++) {
-                Button btn = new Button(this);
-                btn.setId(i);
-                btn.setTypeface(manjari);
-                btn.setText(substances.get(i).getName().toLowerCase());
+                if (substances.get(i).getEffects().size() > 0) {
+                    Button btn = new Button(this);
+                    btn.setId(i);
+                    btn.setTypeface(manjari);
+                    btn.setText(substances.get(i).getName().toLowerCase());
 
-                LinearLayout ll = findViewById(R.id.substanceList);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
-                        .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                ll.addView(btn, lp);
+                    LinearLayout ll = findViewById(R.id.substanceList);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
+                            .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    ll.addView(btn, lp);
 
-                btn.setOnClickListener(v -> {
-                    Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
-                    intent.putExtra("substanceName", btn.getText());
-                    startActivity(intent);
-                });
+                    btn.setOnClickListener(v -> {
+                        Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
+                        intent.putExtra("substanceName", btn.getText());
+                        startActivity(intent);
+                    });
 
-                int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-                ImageView divider = new ImageView(this);
-                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
-                        .MATCH_PARENT, dividerHeight));
-                ll.addView(divider);
+                    int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+                    ImageView divider = new ImageView(this);
+                    divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
+                            .MATCH_PARENT, dividerHeight));
+                    ll.addView(divider);
+                }
             }
         } else {
             String alertMessage = "sorry, could not display substances";

@@ -24,4 +24,6 @@
     <string name="unknownDOse">\? - ?</string>
     <string name="overdose">overdose</string>
     <string name="toxicity">toxicity</string>
+
+    <string name="title_activity_textac">textac</string>
 </resources>
