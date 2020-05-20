@@ -190,15 +190,13 @@ public class SubstanceInfo extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
 
-        float dip = 35f;
+        float dip = 30f;
         Resources r = getResources();
         float px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dip,
                 r.getDisplayMetrics()
         );
-
-        System.out.printf("\n\n             ~~~~~ PIXELS: %ft \n\n", px);
 
         for (View roa: roas){
             if (roa != null) {

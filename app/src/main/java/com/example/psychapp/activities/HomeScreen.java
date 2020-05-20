@@ -6,9 +6,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -116,11 +120,31 @@ public class HomeScreen extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
+        int BUTTON_WIDTH = 250;
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                BUTTON_WIDTH,
+                r.getDisplayMetrics()
+        );
+
+        LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
+        LinearLayout subLayout;
+
+        int buttonsPerLayout = (int) (width/px);
+        int totalChildren = 0;
+
+        // generate onclick events for each button
         for (int i = 0; i < buttonsLayout.getChildCount(); i++){
-            LinearLayout subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
+            subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
             for (int j = 0; j < subLayout.getChildCount(); j++){
+                totalChildren++;
                 ImageButton imageButton = (ImageButton) subLayout.getChildAt(j);
                 imageButton.setOnClickListener(v -> {
                     Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
@@ -128,7 +152,57 @@ public class HomeScreen extends AppCompatActivity {
                     startActivity(intent);
                 });
             }
+
         }
+
+        int rowsWithChildren = (totalChildren/buttonsPerLayout)-1;
+        int childrenOnLastRow = totalChildren % buttonsPerLayout;
+        int childrenToMove = 0;
+
+        LinearLayout nextLayout = (LinearLayout) buttonsLayout.getChildAt(buttonsLayout.getChildCount()-1);
+
+        //relocate children
+        for (int i = buttonsLayout.getChildCount()-2; i >= 0; i--){
+            subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
+            if (nextLayout != subLayout && subLayout.getChildCount() < buttonsPerLayout) {
+                if (i > rowsWithChildren){
+                    childrenToMove = nextLayout.getChildCount();
+                } else if (i == rowsWithChildren){
+                    childrenToMove = nextLayout.getChildCount() - childrenOnLastRow;
+                } else {
+                    childrenToMove = nextLayout.getChildCount() - buttonsPerLayout;
+                }
+
+                for (int k = 0; k < childrenToMove; k++) {
+                    ImageButton childToMove = (ImageButton) nextLayout.getChildAt(0);
+                    if (childToMove != null) {
+                        nextLayout.removeView(childToMove);
+                        subLayout.addView(childToMove);
+                    }
+                }
+            }
+            if (nextLayout.getChildCount() == 0){
+                buttonsLayout.removeView(nextLayout);
+            }
+            nextLayout = subLayout;
+
+        }
+
+        // resize layout heights for screen height
+        for (int i = 0; i < buttonsLayout.getChildCount(); i++){
+            LinearLayout buttonLayout = (LinearLayout) buttonsLayout.getChildAt(i);
+            if (buttonLayout.getChildCount() != 0) {
+                ViewGroup.LayoutParams params = buttonLayout.getLayoutParams();
+                params.height = (int) (height/3);
+                buttonLayout.setLayoutParams(params);
+                buttonLayout.requestLayout();
+            }
+
+        }
+    }
+
+    protected void resize(){
+
     }
 
     @Override

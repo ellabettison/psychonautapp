@@ -53,12 +53,12 @@
 
                 <EditText
                     android:id="@+id/searchText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="0"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
@@ -68,12 +68,14 @@
 
                 <ImageButton
                     android:id="@+id/searchButton"
-                    android:layout_width="17dp"
-                    android:layout_height="35dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
                     android:background="#00FFFFFF"
                     android:scaleType="centerInside"
                     android:tint="@android:color/secondary_text_light_nodisable"
@@ -92,12 +94,16 @@
                 android:layout_gravity="center_horizontal|top"
                 android:background="#F3F3F3"
                 android:gravity="top|center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:gravity="bottom|center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp">
@@ -127,11 +133,14 @@
                         android:scaleType="centerInside"
                         android:tag="stimulant"
                         app:srcCompat="@drawable/stims2" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -165,6 +174,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -198,6 +209,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -232,6 +245,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
