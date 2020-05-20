@@ -130,11 +130,13 @@ public class SubstanceInfo extends AppCompatActivity {
 
         try {
             getSubstanceInfo();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            getDuration();
+        } catch (ExecutionException | InterruptedException | NullPointerException e) {
+            String alertMessage = "sorry, the substance could not be found";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
-
-        getDuration();
 
         ImageButton overdoseButton1 = findViewById(R.id.overdoseButton1);
         Button overdoseButton2 = findViewById(R.id.overdoseButton2);
@@ -158,54 +160,57 @@ public class SubstanceInfo extends AppCompatActivity {
 
     protected void getDuration() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
-        DurationObject durationObject = substanceObject.getRoas().get(0).getDuration();
 
-        TextView onset = findViewById(R.id.onset);
-        if (durationObject.getOnset() != null) {
-            onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
-            onset.setTypeface(manjari);
-        } else {
-            onset.setVisibility(View.INVISIBLE);
-        }
+        if (substanceObject.getRoas() != null && substanceObject.getRoas().size() > 0) {
+            DurationObject durationObject = substanceObject.getRoas().get(0).getDuration();
 
-        TextView comeup = findViewById(R.id.comeup);
-        if (durationObject.getComeup() != null) {
-            comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
-            comeup.setTypeface(manjari);
-        } else {
-            comeup.setVisibility(View.INVISIBLE);
-        }
+            TextView onset = findViewById(R.id.onset);
+            if (durationObject.getOnset() != null) {
+                onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
+                onset.setTypeface(manjari);
+            } else {
+                onset.setVisibility(View.INVISIBLE);
+            }
 
-        TextView peak = findViewById(R.id.peak);
-        if (durationObject.getPeak() != null) {
-            peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
-            peak.setTypeface(manjari);
-        } else {
-            peak.setVisibility(View.INVISIBLE);
-        }
+            TextView comeup = findViewById(R.id.comeup);
+            if (durationObject.getComeup() != null) {
+                comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
+                comeup.setTypeface(manjari);
+            } else {
+                comeup.setVisibility(View.INVISIBLE);
+            }
 
-        TextView offset = findViewById(R.id.offset);
-        if (durationObject.getOffset() != null) {
-            offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
-            offset.setTypeface(manjari);
-        } else {
-            offset.setVisibility(View.INVISIBLE);
-        }
+            TextView peak = findViewById(R.id.peak);
+            if (durationObject.getPeak() != null) {
+                peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
+                peak.setTypeface(manjari);
+            } else {
+                peak.setVisibility(View.INVISIBLE);
+            }
 
-        TextView aftereffects = findViewById(R.id.aftereffects);
-        if (durationObject.getAfterglow() != null) {
-            aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
-            aftereffects.setTypeface(manjari);
-        } else {
-            aftereffects.setVisibility(View.INVISIBLE);
-        }
+            TextView offset = findViewById(R.id.offset);
+            if (durationObject.getOffset() != null) {
+                offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
+                offset.setTypeface(manjari);
+            } else {
+                offset.setVisibility(View.INVISIBLE);
+            }
 
-        TextView total = findViewById(R.id.total);
-        if (durationObject.getTotal() != null) {
-            total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
-            total.setTypeface(manjari);
-        } else {
-            total.setVisibility(View.INVISIBLE);
+            TextView aftereffects = findViewById(R.id.aftereffects);
+            if (durationObject.getAfterglow() != null) {
+                aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
+                aftereffects.setTypeface(manjari);
+            } else {
+                aftereffects.setVisibility(View.INVISIBLE);
+            }
+
+            TextView total = findViewById(R.id.total);
+            if (durationObject.getTotal() != null) {
+                total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
+                total.setTypeface(manjari);
+            } else {
+                total.setVisibility(View.INVISIBLE);
+            }
         }
 
     }
@@ -257,13 +262,15 @@ public class SubstanceInfo extends AppCompatActivity {
 
     protected void getInteractions() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        TextView unsafeLabel = findViewById(R.id.unsafeLabel);
+        unsafeLabel.setTypeface(manjari);
         ArrayList<SubstanceObject> unsafeInteractions = substanceObject.getUnsafeInteractions();
         boolean visible = true;
         LinearLayout unsafeLayout = findViewById(R.id.unsafeInteractions);
         if (unsafeInteractions != null) {
             StringBuilder unsafeString = new StringBuilder();
             for (int i = 0; i < unsafeInteractions.size(); i++) {
-                unsafeString.append(unsafeInteractions.get(i).getName());
+                unsafeString.append(unsafeInteractions.get(i).getName().toLowerCase());
                 if (i != unsafeInteractions.size() - 1) {
                     unsafeString.append("\n");
                 }
@@ -278,10 +285,12 @@ public class SubstanceInfo extends AppCompatActivity {
 
         ArrayList<SubstanceObject> dangerousInteractions = substanceObject.getDangerousInteractions();
         LinearLayout dangerousLayout = findViewById(R.id.dangerousInteractions);
+        TextView dangerousLabel = findViewById(R.id.dangerousLabel);
+        dangerousLabel.setTypeface(manjari);
         if (dangerousInteractions != null) {
             StringBuilder dangerousString = new StringBuilder();
             for (int i = 0; i < dangerousInteractions.size(); i++) {
-                dangerousString.append(dangerousInteractions.get(i).getName());
+                dangerousString.append(dangerousInteractions.get(i).getName().toLowerCase());
                 if (i != dangerousInteractions.size() - 1) {
                     dangerousString.append("\n");
                 }
@@ -310,7 +319,7 @@ public class SubstanceInfo extends AppCompatActivity {
         for (EffectObject effect : substanceObject.getEffects()) {
             TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
             effectText.setTypeface(manjari);
-            effectText.setText(effect.getName());
+            effectText.setText(effect.getName().toLowerCase());
             contentLayout.addView(effectText);
             ImageView divider = new ImageView(this);
             divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
@@ -321,34 +330,38 @@ public class SubstanceInfo extends AppCompatActivity {
     protected void getDosage() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         RoaObject mainRoa = substanceObject.getRoas().get(0);
-        String units = mainRoa.getDosage().getUnits();
 
-        TextView lightText = findViewById(R.id.lightStrength);
-        lightText.setTypeface(manjari);
-        TextView commonText = findViewById(R.id.commonStrength);
-        commonText.setTypeface(manjari);
-        TextView strongText = findViewById(R.id.strongStrength);
-        strongText.setTypeface(manjari);
+        if (mainRoa.getDosage() != null) {
 
-        UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
-        TextView lightDosage = findViewById(R.id.lightDosage);
-        lightDosage.setTypeface(manjari);
-        if (lightUnitsDosage != null) {
-            lightDosage.setText(String.format("%s%s", lightUnitsDosage.toString(), units));
-        }
+            String units = mainRoa.getDosage().getUnits();
 
-        UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
-        TextView commonDosage = findViewById(R.id.commonDosage);
-        commonDosage.setTypeface(manjari);
-        if (commonUnitsDosage != null) {
-            commonDosage.setText(String.format("%s%s", commonUnitsDosage.toString(), units));
-        }
+            TextView lightText = findViewById(R.id.lightStrength);
+            lightText.setTypeface(manjari);
+            TextView commonText = findViewById(R.id.commonStrength);
+            commonText.setTypeface(manjari);
+            TextView strongText = findViewById(R.id.strongStrength);
+            strongText.setTypeface(manjari);
 
-        UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
-        TextView strongDosage = findViewById(R.id.strongDosage);
-        strongDosage.setTypeface(manjari);
-        if (strongUnitsDosage != null) {
-            strongDosage.setText(String.format("%s%s",strongUnitsDosage.toString(), units));
+            UnitsObject lightUnitsDosage = mainRoa.getDosage().getLight();
+            TextView lightDosage = findViewById(R.id.lightDosage);
+            lightDosage.setTypeface(manjari);
+            if (lightUnitsDosage != null) {
+                lightDosage.setText(String.format("%s%s", lightUnitsDosage.toString(), units));
+            }
+
+            UnitsObject commonUnitsDosage = mainRoa.getDosage().getCommon();
+            TextView commonDosage = findViewById(R.id.commonDosage);
+            commonDosage.setTypeface(manjari);
+            if (commonUnitsDosage != null) {
+                commonDosage.setText(String.format("%s%s", commonUnitsDosage.toString(), units));
+            }
+
+            UnitsObject strongUnitsDosage = mainRoa.getDosage().getStrong();
+            TextView strongDosage = findViewById(R.id.strongDosage);
+            strongDosage.setTypeface(manjari);
+            if (strongUnitsDosage != null) {
+                strongDosage.setText(String.format("%s%s", strongUnitsDosage.toString(), units));
+            }
         }
     }
 

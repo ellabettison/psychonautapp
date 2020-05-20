@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/roa"
+android:layout_width="370dp"
+android:layout_height="match_parent"
+android:layout_gravity="center|top"
+android:layout_marginTop="10dp"
+android:layout_marginBottom="10dp"
+android:background="@drawable/layout_bg"
+android:foregroundGravity="top|center"
+android:gravity="center|top"
+android:orientation="vertical"
+android:padding="5dp">
+
+<LinearLayout
     android:id="@+id/dosageLayout"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_gravity="center"
-    android:foregroundGravity="center|center_horizontal"
+    android:foregroundGravity="center"
     android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp">
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/lightInfo"
-        android:layout_width="115dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -21,14 +32,15 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="#4DC5E1A5"
         android:foregroundGravity="center"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/lightStrength"
@@ -51,13 +63,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/unknownDose" />
+            android:text="@string/unknownDose"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/commonInfo"
-        android:layout_width="115dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -65,13 +78,14 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="#4DFFE082"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/commonStrength"
@@ -94,13 +108,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/unknownDose" />
+            android:text="@string/unknownDose"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/strongInfo"
-        android:layout_width="115dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -108,13 +123,14 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="#4DEF9A9A"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/strongStrength"
@@ -137,10 +153,117 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/unknownDose" />
+            android:text="@string/unknownDose"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
 
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/onset"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/arrowbg2"
+        android:backgroundTint="#F3F3F3F3"
+        android:gravity="top"
+        android:text="onset"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/peak"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/arrowbg2"
+        android:backgroundTint="#F3F3F3"
+        android:gravity="top"
+        android:text="peak"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/aftereffects"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/arrowbg2"
+        android:backgroundTint="#F3F3F3"
+        android:text="after effects"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+</LinearLayout>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/layout_bg"
+    android:backgroundTint="#F3F3F3">
+
+</FrameLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/comeup"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0"
+        android:background="@drawable/arrowbgv2"
+        android:backgroundTint="#F3F3F3"
+        android:gravity="bottom"
+        android:text="comeup"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/offset"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/arrowbgv2"
+        android:backgroundTint="#F3F3F3"
+        android:gravity="bottom"
+        android:text="offset"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0"
+        android:background="@drawable/arrowbgv2"
+        android:backgroundTint="#F3F3F3"
+        android:gravity="bottom"
+        android:text="total"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+</LinearLayout>
 
 </LinearLayout>

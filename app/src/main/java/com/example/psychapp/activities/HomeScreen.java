@@ -189,7 +189,7 @@ public class HomeScreen extends AppCompatActivity {
 
         miscButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "opioids");
+            intent.putExtra("substanceClass", "opioid");
             startActivity(intent);
         });
     }

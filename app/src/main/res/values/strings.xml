@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PsychApp</string>
+    <string name="app_name">Psychonaut</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -10,7 +10,7 @@
 
     <string name="title_activity_substance_info">SubstanceInfo</string>
     <string name="unsafe">unsafe</string>
-    <string name="cool_app_name_here">drugs</string>
+    <string name="cool_app_name_here">psychonaut</string>
     <string name="dosage">dosage</string>
     <string name="light">light</string>
     <string name="common">common</string>
