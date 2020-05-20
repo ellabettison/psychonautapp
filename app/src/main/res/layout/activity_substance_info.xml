@@ -116,6 +116,7 @@
 
 
                 <Space
+                    android:id="@+id/space1"
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
@@ -125,6 +126,7 @@
                     layout="@layout/dosage_layout" />
 
                 <Space
+                    android:id="@+id/space2"
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />

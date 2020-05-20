@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -160,7 +161,11 @@ public class SubstanceInfo extends AppCompatActivity {
         View roa2 = findViewById(R.id.roa2);
         View roa3 = findViewById(R.id.roa3);
         ArrayList<View> roas = new ArrayList<>(Arrays.asList(roa1, roa2, roa3));
-        int centre = this.getResources().getDisplayMetrics().widthPixels / 2;
+        int[] roaLoc1 = new int[2];
+        roa1.getLocationOnScreen(roaLoc1);
+        int centre = roaLoc1[0];
+
+        System.out.printf("\n\n             @@@   centre %d %d \n\n", roaLoc1[0], roaLoc1[1]);
 
         TextView dosageLabel = findViewById(R.id.dosageLabel);
 
@@ -168,8 +173,8 @@ public class SubstanceInfo extends AppCompatActivity {
             for (View roa: roas){
                 if (roa != null) {
                     int[] roaLoc = new int[2];
-                    roa.getLocationInWindow(roaLoc);
-                    if (roaLoc[0]-100 < centre && roaLoc[0]+100 > centre) {
+                    roa.getLocationOnScreen(roaLoc);
+                    if (roaLoc[0]-300 < centre && roaLoc[0]+300 > centre) {
                         dosageLabel.setText(String.format("dosage - %s", roa.getTag()));
                     }
                 }
@@ -259,14 +264,20 @@ public class SubstanceInfo extends AppCompatActivity {
                 getDuration(findViewById(R.id.roa2), 1);
             } else {
                 View roa2 = findViewById(R.id.roa2);
-                ((ViewGroup) roa2.getParent()).removeView(roa2);
+                Space space = findViewById(R.id.space1);
+                ViewGroup parent = (ViewGroup) roa2.getParent();
+                parent.removeView(roa2);
+                parent.removeView(space);
             }
             if (substanceObject.getRoas().size()>2){
                 getDosage(findViewById(R.id.roa3), 2);
                 getDuration(findViewById(R.id.roa3), 2);
             } else {
                 View roa3 = findViewById(R.id.roa3);
-                ((ViewGroup) roa3.getParent()).removeView(roa3);
+                Space space = findViewById(R.id.space2);
+                ViewGroup parent = (ViewGroup) roa3.getParent();
+                parent.removeView(roa3);
+                parent.removeView(space);
             }
 
         } catch (IndexOutOfBoundsException e) {
