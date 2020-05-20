@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
@@ -145,14 +146,10 @@ public class SubstanceInfo extends AppCompatActivity {
         Button overdoseButton2 = findViewById(R.id.overdoseButton2);
 
         overdoseButton1.setOnClickListener(v -> {
-            Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
-            intent.putExtra("substanceClasses", substanceObject.getSubstanceClass().getPsychoactive());
-            startActivity(intent);
+            callOdPage();
         });
         overdoseButton2.setOnClickListener(v -> {
-            Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
-            intent.putExtra("substanceClasses", substanceObject.getSubstanceClass().getPsychoactive());
-            startActivity(intent);
+            callOdPage();
         });
 
         HorizontalScrollView scrollView = findViewById(R.id.roaScroll);
@@ -164,8 +161,6 @@ public class SubstanceInfo extends AppCompatActivity {
         int[] roaLoc1 = new int[2];
         roa1.getLocationOnScreen(roaLoc1);
         int centre = roaLoc1[0];
-
-        System.out.printf("\n\n             @@@   centre %d %d \n\n", roaLoc1[0], roaLoc1[1]);
 
         TextView dosageLabel = findViewById(R.id.dosageLabel);
 
@@ -181,10 +176,54 @@ public class SubstanceInfo extends AppCompatActivity {
             }
         });
 
+//        for (View roa: roas){
+//            if (roa != null) {
+//                roa.setMinimumWidth(500);
+//            }
+//        }
+
+
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        for (View roa: roas){
+            if (roa != null) {
+                ViewGroup.LayoutParams params = roa.getLayoutParams();
+                params.width = (width - 190);
+                roa.setLayoutParams(params);
+                roa.requestLayout();
+            }
+
+        }
+
+//        LinearLayout roaLayout = findViewById(R.id.roaLayout);
+//        ViewGroup.LayoutParams params = roaLayout.getLayoutParams();
+//        params.width = (width*3);
+//        roaLayout.setLayoutParams(params);
+//        roaLayout.requestLayout();
+
+//        scrollView.setMinimumWidth((width));
+//        scrollView.requestLayout();
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
+
+    protected void callOdPage(){
+        Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
+        ArrayList<String> className = substanceObject.getSubstanceClass().getPsychoactive();
+        if (substanceObject.getName().toLowerCase().equals("alcohol") ){
+            className.add(substanceObject.getName());
+        } else if (substanceObject.getName().toLowerCase().equals("ghb")
+                || substanceObject.getName().toLowerCase().equals("gbl")){
+            className.add("ghb and gbl");
+        }
+        intent.putExtra("substanceClasses", className);
+        startActivity(intent);
     }
 
     protected void getDuration(View view, int roaNo) {

@@ -140,8 +140,6 @@ public class OverdoseInfo extends AppCompatActivity {
     }
 
     private String readFile(){
-        substanceClasses = (ArrayList<String>) Objects.requireNonNull(getIntent()
-                .getSerializableExtra("substanceClasses"));
 
         BufferedReader reader = null;
         String content = "";
@@ -165,6 +163,8 @@ public class OverdoseInfo extends AppCompatActivity {
     }
 
     private void getOdInfo(){
+        substanceClasses = (ArrayList<String>) Objects.requireNonNull(getIntent()
+                .getSerializableExtra("substanceClasses"));
 
         String content = readFile();
 
@@ -182,6 +182,8 @@ public class OverdoseInfo extends AppCompatActivity {
         assert classMap != null;
         JsonNode odInfo = classMap.get("general");
         String substanceClassFinal = "general";
+
+        System.out.printf("\n\n     ~~~~~~ CLASSES: %s  \n\n        @@@@@@      tKEYS: %s \n\n", substanceClasses, classMap.keySet());
 
         for (String substanceClass: substanceClasses){
             if (classMap.containsKey(standardise(substanceClass))){

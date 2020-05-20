@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#F3F3F3"
     tools:context=".activities.HomeScreen">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -27,7 +27,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -82,6 +86,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/buttonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
@@ -91,7 +96,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="230dp"
                     android:gravity="bottom|center"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -99,34 +104,34 @@
 
                     <ImageButton
                         android:id="@+id/depressants"
-                        android:layout_width="190dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:adjustViewBounds="false"
                         android:background="#00FFFFFF"
                         android:cropToPadding="false"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="depressant"
                         app:srcCompat="@drawable/depres" />
 
                     <ImageButton
                         android:id="@+id/stimulants"
-                        android:layout_width="190dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="stimulant"
                         app:srcCompat="@drawable/stims2" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="230dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -134,32 +139,32 @@
 
                     <ImageButton
                         android:id="@+id/cannabinoids"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="cannabinoid"
                         app:srcCompat="@drawable/canna" />
 
                     <ImageButton
                         android:id="@+id/psychedelics"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="psychedelic"
                         app:srcCompat="@drawable/psyche" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="230dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -167,32 +172,32 @@
 
                     <ImageButton
                         android:id="@+id/dissociatives"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="dissociative"
                         app:srcCompat="@drawable/diss" />
 
                     <ImageButton
                         android:id="@+id/entactogens"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="enactogen"
                         app:srcCompat="@drawable/enac" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="230dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -200,32 +205,33 @@
 
                     <ImageButton
                         android:id="@+id/deliriants"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="deliriant"
                         app:srcCompat="@drawable/delir" />
 
                     <ImageButton
-                        android:id="@+id/entheogens"
-                        android:layout_width="190dp"
+                        android:id="@+id/opioids"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/entheo" />
+                        android:tag="opioid"
+                        app:srcCompat="@drawable/opioid" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="230dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
                     android:paddingLeft="20dp"
@@ -233,27 +239,28 @@
 
                     <ImageButton
                         android:id="@+id/nootropics"
-                        android:layout_width="190dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
+                        android:tag="nootropic"
                         app:srcCompat="@drawable/noot" />
 
                     <ImageButton
-                        android:id="@+id/opioids"
-                        android:layout_width="190dp"
+                        android:id="@+id/miscellaneous"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
                         android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/opioid" />
+                        android:tag="antipsychotic"
+                        app:srcCompat="@drawable/misc" />
+
                 </LinearLayout>
 
             </LinearLayout>

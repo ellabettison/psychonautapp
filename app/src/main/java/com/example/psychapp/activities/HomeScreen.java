@@ -10,9 +10,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -112,86 +116,19 @@ public class HomeScreen extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        //TODO: pls change lol this is gross
-        ImageButton deprButton = findViewById(R.id.depressants);
+        LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
 
-        deprButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "depressant");
-            startActivity(intent);
-        });
-
-        ImageButton stimButton = findViewById(R.id.stimulants);
-
-        stimButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "stimulant");
-            startActivity(intent);
-        });
-
-        ImageButton cannaButton = findViewById(R.id.cannabinoids);
-
-        cannaButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "cannabinoid");
-            startActivity(intent);
-        });
-
-        ImageButton psychButton = findViewById(R.id.psychedelics);
-
-        psychButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "psychedelic");
-            startActivity(intent);
-        });
-
-        ImageButton delirButton = findViewById(R.id.deliriants);
-
-        delirButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "deliriant");
-            startActivity(intent);
-        });
-
-        ImageButton dissocButton = findViewById(R.id.dissociatives);
-
-        dissocButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "dissociative");
-            startActivity(intent);
-        });
-
-        ImageButton enactButton = findViewById(R.id.entactogens);
-
-        enactButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "entactogen");
-            startActivity(intent);
-        });
-
-        ImageButton enthButton = findViewById(R.id.entheogens);
-
-        enthButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "entheogen");
-            startActivity(intent);
-        });
-
-        ImageButton nootButton = findViewById(R.id.nootropics);
-
-        nootButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "nootropic");
-            startActivity(intent);
-        });
-
-        ImageButton miscButton = findViewById(R.id.opioids);
-
-        miscButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-            intent.putExtra("substanceClass", "opioid");
-            startActivity(intent);
-        });
+        for (int i = 0; i < buttonsLayout.getChildCount(); i++){
+            LinearLayout subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
+            for (int j = 0; j < subLayout.getChildCount(); j++){
+                ImageButton imageButton = (ImageButton) subLayout.getChildAt(j);
+                imageButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+                    intent.putExtra("substanceClass", imageButton.getTag().toString());
+                    startActivity(intent);
+                });
+            }
+        }
     }
 
     @Override

@@ -28,7 +28,9 @@
         android:layout_height="match_parent"
         android:background="#F3F3F3"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,40 +102,59 @@
 
         <HorizontalScrollView
             android:id="@+id/roaScroll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <LinearLayout
+                android:id="@+id/roaLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
                 <include
                     android:id="@+id/roa1"
-                    layout="@layout/dosage_layout" />
+                    layout="@layout/dosage_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
 
                 <Space
                     android:id="@+id/space1"
-                    android:layout_width="20dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="0" />
 
                 <include
                     android:id="@+id/roa2"
-                    layout="@layout/dosage_layout" />
+                    layout="@layout/dosage_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <Space
                     android:id="@+id/space2"
-                    android:layout_width="20dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="0" />
 
                 <include
                     android:id="@+id/roa3"
-                    layout="@layout/dosage_layout" />
+                    layout="@layout/dosage_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -177,9 +198,10 @@
 
                     <LinearLayout
                         android:id="@+id/unsafeInteractions"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@drawable/layout_bg"
                         android:foregroundGravity="center"
                         android:gravity="center|top"
@@ -198,11 +220,12 @@
 
                     <LinearLayout
                         android:id="@+id/dangerousInteractions"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="1"
                         android:background="@drawable/layout_bg"
                         android:foregroundGravity="right"
                         android:gravity="right"
