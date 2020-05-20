@@ -1,46 +1,20 @@
-package com.example.psychapp.activities;
+package com.example.psychonautapp;
 
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.psychapp.R;
-import com.example.psychapp.api.APIClient;
-import com.example.psychapp.api.QueryBuilder;
-import com.example.psychapp.api.QueryObjects.SubstanceObject;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SubstanceSelector extends AppCompatActivity {
-
-    private String substanceClass;
+public class OverdoseSelector extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -86,7 +60,7 @@ public class SubstanceSelector extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-//            mControlsView.setVisibility(View.VISIBLE);
+            mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -115,76 +89,25 @@ public class SubstanceSelector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_substance_selector);
+        setContentView(R.layout.activity_overdose_selector);
 
         mVisible = true;
+        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(view -> toggle());
-
-        substanceClass = Objects.requireNonNull(getIntent()
-                .getSerializableExtra("substanceClass")).toString();
-
-        TextView header = findViewById(R.id.header);
-        String headerString = substanceClass + "s";
-        header.setText(headerString);
-
-        try {
-            createButtons();
-        } catch (InterruptedException | ExecutionException e) {
-            String alertMessage = "sorry, something went wrong";
-            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-            toast.show();
-            finish();
-        }
-    }
-
-    private void createButtons() throws ExecutionException, InterruptedException {
-        APIClient apiClient = new APIClient();
-        QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.queryByClass(substanceClass).withName().withEffects().getQuery();
-
-        ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
-
-        TextView header = findViewById(R.id.header);
-        header.setTypeface(manjari);
-
-        if (substances != null) {
-            for (int i = 0; i < substances.size(); i++) {
-                if (!substances.get(i).getEffects().isEmpty()) {
-                    Button btn = new Button(this);
-                    btn.setId(i);
-                    btn.setTypeface(manjari);
-                    btn.setText(substances.get(i).getName().toLowerCase());
-
-                    LinearLayout ll = findViewById(R.id.substanceList);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
-                            .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    ll.addView(btn, lp);
-
-                    btn.setOnClickListener(v -> {
-                        Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
-                        intent.putExtra("substanceName", btn.getText());
-                        startActivity(intent);
-                    });
-
-                    int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-                    ImageView divider = new ImageView(this);
-                    divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
-                            .MATCH_PARENT, dividerHeight));
-                    ll.addView(divider);
-                }
+        mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle();
             }
-        } else {
-            String alertMessage = "sorry, could not display substances";
-            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-            toast.show();
-            finish();
-        }
+        });
 
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -211,7 +134,7 @@ public class SubstanceSelector extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
+        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay

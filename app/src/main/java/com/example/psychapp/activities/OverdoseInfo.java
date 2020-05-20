@@ -183,13 +183,10 @@ public class OverdoseInfo extends AppCompatActivity {
         JsonNode odInfo = classMap.get("general");
         String substanceClassFinal = "general";
 
-        System.out.printf("\n\n     ~~~~~~ CLASSES: %s  \n\n        @@@@@@      tKEYS: %s \n\n", substanceClasses, classMap.keySet());
-
         for (String substanceClass: substanceClasses){
             if (classMap.containsKey(standardise(substanceClass))){
                 odInfo = classMap.get(standardise(substanceClass));
                 substanceClassFinal = substanceClass;
-
             }
         }
 

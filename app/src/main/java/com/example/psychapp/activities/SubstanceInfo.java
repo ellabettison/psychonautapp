@@ -190,14 +190,16 @@ public class SubstanceInfo extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
 
-        float dip = 30f;
+        // convert roaBorder from dp to px
+        float roaBorder = 20f;
         Resources r = getResources();
         float px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                dip,
+                roaBorder,
                 r.getDisplayMetrics()
         );
 
+        // set width of roa info
         for (View roa: roas){
             if (roa != null) {
                 ViewGroup.LayoutParams params = roa.getLayoutParams();

@@ -145,7 +145,12 @@ public class HomeScreen extends AppCompatActivity {
 
         totalChildren = totalChildrenCount;
 
-        resize();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        resize(width, height);
 
 
     }
@@ -154,20 +159,24 @@ public class HomeScreen extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        resize();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            resize(height, width);
+        } else {
+            resize(width, height);
+        }
     }
 
-    protected void resize(){
+    protected void resize(int width, int height){
 
         LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
         LinearLayout subLayout;
 
         int BUTTON_WIDTH = 250;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
 
         Resources r = getResources();
         float px = TypedValue.applyDimension(

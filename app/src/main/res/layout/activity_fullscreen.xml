@@ -52,17 +52,19 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/layout_bg"
-                    android:backgroundTint="#99F3F3F3"
+                    android:backgroundTint="#F3F3F3"
                     android:ems="10"
+                    android:hint="@android:string/search_go"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:textColor="@android:color/secondary_text_light_nodisable"
+                    android:singleLine="true"
+                    android:textColor="#C0C0C0"
                     android:textColorHint="@android:color/secondary_text_light_nodisable" />
 
                 <ImageButton
                     android:id="@+id/searchButton"
-                    android:layout_width="20dp"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="15dp"
@@ -72,14 +74,15 @@
                     android:layout_weight="0"
                     android:background="#00FFFFFF"
                     android:scaleType="centerInside"
-                    android:tint="@android:color/secondary_text_light_nodisable"
+                    android:tint="#C0C0C0"
                     app:srcCompat="@drawable/magnifier" />
             </LinearLayout>
         </FrameLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:id="@+id/buttonsLayout"
@@ -99,8 +102,8 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <ImageButton
                         android:id="@+id/depressants"
@@ -110,8 +113,8 @@
                         android:adjustViewBounds="false"
                         android:background="#00FFFFFF"
                         android:cropToPadding="false"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="depressant"
                         app:srcCompat="@drawable/depres" />
@@ -122,8 +125,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="stimulant"
                         app:srcCompat="@drawable/stims2" />
@@ -137,8 +140,8 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <ImageButton
                         android:id="@+id/cannabinoids"
@@ -146,8 +149,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="cannabinoid"
                         app:srcCompat="@drawable/canna" />
@@ -158,8 +161,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="psychedelic"
                         app:srcCompat="@drawable/psyche" />
@@ -172,8 +175,8 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <ImageButton
                         android:id="@+id/dissociatives"
@@ -181,8 +184,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="dissociative"
                         app:srcCompat="@drawable/diss" />
@@ -193,8 +196,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="enactogen"
                         app:srcCompat="@drawable/enac" />
@@ -207,8 +210,8 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <ImageButton
                         android:id="@+id/deliriants"
@@ -216,8 +219,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="deliriant"
                         app:srcCompat="@drawable/delir" />
@@ -228,8 +231,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="opioid"
                         app:srcCompat="@drawable/opioid" />
@@ -243,8 +246,8 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center|top"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <ImageButton
                         android:id="@+id/nootropics"
@@ -252,8 +255,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="nootropic"
                         app:srcCompat="@drawable/noot" />
@@ -264,8 +267,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
                         android:scaleType="centerInside"
                         android:tag="antipsychotic"
                         app:srcCompat="@drawable/misc" />
@@ -274,6 +277,12 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <include
+            layout="@layout/navegation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="0" />
 
     </LinearLayout>
 

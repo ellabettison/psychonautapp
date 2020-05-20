@@ -26,4 +26,6 @@
     <string name="toxicity">toxicity</string>
 
     <string name="title_activity_textac">textac</string>
+
+    <string name="title_activity_overdose_selector">OverdoseSelector</string>
 </resources>
