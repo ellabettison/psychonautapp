@@ -1,4 +1,4 @@
-package com.example.psychonautapp;
+package com.example.psychapp.activities;
 
 import android.annotation.SuppressLint;
 
@@ -7,8 +7,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.example.psychapp.NavegationBar;
+import com.example.psychapp.R;
+import com.example.psychapp.pillreports.Objects.PillObject;
+import com.example.psychapp.pillreports.PillScraper;
+import com.example.psychapp.pillreports.PillScraperBuilder;
+import com.example.psychapp.pillreports.WebScraperCaller;
+
+import java.util.ArrayList;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -93,6 +109,8 @@ public class PillReports extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
+
+        //TODO: is this needed?? check
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -108,6 +126,63 @@ public class PillReports extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+        NavegationBar navegationBar = new NavegationBar(PillReports.this, navegationBarLayout);
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+
+        try {
+            getPills();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void getPills() throws Exception {
+        PillScraperBuilder builder = new PillScraperBuilder();
+        String url = builder.createPillScraper().generatePillScraper();
+
+        WebScraperCaller webScraperCaller = new WebScraperCaller();
+        ArrayList<PillObject> pills = webScraperCaller.getPills(url, 0);
+        Log.d("PILLS", "numer of pills: " + pills.size());
+
+        LinearLayout pillReportList = findViewById(R.id.pillReportList);
+
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+        for (PillObject pill: pills){
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+            View pillView = inflater.inflate(R.layout.pill_info,
+                    (ViewGroup) findViewById(R.id.pillInfo), false);
+
+            TextView name = pillView.findViewById(R.id.name);
+            name.setText(pill.getName().toLowerCase());
+            TextView date = pillView.findViewById(R.id.date);
+            date.setText(String.format("posted: %s",pill.getDate().toLowerCase()));
+            TextView location = pillView.findViewById(R.id.location);
+            location.setText(pill.getLocation().toLowerCase());
+            TextView colour = pillView.findViewById(R.id.colour);
+            colour.setText(String.format("colour: %s", pill.getColour().toLowerCase()));
+            TextView logo = pillView.findViewById(R.id.logo);
+            logo.setText(String.format("logo: %s", pill.getLogo().toLowerCase()));
+            TextView shape = pillView.findViewById(R.id.shape);
+            shape.setText(String.format("shape: %s", pill.getShape().toLowerCase()));
+            TextView contents = pillView.findViewById(R.id.suspectedContents);
+            contents.setText(String.format("suspected contents: %s", pill.getSuspectContents().toLowerCase()));
+
+            ImageView image = pillView.findViewById(R.id.pillImage);
+            image.setImageDrawable(pill.getImage());
+            image.setImageTintList(null);
+            image.refreshDrawableState();
+
+            pillReportList.addView(pillView);
+
+            ImageView divider = new ImageView(this);
+            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+            pillReportList.addView(divider);
+        }
+
     }
 
     @Override

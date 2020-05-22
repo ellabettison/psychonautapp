@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.psychapp.activities.HomeScreen;
 import com.example.psychapp.activities.OverdoseSelector;
+import com.example.psychapp.activities.PillReports;
 
 public class NavegationBar {
 
@@ -59,6 +60,17 @@ public class NavegationBar {
                 image.setLayoutParams(params2);
                 image.requestLayout();
                 break;
+
+            case("com.example.psychapp.activities.PillReports"):
+                image = navegationBar.findViewById(R.id.pill_button);
+                image.setImageResource(R.drawable.pill_exp);
+                image.setImageTintList(null);
+
+                ViewGroup.LayoutParams params3= image.getLayoutParams();
+                params3.width = (int) px;
+                image.setLayoutParams(params3);
+                image.requestLayout();
+                break;
         }
     }
 
@@ -69,6 +81,11 @@ public class NavegationBar {
 
     public void odPress(){
         Intent intent = new Intent(packagageContext, OverdoseSelector.class);
+        packagageContext.startActivity(intent);
+    }
+
+    public void pillPress(){
+        Intent intent = new Intent(packagageContext, PillReports.class);
         packagageContext.startActivity(intent);
     }
 

@@ -145,6 +145,7 @@ public class OverdoseSelector extends AppCompatActivity {
         ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
         NavegationBar navegationBar = new NavegationBar(OverdoseSelector.this, navegationBarLayout);
         navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
     }
 
     // TODO: extract into seperate file + for od info

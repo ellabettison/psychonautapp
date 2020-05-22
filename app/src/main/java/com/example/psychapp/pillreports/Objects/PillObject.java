@@ -1,10 +1,6 @@
 package com.example.psychapp.pillreports.Objects;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-
-import java.awt.*;
-import java.util.Date;
 
 public class PillObject {
     

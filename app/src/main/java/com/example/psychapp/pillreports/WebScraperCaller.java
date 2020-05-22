@@ -1,7 +1,6 @@
 package com.example.psychapp.pillreports;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 
 import com.example.psychapp.pillreports.Objects.PillObject;
 
@@ -10,11 +9,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.awt.*;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class WebScraperCaller {
 
@@ -23,8 +20,9 @@ public class WebScraperCaller {
         String pillReportsUrl = "https://pillreports.net/";
 
         WebScraper webScraper = new WebScraper(url);
+        String output = webScraper.execute(0).get();
         
-        String output = webScraper.getHTML(pnum);
+        //String output = webScraper.getHTML(pnum);
    
         // TODO: simplify
         Document parsed = Jsoup.parse(output);
@@ -49,8 +47,8 @@ public class WebScraperCaller {
             
             String picElem = bodys.select("a").select("img").attr("src");
 
-            InputStream is = (InputStream)  new URL(pillReportsUrl + picElem).getContent();
-            Drawable image = Drawable.createFromStream(is, null);
+            ImageRetriever imageRetriever = new ImageRetriever();
+            Drawable image = imageRetriever.execute(pillReportsUrl + picElem).get();
             
             
             Elements leftDetails = bodys.select("ul[class=list-group]").get(0).children();

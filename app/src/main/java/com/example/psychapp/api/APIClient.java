@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -52,6 +53,7 @@ public class APIClient extends AsyncTask<String, Integer, ArrayList<SubstanceObj
 //        }
 //    }
 
+    // TODO: sort!! try/catches
     @Override
     protected ArrayList<SubstanceObject> doInBackground(String... strings) {
         UncheckedObjectMapper objectMapper = new UncheckedObjectMapper();
@@ -78,7 +80,7 @@ public class APIClient extends AsyncTask<String, Integer, ArrayList<SubstanceObj
         connection.setRequestProperty("content-type", "application/json");
         connection.setDoOutput(true);
         byte[] byteQuery = query.getBytes();
-        OutputStream os = null;
+        OutputStream os;
 
         try {
             os = connection.getOutputStream();
@@ -90,7 +92,7 @@ public class APIClient extends AsyncTask<String, Integer, ArrayList<SubstanceObj
 
 
         try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {

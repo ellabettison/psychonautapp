@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.psychonautapp.PillReports"
+            android:name=".activities.PillReports"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_pill_reports"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.OverdoseSelector"
             android:configChanges="orientation|keyboardHidden|screenSize"

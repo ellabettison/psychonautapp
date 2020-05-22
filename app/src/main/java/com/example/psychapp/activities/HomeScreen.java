@@ -158,7 +158,7 @@ public class HomeScreen extends AppCompatActivity {
         NavegationBar navegationBar = new NavegationBar(HomeScreen.this, navegationBarLayout);
 
         navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-
+        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
 
 
     }
