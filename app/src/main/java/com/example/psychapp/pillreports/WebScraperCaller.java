@@ -1,6 +1,7 @@
 package com.example.psychapp.pillreports;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.example.psychapp.pillreports.Objects.PillObject;
 
@@ -18,6 +19,8 @@ public class WebScraperCaller {
     public ArrayList<PillObject> getPills(String url, int pnum) throws Exception {
         
         String pillReportsUrl = "https://pillreports.net/";
+
+        Log.d("URL", "url is: %s" + url);
 
         WebScraper webScraper = new WebScraper(url);
         String output = webScraper.execute(0).get();

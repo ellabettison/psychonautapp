@@ -8,32 +8,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Spinner;
 
-import com.example.psychapp.NavegationBar;
 import com.example.psychapp.R;
-import com.example.psychapp.pillreports.Objects.PillObject;
-import com.example.psychapp.pillreports.PillScraper;
 import com.example.psychapp.pillreports.PillScraperBuilder;
-import com.example.psychapp.pillreports.WebScraperCaller;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class PillReports extends AppCompatActivity {
+public class AdvancedPillSearch extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -108,22 +97,10 @@ public class PillReports extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String url;
-        Serializable urlInp = (getIntent()
-                .getSerializableExtra("url"));
-        if (urlInp != null){
-            url = urlInp.toString();
-        } else {
-            PillScraperBuilder builder = new PillScraperBuilder();
-            url = builder.createPillScraper().generatePillScraper();
-        }
-
-        setContentView(R.layout.activity_pill_reports);
+        setContentView(R.layout.activity_advanced_pill_search);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-
-        //TODO: is this needed?? check
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -135,71 +112,28 @@ public class PillReports extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.searchButton).setOnClickListener(v -> {
-            Intent intent = new Intent(PillReports.this, AdvancedPillSearch.class);
-            startActivity(intent);
-        });
-
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
-        NavegationBar navegationBar = new NavegationBar(PillReports.this, navegationBarLayout);
-        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-
-        try {
-            getPills(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        findViewById(R.id.searchButton).setOnClickListener(v -> search());
     }
 
-    private void getPills(String url) throws Exception {
-        PillScraperBuilder builder = new PillScraperBuilder();
-        //String url = builder.createPillScraper().generatePillScraper();
-
-        WebScraperCaller webScraperCaller = new WebScraperCaller();
-        ArrayList<PillObject> pills = webScraperCaller.getPills(url, 0);
-        Log.d("PILLS", "numer of pills: " + pills.size());
-
-        LinearLayout pillReportList = findViewById(R.id.pillReportList);
-
-        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-        for (PillObject pill: pills){
-            LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View pillView = inflater.inflate(R.layout.pill_info,
-                    (ViewGroup) findViewById(R.id.pillInfo), false);
-
-            TextView name = pillView.findViewById(R.id.name);
-            name.setText(pill.getName().toLowerCase());
-            TextView date = pillView.findViewById(R.id.date);
-            date.setText(String.format("posted: %s",pill.getDate().toLowerCase()));
-            TextView location = pillView.findViewById(R.id.location);
-            location.setText(pill.getLocation().toLowerCase());
-            TextView colour = pillView.findViewById(R.id.colour);
-            colour.setText(String.format("colour: %s", pill.getColour().toLowerCase()));
-            TextView logo = pillView.findViewById(R.id.logo);
-            logo.setText(String.format("logo: %s", pill.getLogo().toLowerCase()));
-            TextView shape = pillView.findViewById(R.id.shape);
-            shape.setText(String.format("shape: %s", pill.getShape().toLowerCase()));
-            TextView contents = pillView.findViewById(R.id.suspectedContents);
-            contents.setText(String.format("suspected contents: %s", pill.getSuspectContents().toLowerCase()));
-
-            ImageView image = pillView.findViewById(R.id.pillImage);
-            image.setImageDrawable(pill.getImage());
-            image.setImageTintList(null);
-            image.refreshDrawableState();
-
-            pillReportList.addView(pillView);
-
-            ImageView divider = new ImageView(this);
-            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-            pillReportList.addView(divider);
+    private void search(){
+        String logo = ((EditText) findViewById(R.id.logoInput)).getText().toString();
+        String colour = ((EditText) findViewById(R.id.colourInput)).getText().toString();
+        String region = String.valueOf(((Spinner) findViewById(R.id.locationInput)).getSelectedItemId());
+        if (region.equals("0")){
+            region = "all";
         }
+
+        PillScraperBuilder builder = new PillScraperBuilder();
+        String url = builder.setLogo(logo).setColour(colour).setRegion(region).createPillScraper().generatePillScraper();
+
+        Intent intent = new Intent(AdvancedPillSearch.this, PillReports.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
 
     }
 

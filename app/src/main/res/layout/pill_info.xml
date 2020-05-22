@@ -30,6 +30,7 @@
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:text="date"
             android:textAlignment="textEnd" />
@@ -43,44 +44,54 @@
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="0"
-            android:tint="#C0C0C0"
-            app:srcCompat="@drawable/loc" />
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="location" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/pillImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="0"
-            android:tint="#F3F3F3"
-            app:srcCompat="@drawable/unknown" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0"
+                    android:tint="#C0C0C0"
+                    app:srcCompat="@drawable/loc" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="location" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/pillImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:tint="#F3F3F3"
+                app:srcCompat="@drawable/unknown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
@@ -90,35 +101,31 @@
                 android:id="@+id/suspectedContents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="suspected contents:" />
 
             <TextView
                 android:id="@+id/shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="shape:" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="logo:" />
 
             <TextView
                 android:id="@+id/colour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="colour:" />
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

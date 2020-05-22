@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.AdvancedPillSearch"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_advanced_pill_search"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
             android:name=".activities.PillReports"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_pill_reports"

@@ -30,4 +30,6 @@
     <string name="title_activity_overdose_selector">OverdoseSelector</string>
 
     <string name="title_activity_pill_reports">PillReports</string>
+
+    <string name="title_activity_advanced_pill_search">AdvancedPillSearch</string>
 </resources>
