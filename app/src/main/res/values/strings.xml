@@ -28,4 +28,6 @@
     <string name="title_activity_textac">textac</string>
 
     <string name="title_activity_overdose_selector">OverdoseSelector</string>
+
+    <string name="title_activity_pill_reports">PillReports</string>
 </resources>
