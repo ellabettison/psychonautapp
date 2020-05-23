@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/roa"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
     android:layout_marginTop="10dp"
@@ -171,15 +171,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:orientation="horizontal"
-        android:paddingRight="55dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/onset"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbg2"
             android:backgroundTint="#F3F3F3F3"
@@ -192,8 +191,8 @@
             android:id="@+id/peak"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbg2"
             android:backgroundTint="#F3F3F3"
@@ -206,14 +205,21 @@
             android:id="@+id/aftereffects"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbg2"
             android:backgroundTint="#F3F3F3"
             android:text="after effects"
             android:textAlignment="center"
             android:textSize="12sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.45" />
     </LinearLayout>
 
     <FrameLayout
@@ -229,16 +235,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:orientation="horizontal"
-        android:paddingLeft="55dp">
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.45" />
 
         <TextView
             android:id="@+id/comeup"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbgv2"
             android:backgroundTint="#F3F3F3"
@@ -252,8 +264,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbgv2"
             android:backgroundTint="#F3F3F3"
@@ -267,8 +279,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/arrowbgv2"
             android:backgroundTint="#F3F3F3"

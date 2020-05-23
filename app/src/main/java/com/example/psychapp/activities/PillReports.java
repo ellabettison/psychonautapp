@@ -171,49 +171,58 @@ public class PillReports extends AppCompatActivity {
         Log.d("PILLS", "numer of pills: " + pills.size());
 
         ((TextView)findViewById(R.id.pillReportsLabel)).setTypeface(manjari);
-
+        TextView none = findViewById(R.id.none);
         LinearLayout pillReportList = findViewById(R.id.pillReportList);
 
-        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 15);
-        for (PillObject pill: pills){
-            LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View pillView = inflater.inflate(R.layout.pill_info,
-                    (ViewGroup) findViewById(R.id.pillInfo), false);
+        if (!pills.isEmpty()) {
+            pillReportList.removeView(none);
+            int dividerHeight = (int) (getResources().getDisplayMetrics().density * 15);
+            for (PillObject pill : pills) {
+                LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View pillView = inflater.inflate(R.layout.pill_info,
+                        (ViewGroup) findViewById(R.id.pillInfo), false);
 
-            TextView name = pillView.findViewById(R.id.name);
-            name.setText(pill.getName().toLowerCase());
-            name.setTypeface(manjari);
-            TextView date = pillView.findViewById(R.id.date);
-            date.setText(pill.getDate().substring(0, pill.getDate().length()-3).toLowerCase());
-            date.setTypeface(manjari);
-            TextView location = pillView.findViewById(R.id.location);
-            location.setText(pill.getLocation().toLowerCase());
-            location.setTypeface(manjari);
-            TextView colour = pillView.findViewById(R.id.colour);
-            colour.setText(String.format("colour: %s", pill.getColour().toLowerCase()));
-            colour.setTypeface(manjari);
-            TextView logo = pillView.findViewById(R.id.logo);
-            logo.setText(String.format("logo: %s", pill.getLogo().toLowerCase()));
-            logo.setTypeface(manjari);
-            TextView shape = pillView.findViewById(R.id.shape);
-            shape.setText(String.format("shape: %s", pill.getShape().toLowerCase()));
-            shape.setTypeface(manjari);
-            TextView contents = pillView.findViewById(R.id.suspectedContents);
-            contents.setText(String.format("suspected contents: %s", pill.getSuspectContents().toLowerCase()));
-            contents.setTypeface(manjari);
+                TextView name = pillView.findViewById(R.id.name);
+                name.setText(pill.getName().toLowerCase());
+                name.setTypeface(manjari);
+                TextView date = pillView.findViewById(R.id.date);
+                date.setText(pill.getDate().substring(0, pill.getDate().length() - 3).toLowerCase());
+                date.setTypeface(manjari);
+                TextView location = pillView.findViewById(R.id.location);
+                location.setText(pill.getLocation().toLowerCase());
+                location.setTypeface(manjari);
+                TextView colour = pillView.findViewById(R.id.colour);
+                colour.setText(pill.getColour().toLowerCase());
+                colour.setTypeface(manjari);
+                ((TextView) pillView.findViewById(R.id.colourLabel)).setTypeface(manjari);
 
-            ImageView image = pillView.findViewById(R.id.pillImage);
-            image.setImageDrawable(pill.getImage());
-            image.setImageTintList(null);
-            image.refreshDrawableState();
+                TextView logo = pillView.findViewById(R.id.logo);
+                logo.setText(pill.getLogo().toLowerCase());
+                logo.setTypeface(manjari);
+                ((TextView) pillView.findViewById(R.id.logoLabel)).setTypeface(manjari);
 
-            pillReportList.addView(pillView);
+                TextView shape = pillView.findViewById(R.id.shape);
+                shape.setText(pill.getShape().toLowerCase());
+                shape.setTypeface(manjari);
+                ((TextView) pillView.findViewById(R.id.shapeLabel)).setTypeface(manjari);
 
-            ImageView divider = new ImageView(this);
-            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-            pillReportList.addView(divider);
+                TextView contents = pillView.findViewById(R.id.suspectedContents);
+                contents.setText(pill.getSuspectContents().toLowerCase());
+                contents.setTypeface(manjari);
+                ((TextView) pillView.findViewById(R.id.suspectedContentsLabel)).setTypeface(manjari);
+
+                ImageView image = pillView.findViewById(R.id.pillImage);
+                image.setImageDrawable(pill.getImage());
+                image.setImageTintList(null);
+                image.refreshDrawableState();
+
+                pillReportList.addView(pillView);
+
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+                pillReportList.addView(divider);
+            }
         }
-
     }
 
     @Override
