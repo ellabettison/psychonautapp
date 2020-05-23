@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -161,14 +164,17 @@ public class PillReports extends AppCompatActivity {
     private void getPills(String url) throws Exception {
         PillScraperBuilder builder = new PillScraperBuilder();
         //String url = builder.createPillScraper().generatePillScraper();
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         WebScraperCaller webScraperCaller = new WebScraperCaller();
         ArrayList<PillObject> pills = webScraperCaller.getPills(url, 0);
         Log.d("PILLS", "numer of pills: " + pills.size());
 
+        ((TextView)findViewById(R.id.pillReportsLabel)).setTypeface(manjari);
+
         LinearLayout pillReportList = findViewById(R.id.pillReportList);
 
-        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 15);
         for (PillObject pill: pills){
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
             View pillView = inflater.inflate(R.layout.pill_info,
@@ -176,18 +182,25 @@ public class PillReports extends AppCompatActivity {
 
             TextView name = pillView.findViewById(R.id.name);
             name.setText(pill.getName().toLowerCase());
+            name.setTypeface(manjari);
             TextView date = pillView.findViewById(R.id.date);
-            date.setText(String.format("posted: %s",pill.getDate().toLowerCase()));
+            date.setText(pill.getDate().substring(0, pill.getDate().length()-3).toLowerCase());
+            date.setTypeface(manjari);
             TextView location = pillView.findViewById(R.id.location);
             location.setText(pill.getLocation().toLowerCase());
+            location.setTypeface(manjari);
             TextView colour = pillView.findViewById(R.id.colour);
             colour.setText(String.format("colour: %s", pill.getColour().toLowerCase()));
+            colour.setTypeface(manjari);
             TextView logo = pillView.findViewById(R.id.logo);
             logo.setText(String.format("logo: %s", pill.getLogo().toLowerCase()));
+            logo.setTypeface(manjari);
             TextView shape = pillView.findViewById(R.id.shape);
             shape.setText(String.format("shape: %s", pill.getShape().toLowerCase()));
+            shape.setTypeface(manjari);
             TextView contents = pillView.findViewById(R.id.suspectedContents);
             contents.setText(String.format("suspected contents: %s", pill.getSuspectContents().toLowerCase()));
+            contents.setTypeface(manjari);
 
             ImageView image = pillView.findViewById(R.id.pillImage);
             image.setImageDrawable(pill.getImage());

@@ -2,7 +2,7 @@ package com.example.psychapp.pillreports;
 
 public class PillScraper {
     
-    int pp = 10;
+    int pp = 20;
     String name = "";
     String colour = "";
     String logo = "";
@@ -32,6 +32,7 @@ public class PillScraper {
                 "&sub_region=" + sub_region +
                 "&suspected_contents=all" +
                 "&rating=Adulterated" +
-                "&pp=" + pp;
+                "&pp=" + pp+
+                "&order=latest";
     }
 }

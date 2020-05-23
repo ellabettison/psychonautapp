@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="europe_regions">
+        <item>all</item>
+        <item>austria</item>
+        <item>belgium</item>
+        <item>bulgaria</item>
+        <item>croatia</item>
+        <item>czech republic</item>
+        <item>denmark</item>
+        <item>estonia</item>
+        <item>finland</item>
+        <item>france</item>
+        <item>georgia</item>
+        <item>greece</item>
+        <item>hungary</item>
+        <item>ibiza</item>
+        <item>iceland</item>
+        <item>ireland</item>
+        <item>italy</item>
+        <item>latvia</item>
+        <item>lithuania</item>
+        <item>malta</item>
+        <item>netherlands</item>
+        <item>northern ireland</item>
+        <item>norway</item>
+        <item>poland</item>
+        <item>portugal</item>
+        <item>romania</item>
+        <item>russia</item>
+        <item>serbia</item>
+        <item>slovak republic</item>
+        <item>slovenia</item>
+        <item>spain</item>
+        <item>sweden</item>
+        <item>switzerland</item>
+        <item>uk</item>
+        <item>ukraine</item>
+    </string-array>
+</resources>

@@ -4,17 +4,23 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.psychapp.R;
 import com.example.psychapp.pillreports.PillScraperBuilder;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -95,6 +101,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_advanced_pill_search);
@@ -103,6 +110,24 @@ public class AdvancedPillSearch extends AppCompatActivity {
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
+        ViewGroup content = ((ViewGroup) findViewById(R.id.search));
+        for (int i = 0; i < content.getChildCount(); i++){
+            try{
+                ((TextView) content.getChildAt(i)).setTypeface(manjari);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        ((TextView)findViewById(R.id.logoLabel)).setTypeface(manjari);
+        ((TextView)findViewById(R.id.colourLabel)).setTypeface(manjari);
+        ((TextView)findViewById(R.id.regionLabel)).setTypeface(manjari);
+        ((TextView)findViewById(R.id.subRegionLabel)).setTypeface(manjari);
+        ((TextView)findViewById(R.id.stateLabel)).setTypeface(manjari);
+
+        ((EditText)findViewById(R.id.logoInput)).setTypeface(manjari);
+        ((EditText)findViewById(R.id.colourInput)).setTypeface(manjari);
+        ((EditText)findViewById(R.id.stateInput)).setTypeface(manjari);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -127,9 +152,15 @@ public class AdvancedPillSearch extends AppCompatActivity {
         if (region.equals("0")){
             region = "all";
         }
+        String subRegion = String.valueOf(((Spinner) findViewById(R.id.subRegionInput)).getSelectedItemId());
+        if (subRegion.equals("0")){
+            subRegion = "all";
+        }
+        String state = ((EditText) findViewById(R.id.stateInput)).getText().toString();
 
         PillScraperBuilder builder = new PillScraperBuilder();
-        String url = builder.setLogo(logo).setColour(colour).setRegion(region).createPillScraper().generatePillScraper();
+        String url = builder.setLogo(logo).setColour(colour).setRegion(region)
+                .setState(state).setSub_region(subRegion).createPillScraper().generatePillScraper();
 
         Intent intent = new Intent(AdvancedPillSearch.this, PillReports.class);
         intent.putExtra("url", url);

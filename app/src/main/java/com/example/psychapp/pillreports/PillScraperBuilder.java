@@ -2,7 +2,7 @@ package com.example.psychapp.pillreports;
 
 public class PillScraperBuilder {
     
-    private int pp = 10;
+    private int pp = 20;
     private String name = "";
     private String colour = "";
     private String logo = "";

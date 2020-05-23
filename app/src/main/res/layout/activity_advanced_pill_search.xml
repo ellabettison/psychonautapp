@@ -35,6 +35,7 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -47,7 +48,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/logoLabel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
@@ -82,7 +83,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/colourLabel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
@@ -109,6 +110,7 @@
                         android:textColor="#C0C0C0"
                         android:textColorHint="#C0C0C0"
                         android:textSize="20sp" />
+
                 </TableRow>
 
                 <TableRow
@@ -117,7 +119,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/regionLabel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
@@ -141,6 +143,70 @@
                         android:gravity="center" />
                 </TableRow>
 
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/subRegionLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="sub region"
+                        android:textAlignment="textStart"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/subRegionInput"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:entries="@array/europe_regions"
+                        android:gravity="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/stateLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="state/province"
+                        android:textAlignment="textStart"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/stateInput"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="textPersonName"
+                        android:textAlignment="textStart"
+                        android:textColor="#C0C0C0"
+                        android:textColorHint="#C0C0C0" />
+                </TableRow>
+
             </LinearLayout>
         </ScrollView>
 
@@ -148,8 +214,12 @@
             android:id="@+id/searchButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:text="search" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="search"
+            android:textSize="25sp" />
 
         <FrameLayout
             android:layout_width="match_parent"
