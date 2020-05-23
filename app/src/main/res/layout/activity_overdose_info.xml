@@ -16,9 +16,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -30,11 +27,11 @@
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:background="#00FFFFFF"
             android:backgroundTint="#00FFFFFF"
             android:paddingLeft="30dp"
-            android:paddingTop="50dp"
+            android:paddingTop="40dp"
             android:paddingRight="30dp"
             android:textAlignment="textStart"
             android:textColor="#C0C0C0"
@@ -47,8 +44,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView

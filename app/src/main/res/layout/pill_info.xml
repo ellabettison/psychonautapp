@@ -30,7 +30,6 @@
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:text="date"
             android:textAlignment="textEnd" />
@@ -108,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="suspected contents"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="#C9C9C9" />
 
                 <Space
                     android:layout_width="10dp"
@@ -133,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="shape"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="#C9C9C9" />
 
                 <Space
                     android:layout_width="10dp"
@@ -158,7 +159,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="logo"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="#C9C9C9" />
 
                 <Space
                     android:layout_width="10dp"
@@ -183,7 +185,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="colour"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="#C9C9C9" />
 
                 <Space
                     android:layout_width="10dp"

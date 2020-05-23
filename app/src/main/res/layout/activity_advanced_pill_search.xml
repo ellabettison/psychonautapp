@@ -1,9 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fullscreen_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:layout_gravity="top"
+    android:background="#F3F3F3"
+    android:fitsSystemWindows="true"
+    android:gravity="top"
+    android:orientation="vertical"
     tools:context="com.example.psychapp.activities.AdvancedPillSearch">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -12,34 +16,34 @@
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
+    <TextView
+        android:id="@+id/advancedSearchLabel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="top"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="@string/advanced_search"
+        android:textColor="#C0C0C0"
+        android:textSize="25sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F3F3F3"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_weight="1"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/advancedSearchLabel"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:paddingStart="30dp"
-            android:paddingTop="50dp"
-            android:paddingEnd="30dp"
-            android:text="advanced search"
-            android:textColor="#C0C0C0"
-            android:textSize="25sp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:orientation="vertical">
 
                 <TableRow
@@ -68,6 +72,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
+                        android:backgroundTint="#C0C0C0"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="textPersonName"
@@ -103,6 +108,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
+                        android:backgroundTint="#C0C0C0"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="textPersonName"
@@ -199,54 +205,37 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
+                        android:backgroundTint="#C0C0C0"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
                         android:textColor="#C0C0C0"
                         android:textColorHint="#C0C0C0" />
+
                 </TableRow>
 
             </LinearLayout>
         </ScrollView>
 
-        <Button
-            android:id="@+id/searchButton"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="search"
-            android:textSize="25sp" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <LinearLayout
-                android:id="@+id/fullscreen_content_controls"
-                style="?metaButtonBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="@color/black_overlay"
-                android:orientation="horizontal"
-                tools:ignore="UselessParent">
-
-                <Button
-                    android:id="@+id/dummy_button"
-                    style="?metaButtonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/dummy_button" />
-
-            </LinearLayout>
-        </FrameLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:foregroundGravity="bottom"
+        android:text="search"
+        android:textSize="25sp" />
+
+</LinearLayout>

@@ -31,11 +31,11 @@
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:layout_gravity="top"
             android:layout_weight="0"
             android:paddingStart="30dp"
-            android:paddingTop="50dp"
+            android:paddingTop="40dp"
             android:paddingEnd="30dp"
             android:text="overdose help"
             android:textAlignment="textStart"
@@ -53,7 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical" />
         </ScrollView>
 

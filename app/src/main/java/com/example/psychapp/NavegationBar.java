@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.example.psychapp.activities.HomeScreen;
 import com.example.psychapp.activities.OverdoseSelector;
 import com.example.psychapp.activities.PillReports;
+import com.example.psychapp.activities.Splash;
 
 public class NavegationBar {
 
@@ -85,7 +86,7 @@ public class NavegationBar {
     }
 
     public void pillPress(){
-        Intent intent = new Intent(packagageContext, PillReports.class);
+        Intent intent = new Intent(packagageContext, Splash.class);
         packagageContext.startActivity(intent);
     }
 

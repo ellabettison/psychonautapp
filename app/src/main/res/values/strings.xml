@@ -32,4 +32,7 @@
     <string name="title_activity_pill_reports">PillReports</string>
 
     <string name="title_activity_advanced_pill_search">AdvancedPillSearch</string>
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="advanced_search">advanced search</string>
 </resources>

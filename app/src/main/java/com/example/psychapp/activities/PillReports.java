@@ -168,7 +168,6 @@ public class PillReports extends AppCompatActivity {
 
         WebScraperCaller webScraperCaller = new WebScraperCaller();
         ArrayList<PillObject> pills = webScraperCaller.getPills(url, 0);
-        Log.d("PILLS", "numer of pills: " + pills.size());
 
         ((TextView)findViewById(R.id.pillReportsLabel)).setTypeface(manjari);
         TextView none = findViewById(R.id.none);

@@ -16,55 +16,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WebScraper extends AsyncTask<Integer, Integer, String> {
     
-    String url;
+    private String url;
     
-    public WebScraper(String url){
+    WebScraper(String url){
         this.url = url;
     }
-
-    // TODO: sort!! try/catches
-//    @Override
-//    protected String doInBackground(Integer... ints) {
-//        String urlToRead = url + "&pnum=" + ints[0];
-//        StringBuilder result = new StringBuilder();
-//        URL url = null;
-//        try {
-//            url = new URL(urlToRead);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//        HttpURLConnection conn = null;
-//        try {
-//            conn = (HttpURLConnection) url.openConnection();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            conn.setRequestMethod("GET");
-//        } catch (ProtocolException e) {
-//            e.printStackTrace();
-//        }
-//        BufferedReader rd = null;
-//        try {
-//            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        String line;
-//        try {
-//            while ((line = rd.readLine()) != null) {
-//                result.append(line);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            rd.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return result.toString();
-//    }
 
     @Override
     protected String doInBackground(Integer... ints) {

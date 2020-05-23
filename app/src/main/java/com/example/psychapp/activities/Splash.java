@@ -12,23 +12,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
-import com.example.psychapp.pillreports.PillScraperBuilder;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class AdvancedPillSearch extends AppCompatActivity {
+public class Splash extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -74,7 +68,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-//            mControlsView.setVisibility(View.VISIBLE);
+            mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -101,35 +95,37 @@ public class AdvancedPillSearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        ((TextView) findViewById(R.id.loadingText)).setTypeface(manjari);
 
-        setContentView(R.layout.activity_advanced_pill_search);
+        Thread welcomeThread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    sleep(500);  //Delay of 10 seconds
+                } catch (Exception e) {
+
+                } finally {
+                    Serializable urlInp = (getIntent()
+                            .getSerializableExtra("url"));
+                    Intent i = new Intent(Splash.this,
+                            PillReports.class);
+                    i.putExtra("url", urlInp);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        };
+        welcomeThread.start();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-        ViewGroup content = findViewById(R.id.search);
-        for (int i = 0; i < content.getChildCount(); i++){
-            try{
-                ((TextView) content.getChildAt(i)).setTypeface(manjari);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-
-        ((TextView)findViewById(R.id.advancedSearchLabel)).setTypeface(manjari);
-
-        ((TextView)findViewById(R.id.logoLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.colourLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.regionLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.subRegionLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.stateLabel)).setTypeface(manjari);
-
-        ((EditText)findViewById(R.id.logoInput)).setTypeface(manjari);
-        ((EditText)findViewById(R.id.colourInput)).setTypeface(manjari);
-        ((EditText)findViewById(R.id.stateInput)).setTypeface(manjari);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -142,32 +138,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-
-        findViewById(R.id.searchButton).setOnClickListener(v -> search());
-    }
-
-    private void search(){
-        String logo = ((EditText) findViewById(R.id.logoInput)).getText().toString();
-        String colour = ((EditText) findViewById(R.id.colourInput)).getText().toString();
-        String region = String.valueOf(((Spinner) findViewById(R.id.locationInput)).getSelectedItemId());
-        if (region.equals("0")){
-            region = "all";
-        }
-        String subRegion = String.valueOf(((Spinner) findViewById(R.id.subRegionInput)).getSelectedItemId());
-        if (subRegion.equals("0")){
-            subRegion = "all";
-        }
-        String state = ((EditText) findViewById(R.id.stateInput)).getText().toString();
-
-        PillScraperBuilder builder = new PillScraperBuilder();
-        String url = builder.setLogo(logo).setColour(colour).setRegion(region)
-                .setState(state).setSub_region(subRegion).createPillScraper().generatePillScraper();
-
-        Intent intent = new Intent(AdvancedPillSearch.this, Splash.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
