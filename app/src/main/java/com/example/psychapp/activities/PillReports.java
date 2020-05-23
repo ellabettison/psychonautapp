@@ -42,6 +42,7 @@ public class PillReports extends AppCompatActivity {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
+    int pnum = 0;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -153,28 +154,47 @@ public class PillReports extends AppCompatActivity {
         navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
         navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
 
+        findViewById(R.id.previous).setOnClickListener(v -> {
+            try {
+                getPills(url, --pnum);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        findViewById(R.id.next).setOnClickListener(v -> {
+            try {
+                getPills(url, ++pnum);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         try {
-            getPills(url);
+            getPills(url, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+
     }
 
-    private void getPills(String url) throws Exception {
+    private void getPills(String url, int pnum) throws Exception {
         PillScraperBuilder builder = new PillScraperBuilder();
         //String url = builder.createPillScraper().generatePillScraper();
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         WebScraperCaller webScraperCaller = new WebScraperCaller();
-        ArrayList<PillObject> pills = webScraperCaller.getPills(url, 0);
+        ArrayList<PillObject> pills = webScraperCaller.getPills(url, pnum);
 
         ((TextView)findViewById(R.id.pillReportsLabel)).setTypeface(manjari);
-        TextView none = findViewById(R.id.none);
+        //TextView none = findViewById(R.id.none);
         LinearLayout pillReportList = findViewById(R.id.pillReportList);
+        View prevNext = findViewById(R.id.prevnextLayout);
+        pillReportList.removeAllViews();
 
         if (!pills.isEmpty()) {
-            pillReportList.removeView(none);
             int dividerHeight = (int) (getResources().getDisplayMetrics().density * 15);
             for (PillObject pill : pills) {
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -221,6 +241,9 @@ public class PillReports extends AppCompatActivity {
                 divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
                 pillReportList.addView(divider);
             }
+            pillReportList.addView(prevNext);
+        } else {
+            pillReportList.removeView(prevNext);
         }
     }
 

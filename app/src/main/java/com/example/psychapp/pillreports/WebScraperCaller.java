@@ -23,7 +23,7 @@ public class WebScraperCaller {
         Log.d("URL", "url is: %s" + url);
 
         WebScraper webScraper = new WebScraper(url);
-        String output = webScraper.execute(0).get();
+        String output = webScraper.execute(pnum).get();
         
         //String output = webScraper.getHTML(pnum);
    
