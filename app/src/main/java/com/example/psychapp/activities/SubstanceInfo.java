@@ -232,7 +232,7 @@ public class SubstanceInfo extends AppCompatActivity {
         ExperienceNameScraper nameScraper = new ExperienceNameScraper();
         Pair<ArrayList<String>, ArrayList<String>> reports = nameScraper.execute(html, substanceName).get();
 
-        if (!reports.first.isEmpty()) {
+        if ((reports != null) && !reports.first.isEmpty()) {
             experienceReportsLabel.setTypeface(manjari);
             for (int i = 0; i < reports.first.size(); i++) {
                 Button effectText = new Button(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);

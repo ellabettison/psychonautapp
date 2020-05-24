@@ -18,7 +18,13 @@ public class ExperienceNameScraper extends AsyncTask<String, Integer, Pair<Array
 
         Document parsed = Jsoup.parse(output[0]);
         Elements searchReports = parsed.body().getElementsByClass("mw-headline")
-                .select(String.format("span[id=%s]", output[1])).first()
+                .select(String.format("span[id=%s]", output[1]));
+
+        if (searchReports.size() == 0)
+        {
+            return null;
+        }
+        searchReports = searchReports.first()
                 .parent().parent().getElementsByTag("li")
                 .select("a[href*=Experience]");
 
