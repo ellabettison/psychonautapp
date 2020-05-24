@@ -1,31 +1,23 @@
-package com.example.psychapp.api;
+package com.example.psychapp.wikiapi;
 
 import android.os.AsyncTask;
 
-import com.example.psychapp.api.QueryObjects.SubstanceObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.psychapp.wikiapi.QueryObjects.SubstanceObject;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class APIClient extends AsyncTask<String, Integer, ArrayList<SubstanceObject>> {
 

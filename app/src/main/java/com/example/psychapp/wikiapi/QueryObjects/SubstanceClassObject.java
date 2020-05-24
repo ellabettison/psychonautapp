@@ -1,8 +1,6 @@
-package com.example.psychapp.api.QueryObjects;
+package com.example.psychapp.wikiapi.QueryObjects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 

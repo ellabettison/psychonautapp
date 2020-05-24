@@ -14,17 +14,11 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class WebScraper extends AsyncTask<Integer, Integer, String> {
-    
-    private String url;
-    
-    WebScraper(String url){
-        this.url = url;
-    }
+public class WebScraper extends AsyncTask<String, Integer, String> {
 
     @Override
-    protected String doInBackground(Integer... ints) {
-        String urlToRead = url + "&pnum=" + ints[0];
+    protected String doInBackground(String... urls) {
+        String urlToRead = urls[0];
         String result = null;
         int resCode;
         InputStream in;

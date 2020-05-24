@@ -35,4 +35,7 @@
 
     <string name="title_activity_splash">Splash</string>
     <string name="advanced_search">advanced search</string>
+
+    <string name="title_activity_experience_report">ExperienceReport</string>
+    <string name="experience_reports">experience reports</string>
 </resources>

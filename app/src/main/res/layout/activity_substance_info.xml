@@ -97,9 +97,11 @@
             android:id="@+id/dosageLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="@string/dosage" />
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="@string/dosage"
+            android:textColor="#C0C0C0"
+            android:textSize="14sp" />
 
         <HorizontalScrollView
             android:id="@+id/roaScroll"
@@ -176,10 +178,7 @@
 
                 <TextView
                     android:id="@+id/interactionsLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    style="@style/subheading"
                     android:text="@string/interactions" />
 
                 <LinearLayout
@@ -248,11 +247,8 @@
 
                 <TextView
                     android:id="@+id/toxicityLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/toxicity" />
+                    android:text="@string/toxicity"
+                    style="@style/subheading" />
 
                 <TextView
                     android:id="@+id/toxicityList"
@@ -266,14 +262,26 @@
 
                 <TextView
                     android:id="@+id/effectsLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/effects" />
+                    android:text="@string/effects"
+                    style="@style/subheading" />
 
                 <LinearLayout
                     android:id="@+id/effectsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/experienceReportsLabel"
+                    android:text="@string/experience_reports"
+                    style="@style/subheading" />
+
+                <LinearLayout
+                    android:id="@+id/experienceReportsList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"

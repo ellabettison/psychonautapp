@@ -1,4 +1,4 @@
-package com.example.psychapp;
+package com.example.psychapp.elements;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.psychapp.R;
 import com.example.psychapp.activities.HomeScreen;
 import com.example.psychapp.activities.OverdoseSelector;
 import com.example.psychapp.activities.PillReports;

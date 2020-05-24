@@ -3,7 +3,6 @@ package com.example.psychapp.activities;
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -13,12 +12,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -30,21 +28,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psychapp.R;
-import com.example.psychapp.api.APIClient;
-import com.example.psychapp.api.QueryBuilder;
-import com.example.psychapp.api.QueryObjects.DosageObject;
-import com.example.psychapp.api.QueryObjects.DurationObject;
-import com.example.psychapp.api.QueryObjects.EffectObject;
-import com.example.psychapp.api.QueryObjects.RoaObject;
-import com.example.psychapp.api.QueryObjects.SubstanceObject;
-import com.example.psychapp.api.QueryObjects.UnitsObject;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.psychapp.experiencereports.ExperienceNameScraper;
+import com.example.psychapp.pillreports.WebScraper;
+import com.example.psychapp.wikiapi.APIClient;
+import com.example.psychapp.wikiapi.QueryBuilder;
+import com.example.psychapp.wikiapi.QueryObjects.DurationObject;
+import com.example.psychapp.wikiapi.QueryObjects.EffectObject;
+import com.example.psychapp.wikiapi.QueryObjects.RoaObject;
+import com.example.psychapp.wikiapi.QueryObjects.SubstanceObject;
+import com.example.psychapp.wikiapi.QueryObjects.UnitsObject;
 
 import org.w3c.dom.Text;
 
-import java.nio.file.FileAlreadyExistsException;
-import java.security.GeneralSecurityException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -225,6 +220,43 @@ public class SubstanceInfo extends AppCompatActivity {
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
+    private void getExperienceNames() throws ExecutionException, InterruptedException {
+        String pillReportsUrl = "https://psychonautwiki.org/wiki/Experience_index";
+        LinearLayout contentLayout = findViewById(R.id.experienceReportsList);
+        TextView experienceReportsLabel = findViewById(R.id.experienceReportsLabel);
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+
+        WebScraper webScraper = new WebScraper();
+        String html = webScraper.execute(pillReportsUrl).get();
+        ExperienceNameScraper nameScraper = new ExperienceNameScraper();
+        Pair<ArrayList<String>, ArrayList<String>> reports = nameScraper.execute(html, substanceName).get();
+
+        if (!reports.first.isEmpty()) {
+            experienceReportsLabel.setTypeface(manjari);
+            for (int i = 0; i < reports.first.size(); i++) {
+                Button effectText = new Button(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+                effectText.setTypeface(manjari);
+                effectText.setText(reports.first.get(i).toLowerCase());
+                effectText.setTag(reports.second.get(i));
+                contentLayout.addView(effectText);
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+                contentLayout.addView(divider);
+
+                effectText.setOnClickListener(v -> {
+                    Intent intent = new Intent(SubstanceInfo.this, ExperienceReport.class);
+                    intent.putExtra("experienceReportName", effectText.getText());
+                    intent.putExtra("experienceReportUrl", effectText.getTag().toString());
+                    startActivity(intent);
+                });
+
+            }
+        } else {
+            ((ViewGroup) findViewById(R.id.contentLayout)).removeView(experienceReportsLabel);
+        }
+    }
+
     protected void callOdPage(){
         Intent intent = new Intent(SubstanceInfo.this, OverdoseInfo.class);
         ArrayList<String> className = substanceObject.getSubstanceClass().getPsychoactive();
@@ -310,6 +342,7 @@ public class SubstanceInfo extends AppCompatActivity {
             getInteractions();
             getDuration(findViewById(R.id.roa1), 0);
             getToxicity();
+            getExperienceNames();
             if (substanceObject.getRoas().size()>1){
                 getDosage(findViewById(R.id.roa2), 1);
                 getDuration(findViewById(R.id.roa2), 1);

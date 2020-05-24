@@ -22,8 +22,8 @@ public class WebScraperCaller {
 
         Log.d("URL", "url is: %s" + url);
 
-        WebScraper webScraper = new WebScraper(url);
-        String output = webScraper.execute(pnum).get();
+        WebScraper webScraper = new WebScraper();
+        String output = webScraper.execute(url + "&pnum=" + pnum).get();
         
         //String output = webScraper.getHTML(pnum);
    

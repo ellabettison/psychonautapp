@@ -1,4 +1,4 @@
-package com.example.psychapp.api;
+package com.example.psychapp.wikiapi;
 
 public class QueryBuilder {
     

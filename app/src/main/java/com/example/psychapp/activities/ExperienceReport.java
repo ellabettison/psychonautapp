@@ -6,26 +6,24 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.psychapp.R;
-import com.example.psychapp.wikiapi.APIClient;
-import com.example.psychapp.wikiapi.QueryBuilder;
-import com.example.psychapp.wikiapi.QueryObjects.SubstanceObject;
+import com.example.psychapp.experiencereports.ExperienceReportScraper;
+import com.example.psychapp.experiencereports.Objects.ExperienceReportObject;
+import com.example.psychapp.experiencereports.Objects.ExperienceSectionObject;
+import com.example.psychapp.pillreports.WebScraper;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -33,9 +31,7 @@ import java.util.concurrent.ExecutionException;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SubstanceSelector extends AppCompatActivity {
-
-    private String substanceClass;
+public class ExperienceReport extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -81,7 +77,7 @@ public class SubstanceSelector extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-//            mControlsView.setVisibility(View.VISIBLE);
+            //mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -109,77 +105,70 @@ public class SubstanceSelector extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_substance_selector);
-
-        mVisible = true;
-        mContentView = findViewById(R.id.fullscreen_content);
-
-
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(view -> toggle());
-
-        substanceClass = Objects.requireNonNull(getIntent()
-                .getSerializableExtra("substanceClass")).toString();
-
-        TextView header = findViewById(R.id.header);
-        String headerString = substanceClass + "s";
-        header.setText(headerString);
-
-        try {
-            createButtons();
-        } catch (InterruptedException | ExecutionException e) {
-            String alertMessage = "sorry, something went wrong";
-            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-            toast.show();
-            finish();
-        }
-    }
-
-    private void createButtons() throws ExecutionException, InterruptedException {
-        APIClient apiClient = new APIClient();
-        QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.queryByClass(substanceClass).withName().withEffects().getQuery();
-
-        ArrayList<SubstanceObject> substances = apiClient.execute(query).get();
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
-        TextView header = findViewById(R.id.header);
-        header.setTypeface(manjari);
+        setContentView(R.layout.activity_experience_report);
 
-        if (substances != null) {
-            for (int i = 0; i < substances.size(); i++) {
-                if (!substances.get(i).getEffects().isEmpty()) {
-                    Button btn = new Button(this);
-                    btn.setId(i);
-                    btn.setTypeface(manjari);
-                    btn.setText(substances.get(i).getName().toLowerCase());
+        mContentView = findViewById(R.id.fullscreen_content);
+        mContentView.setOnClickListener(view -> toggle());
 
-                    LinearLayout ll = findViewById(R.id.substanceList);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
-                            .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    ll.addView(btn, lp);
+        mVisible = true;
 
-                    btn.setOnClickListener(v -> {
-                        Intent intent = new Intent(SubstanceSelector.this, SubstanceInfo.class);
-                        intent.putExtra("substanceName", btn.getText());
-                        startActivity(intent);
-                    });
+        String experienceReportName = Objects.requireNonNull(getIntent()
+                .getSerializableExtra("experienceReportName")).toString();
+        String experienceReportUrl = Objects.requireNonNull(getIntent()
+                .getSerializableExtra("experienceReportUrl")).toString();
 
-                    int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
-                    ImageView divider = new ImageView(this);
-                    divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams
-                            .MATCH_PARENT, dividerHeight));
-                    ll.addView(divider);
-                }
-            }
-        } else {
-            String alertMessage = "sorry, could not display substances";
-            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-            toast.show();
-            finish();
+        ((TextView) findViewById(R.id.experienceReportTitle)).setTypeface(manjari);
+
+        WebScraper webScraper = new WebScraper();
+        String paragraphs = "";
+        try {
+            paragraphs = webScraper.execute("https://psychonautwiki.org/" + experienceReportUrl).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
 
+        if (!paragraphs.equals("")){
+            ExperienceReportScraper reportScraper = new ExperienceReportScraper();
+            try {
+                ExperienceReportObject report = reportScraper.execute(experienceReportName, paragraphs).get();
+                ((TextView) findViewById(R.id.experienceReportTitle)).setText(report.getTitle());
+
+                LinearLayout contentLayout = findViewById(R.id.experienceReportList);
+
+                for (ExperienceSectionObject section: report.getReport()) {
+//                    if (section.getBody() != null) {
+                        if (section.getTitle() != null) {
+                            TextView sectionTitle = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+                            sectionTitle.setTypeface(manjari);
+                            sectionTitle.setText(section.getTitle());
+                            contentLayout.addView(sectionTitle);
+                        }
+                        if (section.getBody() != null) {
+                            TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+                            sectionBody.setTypeface(manjari);
+                            sectionBody.setText(section.getBody());
+                            contentLayout.addView(sectionBody);
+                            ImageView divider = new ImageView(this);
+                            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+                            contentLayout.addView(divider);
+                        }
+//                    } else {
+//                        TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+//                        sectionBody.setTextSize(20);
+//                        sectionBody.setTypeface(manjari);
+//                        sectionBody.setText(section.getTitle());
+//                        contentLayout.addView(sectionBody);
+//                    }
+                }
+
+
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -206,7 +195,7 @@ public class SubstanceSelector extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
+        //mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -234,4 +223,5 @@ public class SubstanceSelector extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
 }

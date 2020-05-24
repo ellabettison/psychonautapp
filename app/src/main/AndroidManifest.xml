@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.ExperienceReport"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_experience_report"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
             android:name=".activities.Splash"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
@@ -21,7 +26,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_advanced_pill_search"
             android:theme="@style/FullscreenTheme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.PillReports"
             android:configChanges="orientation|keyboardHidden|screenSize"

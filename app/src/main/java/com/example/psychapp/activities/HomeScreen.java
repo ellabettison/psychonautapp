@@ -18,11 +18,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.psychapp.NavegationBar;
+import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.R;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
