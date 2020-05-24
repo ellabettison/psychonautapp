@@ -27,11 +27,11 @@
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:background="#00FFFFFF"
             android:backgroundTint="#00FFFFFF"
             android:paddingLeft="30dp"
-            android:paddingTop="40dp"
+            android:paddingTop="50dp"
             android:paddingRight="30dp"
             android:textAlignment="textStart"
             android:textColor="#C0C0C0"
