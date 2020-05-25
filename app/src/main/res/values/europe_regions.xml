@@ -2,39 +2,40 @@
 <resources>
     <string-array name="europe_regions">
         <item>all</item>
-        <item>austria</item>
-        <item>belgium</item>
-        <item>bulgaria</item>
-        <item>croatia</item>
-        <item>czech republic</item>
-        <item>denmark</item>
-        <item>estonia</item>
-        <item>finland</item>
-        <item>france</item>
-        <item>georgia</item>
-        <item>greece</item>
-        <item>hungary</item>
-        <item>ibiza</item>
-        <item>iceland</item>
-        <item>ireland</item>
-        <item>italy</item>
-        <item>latvia</item>
-        <item>lithuania</item>
-        <item>malta</item>
-        <item>netherlands</item>
-        <item>northern ireland</item>
-        <item>norway</item>
-        <item>poland</item>
-        <item>portugal</item>
-        <item>romania</item>
-        <item>russia</item>
-        <item>serbia</item>
-        <item>slovak republic</item>
-        <item>slovenia</item>
-        <item>spain</item>
-        <item>sweden</item>
-        <item>switzerland</item>
-        <item>uk</item>
-        <item>ukraine</item>
+        <item>austria</item> #16
+        <item>belgium</item> #19
+        <item>bulgaria</item> #33
+        <item>croatia</item> #57
+        <item>czech republic</item> #30
+        <item>denmark</item> #17
+        <item>estonia</item> #32
+        <item>finland</item> #15
+        <item>france</item> #8
+        <item>georgia</item> #58
+        <item>germany</item> #12
+        <item>greece</item> #40
+        <item>hungary</item> #22
+        <item>ibiza</item> (#13) #21
+        <item>iceland</item> #35
+        <item>ireland</item> #47
+        <item>italy</item> #18?
+        <item>latvia</item> #29
+        <item>lithuania</item> #36
+        <item>malta</item> #18? #60
+        <item>netherlands</item> #9
+        <item>northern ireland</item> #59
+        <item>norway</item> #11
+        <item>poland</item> #23
+        <item>portugal</item> #20
+        <item>romania</item> #39
+        <item>russia</item> #24
+        <item>serbia</item> #54
+        <item>slovak republic</item> #34
+        <item>slovenia</item> #37
+        <item>spain</item> #13
+        <item>sweden</item> #10
+        <item>switzerland</item> #14
+        <item>uk</item> #7
+        <item>ukraine</item> #38
     </string-array>
 </resources>

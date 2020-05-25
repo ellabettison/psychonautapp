@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="north_america_regions">
-        <item>canada</item>
-        <item>central</item>
-        <item>hawaii</item>
-        <item>north east</item>
-        <item>north west</item>
-        <item>south east</item>
-        <item>south west</item>
+        <item>canada</item> #6
+        <item>central</item> #3
+        <item>hawaii</item> #26
+        <item>north east</item> #1
+        <item>north west</item> #4
+        <item>south east</item> #2
+        <item>south west</item> #5
     </string-array>
 </resources>

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,12 +133,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
         ((EditText)findViewById(R.id.stateInput)).setTypeface(manjari);
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
+        mContentView.setOnClickListener(view -> toggle());
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -150,10 +146,13 @@ public class AdvancedPillSearch extends AppCompatActivity {
     private void search(){
         String logo = ((EditText) findViewById(R.id.logoInput)).getText().toString();
         String colour = ((EditText) findViewById(R.id.colourInput)).getText().toString();
-        String region = String.valueOf(((Spinner) findViewById(R.id.locationInput)).getSelectedItemId());
-        if (region.equals("0")){
-            region = "all";
+        Spinner locationSpinner = findViewById(R.id.locationInput);
+        String regionName = String.valueOf(locationSpinner.getSelectedItem());
+        String regionId = String.valueOf(locationSpinner.getSelectedItemId());
+        if (regionId.equals("0")){
+            regionId = "all";
         }
+        Log.d("REGION NAMW", "search: " + regionName);
         String subRegion = String.valueOf(((Spinner) findViewById(R.id.subRegionInput)).getSelectedItemId());
         if (subRegion.equals("0")){
             subRegion = "all";
@@ -161,7 +160,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
         String state = ((EditText) findViewById(R.id.stateInput)).getText().toString();
 
         PillScraperBuilder builder = new PillScraperBuilder();
-        String url = builder.setLogo(logo).setColour(colour).setRegion(region)
+        String url = builder.setLogo(logo).setColour(colour).setRegion(regionId)
                 .setState(state).setSub_region(subRegion).createPillScraper().generatePillScraper();
 
         Intent intent = new Intent(AdvancedPillSearch.this, Splash.class);

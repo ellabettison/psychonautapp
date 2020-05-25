@@ -4,16 +4,23 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -125,13 +132,21 @@ public class HomeScreen extends AppCompatActivity {
         LinearLayout subLayout;
 
         int totalChildrenCount = 0;
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         // generate onclick events for each button
         for (int i = 0; i < buttonsLayout.getChildCount(); i++){
             subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
             for (int j = 0; j < subLayout.getChildCount(); j++){
                 totalChildren++;
-                ImageButton imageButton = (ImageButton) subLayout.getChildAt(j);
+                LinearLayout imageLayout = (LinearLayout) subLayout.getChildAt(j);
+                ImageButton imageButton = (ImageButton) ((FrameLayout) imageLayout.getChildAt(0)).getChildAt(0);
+                TextView substanceNameLabel = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+                substanceNameLabel.setText(String.format("%ss", imageButton.getTag().toString()));
+                substanceNameLabel.setTypeface(manjari);
+                substanceNameLabel.setTextSize(18);
+                substanceNameLabel.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                imageLayout.addView(substanceNameLabel);
                 imageButton.setOnClickListener(v -> {
                     Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
                     intent.putExtra("substanceClass", imageButton.getTag().toString());
@@ -211,7 +226,7 @@ public class HomeScreen extends AppCompatActivity {
                 }
 
                 for (int k = 0; k < childrenToMove; k++) {
-                    ImageButton childToMove = (ImageButton) nextLayout.getChildAt(0);
+                    LinearLayout childToMove = (LinearLayout) nextLayout.getChildAt(0);
                     if (childToMove != null) {
                         nextLayout.removeView(childToMove);
                         subLayout.addView(childToMove);

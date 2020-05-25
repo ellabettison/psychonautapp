@@ -31,7 +31,7 @@ public class PillScraper {
                 "&region=" + region +
                 "&sub_region=" + sub_region +
                 "&suspected_contents=all" +
-                "&rating=Adulterated" +
+                //"&rating=Adulterated" +
                 "&pp=" + pp+
                 "&order=latest";
     }

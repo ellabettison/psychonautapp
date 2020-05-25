@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="asia_regions">
+        <item>china</item> #51
+        <item>honsu,japan</item> #42
+        <item>india</item> #53
+        <item>indonesia</item> #48
+        <item>manila,philippines</item> #43
+        <item>pakistan</item> #52
+        <item>thailand</item> #55
+        <item>tokyo,japan</item> #41
+    </string-array>
+</resources>

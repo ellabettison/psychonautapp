@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="middle_east_regions">
+        <item>bahrain/dubai</item> #45 (none)
+        <item>egypt</item> #50
+        <item>israel</item> #46
+        <item>lebanon</item> #44
+        <item>syria</item> #61
+        <item>turkey</item> #49
+    </string-array>
+</resources>

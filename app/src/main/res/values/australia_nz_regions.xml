@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="australia_nz_regions">
+        <item>australia</item> #28
+        <item>new zealand</item> #27
+    </string-array>
+</resources>
