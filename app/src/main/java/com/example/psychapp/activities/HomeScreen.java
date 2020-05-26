@@ -9,24 +9,33 @@ import androidx.core.content.res.ResourcesCompat;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.text.Layout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.R;
+
+import java.util.ArrayList;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -95,6 +104,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         setContentView(R.layout.activity_fullscreen);
 
@@ -129,41 +139,120 @@ public class HomeScreen extends AppCompatActivity {
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
         LinearLayout buttonsLayout = findViewById(R.id.buttonsLayout);
-        LinearLayout subLayout;
 
-        int totalChildrenCount = 0;
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
-        // generate onclick events for each button
-        for (int i = 0; i < buttonsLayout.getChildCount(); i++){
-            subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
-            for (int j = 0; j < subLayout.getChildCount(); j++){
-                totalChildren++;
-                LinearLayout imageLayout = (LinearLayout) subLayout.getChildAt(j);
-                ImageButton imageButton = (ImageButton) ((FrameLayout) imageLayout.getChildAt(0)).getChildAt(0);
-                TextView substanceNameLabel = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
-                substanceNameLabel.setText(String.format("%ss", imageButton.getTag().toString()));
-                substanceNameLabel.setTypeface(manjari);
-                substanceNameLabel.setTextSize(18);
-                substanceNameLabel.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                imageLayout.addView(substanceNameLabel);
-                imageButton.setOnClickListener(v -> {
-                    Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
-                    intent.putExtra("substanceClass", imageButton.getTag().toString());
-                    startActivity(intent);
-                });
-            }
 
-        }
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        totalChildren = totalChildrenCount;
+        String[] substanceClassNames = getResources().getStringArray(R.array.substance_class_names);
+        TypedArray substanceClassImages = getResources().obtainTypedArray(R.array.substance_class_images);
+
+        totalChildren = substanceClassNames.length;
+
+        int BUTTON_WIDTH = 200;
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                BUTTON_WIDTH,
+                r.getDisplayMetrics()
+        );
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
-        resize(width, height);
+        int childrenPerRow = (int) (width/px);
+
+        int rowsWithChildren = (totalChildren/childrenPerRow);
+        int childrenOnLastRow = totalChildren - (childrenPerRow*rowsWithChildren);
+        int extraRow = 0;
+        if (childrenOnLastRow > 0) extraRow=1;
+
+        Log.d("fsaef", String.format("      ###############     children: %d, noRows: %d, childrnPrRow: %d",
+                totalChildren, rowsWithChildren, childrenPerRow));
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+       // FrameLayout.LayoutParams fp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.weight = 1;
+
+        int layoutHeight = (int) (getResources().getDisplayMetrics().density * 230);
+        for (int i = 0; i < rowsWithChildren + extraRow; i++){
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, layoutHeight));
+            //LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //p.weight = 1;
+            //linearLayout.setLayoutParams(p);
+
+            int childenInRow;
+            if(i != rowsWithChildren){ childenInRow=childrenPerRow;} else {childenInRow=childrenOnLastRow;};
+            for (int j = 0; j < childenInRow; j++){
+                int childIndex = (i*childrenPerRow) + j;
+                assert inflater != null;
+                View classLayout = inflater.inflate(R.layout.substance_class_icon,
+                        findViewById(R.id.class_layout), false);
+                ImageButton imageButton = classLayout.findViewById(R.id.image);
+                imageButton.setImageDrawable(substanceClassImages.getDrawable(childIndex));
+                imageButton.setImageTintList(null);
+                //imageButton.setBackgroundColor(getResources().getColor(R.color.black_overlay));
+                classLayout.setLayoutParams(lp);
+                //imageButton.setLayoutParams(fp);
+                TextView textView =  classLayout.findViewById(R.id.classNameLabel);
+                textView.setText(String.format("%ss", substanceClassNames[childIndex]));
+                imageButton.setTag(substanceClassNames[childIndex]);
+                textView.setTypeface(manjari);
+            Log.d("fmsoiefmaew", String.format(" ############## width: %d", imageButton.getWidth()));
+                imageButton.refreshDrawableState(); //TODO: needed?
+                imageButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+                    intent.putExtra("substanceClass", imageButton.getTag().toString());
+                    startActivity(intent);
+                });
+                linearLayout.addView(classLayout);
+
+            }
+            linearLayout.setBackgroundTintList(null);
+            buttonsLayout.addView(linearLayout);
+        }
+        //last row here
+        substanceClassImages.recycle();
+//
+//        LinearLayout subLayout;
+//
+//        int totalChildrenCount = 0;
+//        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+//
+//        // generate onclick events for each button
+//        for (int i = 0; i < buttonsLayout.getChildCount(); i++){
+//            subLayout = (LinearLayout) buttonsLayout.getChildAt(i);
+//            for (int j = 0; j < subLayout.getChildCount(); j++){
+//                totalChildren++;
+//                LinearLayout imageLayout = (LinearLayout) subLayout.getChildAt(j);
+//                ImageButton imageButton = (ImageButton) ((FrameLayout) imageLayout.getChildAt(0)).getChildAt(0);
+//                TextView substanceNameLabel = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+//                substanceNameLabel.setText(String.format("%ss", imageButton.getTag().toString()));
+//                substanceNameLabel.setTypeface(manjari);
+//                substanceNameLabel.setTextSize(18);
+//                substanceNameLabel.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                imageLayout.addView(substanceNameLabel);
+//                imageButton.setOnClickListener(v -> {
+//                    Intent intent = new Intent(HomeScreen.this, SubstanceSelector.class);
+//                    intent.putExtra("substanceClass", imageButton.getTag().toString());
+//                    startActivity(intent);
+//                });
+//            }
+//
+//        }
+//
+//        totalChildren = totalChildrenCount;
+//
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels;
+//        int width = displayMetrics.widthPixels;
+//
+//        resize(width, height);
 
         ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
 
@@ -185,9 +274,9 @@ public class HomeScreen extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            resize(height, width);
+            //resize(height, width);
         } else {
-            resize(width, height);
+           // resize(width, height);
         }
     }
 

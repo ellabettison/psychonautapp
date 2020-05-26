@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array name="substance_class_names">
+        <item android:drawable="@drawable/dancing">stimulant</item>
+        <item android:drawable="@drawable/people">depressant</item>
+        <item android:drawable="@drawable/nature">cannabinoid</item>
+        <item android:drawable="@drawable/exercise">psychedelic</item>
+        <item android:drawable="@drawable/computer">dissociative</item>
+        <item android:drawable="@drawable/psychology">enactogen</item>
+        <item android:drawable="@drawable/poppy">opioid</item>
+        <item android:drawable="@drawable/delier">deliriant</item>
+        <item android:drawable="@drawable/guyatcomputer">nootropic</item>
+        <item android:drawable="@drawable/randompillw">antipsychotic</item>
+    </string-array>
+    <integer-array name="substance_class_images">
+        <item>@drawable/dancing</item>
+        <item>@drawable/people</item>
+        <item>@drawable/nature</item>
+        <item>@drawable/exercise</item>
+        <item>@drawable/computer</item>
+        <item>@drawable/psychology</item>
+        <item>@drawable/poppy</item>
+        <item>@drawable/delier</item>
+        <item>@drawable/guyatcomputer</item>
+        <item>@drawable/randompillw</item>
+    </integer-array>
+</resources>

@@ -195,7 +195,7 @@ public class PillReports extends AppCompatActivity {
             for (PillObject pill : pills) {
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View pillView = inflater.inflate(R.layout.pill_info,
-                        (ViewGroup) findViewById(R.id.pillInfo), false);
+                         findViewById(R.id.pillInfo), false);
 
                 TextView name = pillView.findViewById(R.id.name);
                 name.setText(pill.getName().toLowerCase());
@@ -229,7 +229,7 @@ public class PillReports extends AppCompatActivity {
                 ImageView image = pillView.findViewById(R.id.pillImage);
                 image.setImageDrawable(pill.getImage());
                 image.setImageTintList(null);
-                image.refreshDrawableState();
+                image.refreshDrawableState(); //TODO: needed?
 
                 pillReportList.addView(pillView);
 
