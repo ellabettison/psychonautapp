@@ -32,16 +32,3 @@ unit_tests:
     paths:
       - app/build/reports/tests/
 
-static_analysis:
-  stage: quality_assurance
-  script:
-    - ./gradlew lint
-    - ./gradlew checkstyle
-    - ./gradlew pmd
-    - ./gradlew findbugs
-  artifacts:
-    name: "reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}"
-    when: on_failure
-    expire_in: 4 days
-    paths:
-      - app/build/reports/
