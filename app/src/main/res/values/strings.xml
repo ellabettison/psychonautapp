@@ -38,4 +38,17 @@
 
     <string name="title_activity_experience_report">ExperienceReport</string>
     <string name="experience_reports">experience reports</string>
+    <string name="logo">logo</string>
+    <string name="colour">colour</string>
+    <string name="region">region</string>
+    <string name="sub_region">sub region</string>
+    <string name="state_province">state/province</string>
+    <string name="search">search</string>
+    <string name="overdose_help">overdose help</string>
+    <string name="onset">onset</string>
+    <string name="peak">peak</string>
+    <string name="comeup">comeup</string>
+    <string name="offset">offset</string>
+    <string name="total">total</string>
+    <string name="after_effects">after effects</string>
 </resources>

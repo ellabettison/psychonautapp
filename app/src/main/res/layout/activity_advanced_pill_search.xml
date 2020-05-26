@@ -59,8 +59,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="logo"
+                        android:text="@string/logo"
                         android:textAlignment="textStart"
                         android:textSize="20sp" />
 
@@ -74,7 +73,6 @@
                         android:layout_weight="1"
                         android:backgroundTint="#C0C0C0"
                         android:ems="10"
-                        android:gravity="center"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
                         android:textColor="#C0C0C0"
@@ -95,8 +93,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="colour"
+                        android:text="@string/colour"
                         android:textAlignment="textStart"
                         android:textSize="20sp" />
 
@@ -110,7 +107,6 @@
                         android:layout_weight="1"
                         android:backgroundTint="#C0C0C0"
                         android:ems="10"
-                        android:gravity="center"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
                         android:textColor="#C0C0C0"
@@ -132,8 +128,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="region"
+                        android:text="@string/region"
                         android:textAlignment="textStart"
                         android:textSize="20sp" />
 
@@ -162,8 +157,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="sub region"
+                        android:text="@string/sub_region"
                         android:textAlignment="textStart"
                         android:textSize="20sp" />
 
@@ -192,8 +186,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="state/province"
+                        android:text="@string/state_province"
                         android:textAlignment="textStart"
                         android:textSize="20sp" />
 
@@ -207,7 +200,6 @@
                         android:layout_weight="1"
                         android:backgroundTint="#C0C0C0"
                         android:ems="10"
-                        android:gravity="center"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
                         android:textColor="#C0C0C0"
@@ -235,7 +227,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:foregroundGravity="bottom"
-        android:text="search"
+        android:text="@string/search"
         android:textSize="25sp" />
 
 </LinearLayout>
