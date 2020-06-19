@@ -21,51 +21,20 @@ import java.util.Objects;
 
 public class APIClient extends AsyncTask<String, Integer, ArrayList<SubstanceObject>> {
 
-//    public ArrayList<SubstanceObject> JSONBodyAsMap(String query) throws IOException {
-//        UncheckedObjectMapper objectMapper = new UncheckedObjectMapper();
-//
-//        URL url = new URL("https://api.psychonautwiki.org");
-//        HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-//        connection.setRequestMethod("POST");
-//        connection.setRequestProperty("content-type", "application/json");
-//        connection.setDoOutput(true);
-//        byte[] byteQuery = query.getBytes();
-//        OutputStream os = connection.getOutputStream();
-//        os.write(byteQuery);
-//        os.close();
-//
-//        try(BufferedReader br = new BufferedReader(
-//                new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-//            StringBuilder response = new StringBuilder();
-//            String responseLine;
-//            while ((responseLine = br.readLine()) != null) {
-//                response.append(responseLine.trim());
-//            }
-//            return objectMapper.readValue(response.toString());
-//        }
-//    }
-
+    // input : query[0] = query
     // TODO: sort!! try/catches
     @Override
     protected ArrayList<SubstanceObject> doInBackground(String... strings) {
         UncheckedObjectMapper objectMapper = new UncheckedObjectMapper();
         String query = strings[0];
 
-        URL url = null;
-        try {
-            url = new URL("https://api.psychonautwiki.org");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url;
         HttpsURLConnection connection = null;
         try {
+            url = new URL("https://api.psychonautwiki.org");
             connection = (HttpsURLConnection)url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             connection.setRequestMethod("POST");
-        } catch (ProtocolException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

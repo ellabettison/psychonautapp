@@ -15,7 +15,7 @@
             android:name=".activities.ExperienceReport"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_experience_report"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activities.Splash"
             android:configChanges="orientation|keyboardHidden|screenSize"

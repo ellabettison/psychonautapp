@@ -5,13 +5,19 @@ import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.palette.graphics.Palette;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -160,7 +166,6 @@ public class HomeScreen extends AppCompatActivity {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
         int childrenPerRow = (int) (width/px);
@@ -169,9 +174,6 @@ public class HomeScreen extends AppCompatActivity {
         int childrenOnLastRow = totalChildren - (childrenPerRow*rowsWithChildren);
         int extraRow = 0;
         if (childrenOnLastRow > 0) extraRow=1;
-
-        Log.d("fsaef", String.format("      ###############     children: %d, noRows: %d, childrnPrRow: %d",
-                totalChildren, rowsWithChildren, childrenPerRow));
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
        // FrameLayout.LayoutParams fp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -193,9 +195,20 @@ public class HomeScreen extends AppCompatActivity {
                 View classLayout = inflater.inflate(R.layout.substance_class_icon,
                         findViewById(R.id.class_layout), false);
                 ImageButton imageButton = classLayout.findViewById(R.id.image);
-                imageButton.setImageDrawable(substanceClassImages.getDrawable(childIndex));
-                imageButton.setImageTintList(null);
+                Drawable image = substanceClassImages.getDrawable(childIndex);
+                imageButton.setImageDrawable(image);
+
+//                imageButton.setImageTintList(null);
                 //imageButton.setBackgroundColor(getResources().getColor(R.color.black_overlay));
+
+//                assert image != null;
+//                Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+//                int palette = Palette.from(bitmap).generate().getVibrantColor(getResources().getColor(android.R.color.white));
+//                int col = -palette + getResources().getColor(android.R.color.black);
+//                Log.d("grns", String.format("onCreate: \n\nPALLETE:%d\nCOLOUR : %d\nWHITE:%d\n", palette, col, getResources().getColor(android.R.color.black)));
+//                classLayout.findViewById(R.id.image).setBackgroundTintList(ColorStateList.valueOf(palette));
+//                classLayout.findViewById(R.id.image).getBackground().setAlpha(100);
+
                 classLayout.setLayoutParams(lp);
                 //imageButton.setLayoutParams(fp);
                 TextView textView =  classLayout.findViewById(R.id.classNameLabel);
@@ -254,14 +267,20 @@ public class HomeScreen extends AppCompatActivity {
 //
 //        resize(width, height);
 
+
+        setupNavbar();
+
+    }
+
+    private void setupNavbar(){
         ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
 
         NavegationBar navegationBar = new NavegationBar(HomeScreen.this, navegationBarLayout);
 
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
         navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
         navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
-
-
+        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     @Override

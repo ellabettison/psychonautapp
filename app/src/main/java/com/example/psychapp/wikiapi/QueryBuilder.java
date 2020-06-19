@@ -2,8 +2,8 @@ package com.example.psychapp.wikiapi;
 
 public class QueryBuilder {
     
-    StringBuilder queryHead = new StringBuilder("{\"operationName\":null,\"variables\":{},\"query\":\"{substances");
-    StringBuilder queryTail = new StringBuilder("}\"}");
+    private StringBuilder queryHead = new StringBuilder("{\"operationName\":null,\"variables\":{},\"query\":\"{substances");
+    private StringBuilder queryTail = new StringBuilder("}\"}");
     
     public QueryBuilder queryByName(String substance){
         queryHead.append("(query: \\\"").append(substance).append("\\\")");
@@ -47,8 +47,7 @@ public class QueryBuilder {
     }
     
     public String getQuery(){
-        String query = queryHead.append(queryTail).toString();
-        return query;
+        return queryHead.append(queryTail).toString();
     }
     
 }
