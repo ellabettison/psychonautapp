@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psychapp.R;
+import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.experiencereports.ExperienceNameScraper;
 import com.example.psychapp.pillreports.WebScraper;
 import com.example.psychapp.wikiapi.APIClient;
@@ -218,6 +219,18 @@ public class SubstanceInfo extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        setupNavbar();
+    }
+
+    private void setupNavbar(){
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+
+        NavegationBar navegationBar = new NavegationBar(SubstanceInfo.this, navegationBarLayout);
+
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private void getExperienceNames() throws ExecutionException, InterruptedException {

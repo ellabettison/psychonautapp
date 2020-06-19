@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psychapp.R;
+import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.wikiapi.APIClient;
 import com.example.psychapp.wikiapi.QueryBuilder;
 import com.example.psychapp.wikiapi.QueryObjects.SubstanceObject;
@@ -134,6 +135,19 @@ public class SubstanceSelector extends AppCompatActivity {
             toast.show();
             finish();
         }
+
+        setupNavbar();
+    }
+
+    private void setupNavbar(){
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+
+        NavegationBar navegationBar = new NavegationBar(SubstanceSelector.this, navegationBarLayout);
+
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private void createButtons() throws ExecutionException, InterruptedException {

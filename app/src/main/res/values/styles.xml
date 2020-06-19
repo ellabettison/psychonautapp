@@ -14,7 +14,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/text_dark</item>
         <item name="android:letterSpacing">0.1</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
@@ -38,12 +38,15 @@
     </style>
 
     <style name="EffectLabel" parent="android:Widget.TextView">
-        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">7dp</item>
-        <item name="android:paddingBottom">7dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/text_dark</item>
         <item name="android:background">@drawable/layout_bg</item>
+
+        <item name="android:backgroundTint">@color/light_grey</item>
 
     </style>
 
@@ -52,8 +55,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
-        <item name="android:textColor">#C0C0C0</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 

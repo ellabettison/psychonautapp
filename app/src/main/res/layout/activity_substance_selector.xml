@@ -33,7 +33,7 @@
             android:paddingRight="30dp"
             android:text="@string/cool_app_name_here"
             android:textAlignment="textStart"
-            android:textColor="#C0C0C0"
+            android:textColor="@color/text_light"
             android:textSize="25sp" />
 
         <ScrollView
@@ -57,9 +57,8 @@
         android:id="@+id/navegationBar"
         layout="@layout/navegation_bar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        android:layout_weight="0" />
+        android:layout_height="95dp"
+        android:layout_gravity="bottom" />
 
 
 </FrameLayout>

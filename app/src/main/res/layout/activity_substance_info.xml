@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     tools:context=".activities.SubstanceInfo">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -17,7 +16,6 @@
         android:gravity="center"
         android:keepScreenOn="true"
         android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -26,270 +24,292 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F3F3F3"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/substanceName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:backgroundTint="#00FFFFFF"
-                android:paddingLeft="30dp"
-                android:paddingTop="50dp"
-                android:paddingRight="30dp"
-                android:textAlignment="textStart"
-                android:textColor="@android:color/secondary_text_light_nodisable"
-                android:textSize="25sp" />
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/layout_bg"
-                android:backgroundTint="#7AFD7878"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <ImageButton
-                    android:id="@+id/overdoseButton1"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_weight="0"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="@string/overdose"
-                    android:tint="#7AFFFFFF"
-                    app:srcCompat="@android:drawable/stat_sys_warning" />
-
-                <Button
-                    android:id="@+id/overdoseButton2"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_weight="0"
-                    android:background="#00FFFFFF"
-                    android:gravity="center|top"
-                    android:text="@string/overdose"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/dosageLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:text="@string/dosage"
-            android:textColor="#C0C0C0"
-            android:textSize="14sp" />
-
-        <HorizontalScrollView
-            android:id="@+id/roaScroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
+            android:paddingEnd="10dp">
 
             <LinearLayout
-                android:id="@+id/roaLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:gravity="start"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <include
-                    android:id="@+id/roa1"
-                    layout="@layout/dosage_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-
-                <Space
-                    android:id="@+id/space1"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
-
-                <include
-                    android:id="@+id/roa2"
-                    layout="@layout/dosage_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:id="@+id/space2"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
-
-                <include
-                    android:id="@+id/roa3"
-                    layout="@layout/dosage_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:foregroundGravity="center">
-
-            <LinearLayout
-                android:id="@+id/contentLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <!--                <include layout="@layout/dosage_layout"/>-->
-
                 <TextView
-                    android:id="@+id/interactionsLabel"
-                    style="@style/subheading"
-                    android:text="@string/interactions" />
+                    android:id="@+id/substanceName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:backgroundTint="#00FFFFFF"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="50dp"
+                    android:paddingRight="30dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/text_light"
+                    android:textSize="25sp" />
 
                 <LinearLayout
-                    android:id="@+id/interactions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:foregroundGravity="center"
+                    android:background="@drawable/layout_bg"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageButton
+                        android:id="@+id/overdoseButton1"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="0"
+                        android:background="#00FFFFFF"
+                        android:contentDescription="@string/overdose"
+                        android:tint="#7AFFFFFF"
+                        app:srcCompat="@android:drawable/stat_sys_warning" />
+
+                    <Button
+                        android:id="@+id/overdoseButton2"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="0"
+                        android:background="#00FFFFFF"
+                        android:gravity="center|top"
+                        android:text="@string/overdose"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dosageLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:text="@string/dosage"
+                android:textColor="@color/text_light"
+                android:textSize="15sp" />
+
+            <HorizontalScrollView
+                android:id="@+id/roaScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:id="@+id/roaLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/unsafeInteractions"
+                    <include
+                        android:id="@+id/roa1"
+                        layout="@layout/dosage_layout"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@drawable/layout_bg"
-                        android:foregroundGravity="center"
-                        android:gravity="center|top"
-                        android:orientation="vertical"
-                        android:padding="5dp">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-                        <TextView
-                            android:id="@+id/unsafeLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|top"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/unsafe"
-                            android:textColor="#EF6C00" />
-                    </LinearLayout>
 
                     <Space
-                        android:layout_width="10dp"
+                        android:id="@+id/space1"
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0" />
 
-                    <LinearLayout
-                        android:id="@+id/dangerousInteractions"
+                    <include
+                        android:id="@+id/roa2"
+                        layout="@layout/dosage_layout"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Space
+                        android:id="@+id/space2"
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        android:background="@drawable/layout_bg"
-                        android:foregroundGravity="right"
-                        android:gravity="right"
-                        android:orientation="vertical"
-                        android:padding="5dp">
+                        android:layout_weight="0" />
 
-                        <TextView
-                            android:id="@+id/dangerousLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|top"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/dangerous"
-                            android:textAlignment="center"
-                            android:textColor="#C62828" />
-                    </LinearLayout>
+                    <include
+                        android:id="@+id/roa3"
+                        layout="@layout/dosage_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
                 </LinearLayout>
+            </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/toxicityLabel"
-                    android:text="@string/toxicity"
-                    style="@style/subheading" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:foregroundGravity="center">
 
-                <TextView
-                    android:id="@+id/toxicityList"
+                <LinearLayout
+                    android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/layout_bg"
-                    android:padding="10dp"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/effectsLabel"
-                    android:text="@string/effects"
-                    style="@style/subheading" />
-
-                <LinearLayout
-                    android:id="@+id/effectsList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
                     android:orientation="vertical">
 
+                    <!--                <include layout="@layout/dosage_layout"/>-->
+
+                    <TextView
+                        android:id="@+id/interactionsLabel"
+                        style="@style/subheading"
+                        android:text="@string/interactions" />
+
+                    <LinearLayout
+                        android:id="@+id/interactions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/unsafeInteractions"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/layout_bg"
+                            android:backgroundTint="@color/light_grey"
+                            android:foregroundGravity="center"
+                            android:gravity="center|top"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/unsafeLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|top"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/unsafe"
+                                android:textColor="#EF6C00"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0" />
+
+                        <LinearLayout
+                            android:id="@+id/dangerousInteractions"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:background="@drawable/layout_bg"
+                            android:backgroundTint="@color/light_grey"
+                            android:foregroundGravity="right"
+                            android:gravity="right"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/dangerousLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|top"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/dangerous"
+                                android:textAlignment="center"
+                                android:textColor="#C62828"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/toxicityLabel"
+                        style="@style/subheading"
+                        android:text="@string/toxicity" />
+
+                    <TextView
+                        android:id="@+id/toxicityList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/layout_bg"
+                        android:backgroundTint="@color/light_grey"
+                        android:padding="10dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_dark" />
+
+                    <TextView
+                        android:id="@+id/effectsLabel"
+                        style="@style/subheading"
+                        android:text="@string/effects" />
+
+                    <LinearLayout
+                        android:id="@+id/effectsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/experienceReportsLabel"
+                        style="@style/subheading"
+                        android:text="@string/experience_reports" />
+
+                    <LinearLayout
+                        android:id="@+id/experienceReportsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
                 </LinearLayout>
+            </ScrollView>
 
-                <TextView
-                    android:id="@+id/experienceReportsLabel"
-                    android:text="@string/experience_reports"
-                    style="@style/subheading" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/experienceReportsList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical" />
+        <include
+            android:id="@+id/navegationBar"
+            layout="@layout/navegation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_gravity="bottom" />
 
-            </LinearLayout>
-        </ScrollView>
     </LinearLayout>
 
 </FrameLayout>
