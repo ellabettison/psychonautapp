@@ -17,6 +17,7 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -31,6 +32,7 @@ import com.example.psychapp.R;
 import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.experiencereports.ExperienceNameScraper;
 import com.example.psychapp.pillreports.WebScraper;
+import com.example.psychapp.summaryscraper.SummaryScraper;
 import com.example.psychapp.wikiapi.APIClient;
 import com.example.psychapp.wikiapi.QueryBuilder;
 import com.example.psychapp.wikiapi.QueryObjects.DurationObject;
@@ -54,6 +56,7 @@ public class SubstanceInfo extends AppCompatActivity {
 
     private String substanceName;
     private SubstanceObject substanceObject;
+    private String sumText;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -150,12 +153,59 @@ public class SubstanceInfo extends AppCompatActivity {
             callOdPage();
         });
 
+
+
+//        for (View roa: roas){
+//            if (roa != null) {
+//                roa.setMinimumWidth(500);
+//            }
+//        }
+
+        TextView summary = findViewById(R.id.summary);
+        SummaryScraper summaryScraper = new SummaryScraper();
+        summary.setTypeface(manjari);
+
+
+        summary.setOnClickListener(v -> {
+            if (summary.getTag().equals("0")){
+                if (sumText == null) {
+                    sumText = summaryScraper.getSummary(substanceObject.getSubstanceClass().getPsychoactive().get(0), substanceName, this);
+                }
+                summary.setText(sumText);
+                summary.setTag("1");
+            } else {
+                summary.setText(R.string.clickToExpand);
+                summary.setTag("0");
+            }
+        });
+
+       setupDosageLabel();
+
+//        LinearLayout roaLayout = findViewById(R.id.roaLayout);
+//        ViewGroup.LayoutParams params = roaLayout.getLayoutParams();
+//        params.width = (width*3);
+//        roaLayout.setLayoutParams(params);
+//        roaLayout.requestLayout();
+
+//        scrollView.setMinimumWidth((width));
+//        scrollView.requestLayout();
+
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        setupNavbar();
+    }
+
+    private void setupDosageLabel(){
+
         HorizontalScrollView scrollView = findViewById(R.id.roaScroll);
 
         View roa1 = findViewById(R.id.roa1);
         View roa2 = findViewById(R.id.roa2);
         View roa3 = findViewById(R.id.roa3);
         ArrayList<View> roas = new ArrayList<>(Arrays.asList(roa1, roa2, roa3));
+
         int[] roaLoc1 = new int[2];
         roa1.getLocationOnScreen(roaLoc1);
         int centre = roaLoc1[0];
@@ -173,14 +223,6 @@ public class SubstanceInfo extends AppCompatActivity {
                 }
             }
         });
-
-//        for (View roa: roas){
-//            if (roa != null) {
-//                roa.setMinimumWidth(500);
-//            }
-//        }
-
-
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -205,21 +247,6 @@ public class SubstanceInfo extends AppCompatActivity {
             }
 
         }
-
-//        LinearLayout roaLayout = findViewById(R.id.roaLayout);
-//        ViewGroup.LayoutParams params = roaLayout.getLayoutParams();
-//        params.width = (width*3);
-//        roaLayout.setLayoutParams(params);
-//        roaLayout.requestLayout();
-
-//        scrollView.setMinimumWidth((width));
-//        scrollView.requestLayout();
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        setupNavbar();
     }
 
     private void setupNavbar(){

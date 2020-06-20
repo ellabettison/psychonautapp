@@ -180,6 +180,26 @@
                     <!--                <include layout="@layout/dosage_layout"/>-->
 
                     <TextView
+                        android:id="@+id/summaryLabel"
+                        style="@style/subheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="summary" />
+
+                    <TextView
+                        android:id="@+id/summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/layout_bg"
+                        android:backgroundTint="@color/light_grey"
+                        android:padding="10dp"
+                        android:tag="0"
+                        android:text="@string/clickToExpand"
+                        android:textSize="15sp" />
+
+                    <TextView
                         android:id="@+id/interactionsLabel"
                         style="@style/subheading"
                         android:text="@string/interactions" />
@@ -267,7 +287,8 @@
                         android:backgroundTint="@color/light_grey"
                         android:padding="10dp"
                         android:textAlignment="center"
-                        android:textColor="@color/text_dark" />
+                        android:textColor="@color/text_dark"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/effectsLabel"
