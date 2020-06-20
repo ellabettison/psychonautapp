@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
@@ -12,12 +13,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -167,19 +169,17 @@ public class SubstanceInfo extends AppCompatActivity {
 
 
         summary.setOnClickListener(v -> {
-            if (summary.getTag().equals("0")){
+            if (summary.getText().equals(getResources().getString(R.string.clickToExpand))){
                 if (sumText == null) {
                     sumText = summaryScraper.getSummary(substanceObject.getSubstanceClass().getPsychoactive().get(0), substanceName, this);
                 }
                 summary.setText(sumText);
-                summary.setTag("1");
             } else {
                 summary.setText(R.string.clickToExpand);
-                summary.setTag("0");
             }
         });
 
-       setupDosageLabel();
+
 
 //        LinearLayout roaLayout = findViewById(R.id.roaLayout);
 //        ViewGroup.LayoutParams params = roaLayout.getLayoutParams();
@@ -195,6 +195,49 @@ public class SubstanceInfo extends AppCompatActivity {
         // while interacting with the UI.
         //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
         setupNavbar();
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        setupDosageLabel();
+        setupScrollLabel();
+    }
+
+    private void setupScrollLabel(){
+
+        View contentScroll = findViewById(R.id.contentScroll);
+
+        View summaryContent = findViewById(R.id.summary);
+        View interactionsContent = findViewById(R.id.interactions);
+        View toxicityContent = findViewById(R.id.toxicity);
+        View effectsContent = findViewById(R.id.effects);
+        View experienceContent = findViewById(R.id.experiences);
+
+        ArrayList<View> scrollContents = new ArrayList<>(Arrays.asList(
+                summaryContent, interactionsContent, toxicityContent,
+                effectsContent, experienceContent
+        ));
+
+        int[] summaryLocation = new int[2];
+        TextView summaryLabel = findViewById(R.id.summaryLabel);
+        summaryLabel.getLocationOnScreen(summaryLocation);
+        int summaryY = summaryLocation[1];
+        Log.d("nfs", "ee\n\n    ~~~~~~~~~~  LOCATION: "+summaryY+"\n\nfg");
+
+        contentScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            for (View roa: scrollContents){
+                if (roa != null) {
+                    int[] roaLoc = new int[2];
+                    roa.getLocationOnScreen(roaLoc);
+                    Log.d("nfs", "ee\n    ~~~~~~~~~~  LOCATION of "+ roa.getTag()+ ": "+roaLoc[1]+"\nfg");
+                    if (roaLoc[1]+100< summaryY && (roaLoc[1]+100 + roa.getHeight()) > summaryY) {
+                        summaryLabel.setText(roa.getTag().toString());
+                    }
+                }
+            }
+        });
+
     }
 
     private void setupDosageLabel(){
@@ -262,7 +305,7 @@ public class SubstanceInfo extends AppCompatActivity {
 
     private void getExperienceNames() throws ExecutionException, InterruptedException {
         String pillReportsUrl = "https://psychonautwiki.org/wiki/Experience_index";
-        LinearLayout contentLayout = findViewById(R.id.experienceReportsList);
+        LinearLayout contentLayout = findViewById(R.id.experiences);
         TextView experienceReportsLabel = findViewById(R.id.experienceReportsLabel);
         int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
@@ -415,7 +458,7 @@ public class SubstanceInfo extends AppCompatActivity {
     protected void getToxicity() {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         ArrayList<String> toxicity = substanceObject.getToxicity();
-        TextView toxicityList = findViewById(R.id.toxicityList);
+        TextView toxicityList = findViewById(R.id.toxicity);
 
         if (toxicity != null && toxicity.size() > 0) {
 
@@ -491,7 +534,7 @@ public class SubstanceInfo extends AppCompatActivity {
         int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
-        LinearLayout contentLayout = findViewById(R.id.effectsList);
+        LinearLayout contentLayout = findViewById(R.id.effects);
         for (EffectObject effect : substanceObject.getEffects()) {
             TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
             effectText.setTypeface(manjari);

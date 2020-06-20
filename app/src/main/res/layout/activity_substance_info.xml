@@ -161,7 +161,18 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <TextView
+                android:id="@+id/summaryLabel"
+                style="@style/subheading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:text="summary" />
+
             <ScrollView
+                android:id="@+id/contentScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -180,23 +191,18 @@
                     <!--                <include layout="@layout/dosage_layout"/>-->
 
                     <TextView
-                        android:id="@+id/summaryLabel"
-                        style="@style/subheading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="summary" />
-
-                    <TextView
                         android:id="@+id/summary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/layout_bg"
                         android:backgroundTint="@color/light_grey"
                         android:padding="10dp"
-                        android:tag="0"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:tag="summary"
                         android:text="@string/clickToExpand"
+                        android:textColor="@color/text_dark"
                         android:textSize="15sp" />
 
                     <TextView
@@ -213,7 +219,8 @@
                         android:layout_marginBottom="10dp"
                         android:foregroundGravity="center"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:tag="@string/interactions">
 
                         <LinearLayout
                             android:id="@+id/unsafeInteractions"
@@ -278,7 +285,7 @@
                         android:text="@string/toxicity" />
 
                     <TextView
-                        android:id="@+id/toxicityList"
+                        android:id="@+id/toxicity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -286,6 +293,7 @@
                         android:background="@drawable/layout_bg"
                         android:backgroundTint="@color/light_grey"
                         android:padding="10dp"
+                        android:tag="@string/toxicity"
                         android:textAlignment="center"
                         android:textColor="@color/text_dark"
                         android:textSize="15sp" />
@@ -296,12 +304,13 @@
                         android:text="@string/effects" />
 
                     <LinearLayout
-                        android:id="@+id/effectsList"
+                        android:id="@+id/effects"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:tag="@string/effects">
 
                     </LinearLayout>
 
@@ -311,11 +320,12 @@
                         android:text="@string/experience_reports" />
 
                     <LinearLayout
-                        android:id="@+id/experienceReportsList"
+                        android:id="@+id/experiences"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:tag="@string/experience_reports">
 
                     </LinearLayout>
 
