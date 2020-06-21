@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/roa"
     android:layout_width="match_parent"
@@ -42,7 +43,6 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
@@ -61,7 +61,7 @@
                 android:id="@+id/lightProgress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="10dp"
                 android:layout_gravity="center"
                 android:progress="20"
                 android:progressTint="#57BF59" />
@@ -73,7 +73,7 @@
                 android:gravity="center"
                 android:text="@string/unknownDose"
                 android:textColor="@color/text_dark"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -91,7 +91,6 @@
             android:backgroundTint="#FFEAA9"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
@@ -110,7 +109,7 @@
                 android:id="@+id/commonProgress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="10dp"
                 android:layout_gravity="center"
                 android:progress="50"
                 android:progressTint="#FBC37A" />
@@ -122,7 +121,7 @@
                 android:gravity="center"
                 android:text="@string/unknownDose"
                 android:textColor="@color/text_dark"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -140,7 +139,6 @@
             android:backgroundTint="#FFC6C6"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
@@ -159,7 +157,7 @@
                 android:id="@+id/strongProgress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="10dp"
                 android:layout_gravity="center"
                 android:progress="80"
                 android:progressTint="#FB7A7A" />
@@ -171,7 +169,7 @@
                 android:gravity="center"
                 android:text="@string/unknownDose"
                 android:textColor="@color/text_dark"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -187,49 +185,50 @@
         <TextView
             android:id="@+id/onset"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center|top"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbg2"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableBottom="@drawable/arrow_down"
             android:text="@string/onset"
             android:textAlignment="center"
             android:textColor="@color/text_dark"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/peak"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_horizontal|top"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbg2"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableBottom="@drawable/arrow_down"
             android:text="@string/peak"
             android:textAlignment="center"
             android:textColor="@color/text_dark"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/aftereffects"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center|top"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbg2"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableBottom="@drawable/arrow_down"
             android:text="@string/after_effects"
             android:textAlignment="center"
             android:textColor="@color/text_dark"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <Space
+            android:id="@+id/empty1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
@@ -241,9 +240,9 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/layout_bg"
         android:backgroundTint="@color/colorPrimaryDark">
 
@@ -256,6 +255,7 @@
         android:orientation="horizontal">
 
         <Space
+            android:id="@+id/empty2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
@@ -265,49 +265,51 @@
         <TextView
             android:id="@+id/comeup"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbgv2"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:gravity="bottom"
+            android:drawableTop="@drawable/arrow_up"
+            android:gravity="bottom|center"
             android:text="@string/comeup"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textColor="@color/text_dark"
-            android:textSize="15sp"
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark"
             tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/offset"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbgv2"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableTop="@drawable/arrow_up"
             android:gravity="bottom|center"
             android:text="@string/offset"
+            android:textAlignment="gravity"
             android:textColor="@color/text_dark"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/total"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/arrowbgv2"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableTop="@drawable/arrow_up"
             android:gravity="bottom|center"
             android:text="@string/total"
+            android:textAlignment="gravity"
             android:textColor="@color/text_dark"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
 
 </LinearLayout>

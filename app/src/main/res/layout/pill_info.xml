@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/layout_bg"
+    android:backgroundTint="@color/light_grey"
     android:orientation="vertical"
     android:paddingStart="20dp"
     android:paddingTop="10dp"
@@ -108,7 +109,7 @@
                     android:layout_weight="1"
                     android:text="suspected contents"
                     android:textAlignment="textEnd"
-                    android:textColor="#C9C9C9" />
+                    android:textColor="@color/text_light" />
 
                 <Space
                     android:layout_width="10dp"
@@ -134,7 +135,7 @@
                     android:layout_weight="1"
                     android:text="shape"
                     android:textAlignment="textEnd"
-                    android:textColor="#C9C9C9" />
+                    android:textColor="@color/text_light" />
 
                 <Space
                     android:layout_width="10dp"
@@ -160,7 +161,7 @@
                     android:layout_weight="1"
                     android:text="logo"
                     android:textAlignment="textEnd"
-                    android:textColor="#C9C9C9" />
+                    android:textColor="@color/text_light" />
 
                 <Space
                     android:layout_width="10dp"
@@ -186,7 +187,7 @@
                     android:layout_weight="1"
                     android:text="colour"
                     android:textAlignment="textEnd"
-                    android:textColor="#C9C9C9" />
+                    android:textColor="@color/text_light" />
 
                 <Space
                     android:layout_width="10dp"
