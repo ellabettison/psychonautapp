@@ -223,15 +223,13 @@ public class SubstanceInfo extends AppCompatActivity {
         TextView summaryLabel = findViewById(R.id.summaryLabel);
         summaryLabel.getLocationOnScreen(summaryLocation);
         int summaryY = summaryLocation[1];
-        Log.d("nfs", "ee\n\n    ~~~~~~~~~~  LOCATION: "+summaryY+"\n\nfg");
 
         contentScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
             for (View roa: scrollContents){
                 if (roa != null) {
                     int[] roaLoc = new int[2];
                     roa.getLocationOnScreen(roaLoc);
-                    Log.d("nfs", "ee\n    ~~~~~~~~~~  LOCATION of "+ roa.getTag()+ ": "+roaLoc[1]+"\nfg");
-                    if (roaLoc[1]+100< summaryY && (roaLoc[1]+100 + roa.getHeight()) > summaryY) {
+                    if (roaLoc[1]+200< summaryY && (roaLoc[1]+200 + roa.getHeight()) > summaryY) {
                         summaryLabel.setText(roa.getTag().toString());
                     }
                 }

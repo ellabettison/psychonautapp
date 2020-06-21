@@ -16,8 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.R;
@@ -145,25 +148,61 @@ public class PillReports extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
-        NavegationBar navegationBar = new NavegationBar(PillReports.this, navegationBarLayout);
-        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+        ScrollView pillReportScroll = findViewById(R.id.pillReportScroll);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
 
         findViewById(R.id.previous).setOnClickListener(v -> {
+            String alertMessage = "Getting previous page";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_LONG);
+            toast.show();
             try {
+//                progressBar.setVisibility(View.VISIBLE);
+                pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
                 getPills(url, --pnum);
+//                progressBar.setVisibility(View.INVISIBLE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+//
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        getPills(url, --pnum);
+//                        pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+
         });
 
         findViewById(R.id.next).setOnClickListener(v -> {
+            String alertMessage = "Getting next page";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_LONG);
+            toast.show();
             try {
+//                progressBar.setVisibility(View.VISIBLE);
+                pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
                 getPills(url, ++pnum);
+//                progressBar.setVisibility(View.INVISIBLE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        getPills(url, ++pnum);
+//                        pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
         });
 
         try {
@@ -172,12 +211,22 @@ public class PillReports extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        setupNavbar();
+    }
 
+    private void setupNavbar(){
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
 
+        NavegationBar navegationBar = new NavegationBar(PillReports.this, navegationBarLayout);
+
+        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private void getPills(String url, int pnum) throws Exception {
-        PillScraperBuilder builder = new PillScraperBuilder();
+//        PillScraperBuilder builder = new PillScraperBuilder();
         //String url = builder.createPillScraper().generatePillScraper();
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
@@ -190,10 +239,13 @@ public class PillReports extends AppCompatActivity {
         View prevNext = findViewById(R.id.prevnextLayout);
         pillReportList.removeAllViews();
 
+//        ArrayList<View> viewsToAdd = new ArrayList<>();
+
         if (!pills.isEmpty()) {
             int dividerHeight = (int) (getResources().getDisplayMetrics().density * 15);
             for (PillObject pill : pills) {
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                assert inflater != null;
                 View pillView = inflater.inflate(R.layout.pill_info,
                          findViewById(R.id.pillInfo), false);
 
@@ -232,15 +284,20 @@ public class PillReports extends AppCompatActivity {
                 image.refreshDrawableState(); //TODO: needed?
 
                 pillReportList.addView(pillView);
+//                viewsToAdd.add(pillView);
 
                 ImageView divider = new ImageView(this);
                 divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
                 pillReportList.addView(divider);
+//                viewsToAdd.add(divider);
             }
+//            viewsToAdd.add(prevNext);
             pillReportList.addView(prevNext);
         } else {
+//            viewsToAdd.remove(prevNext);
             pillReportList.removeView(prevNext);
         }
+//        return viewsToAdd;
     }
 
     @Override
