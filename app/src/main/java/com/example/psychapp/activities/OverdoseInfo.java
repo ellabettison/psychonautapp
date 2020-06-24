@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psychapp.R;
+import com.example.psychapp.elements.NavegationBar;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -137,6 +138,19 @@ public class OverdoseInfo extends AppCompatActivity {
         TextView symptomsLabel = findViewById(R.id.symptomsLabel);
         symptomsLabel.setTypeface(manjari);
 
+        setupNavbar();
+
+    }
+
+    private void setupNavbar(){
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+
+        NavegationBar navegationBar = new NavegationBar(OverdoseInfo.this, navegationBarLayout);
+
+//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private String readFile(){

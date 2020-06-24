@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.BrowseSubstanceReports"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_browse_substance_reports"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".activities.ExperienceReportSearch"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_experience_report_search"
+            android:theme="@style/FullscreenTheme" />
+        <activity
             android:name=".activities.ExperienceReport"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_experience_report"

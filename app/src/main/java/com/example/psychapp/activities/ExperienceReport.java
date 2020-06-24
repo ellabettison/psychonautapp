@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
+import com.example.psychapp.elements.NavegationBar;
 import com.example.psychapp.experiencereports.ExperienceReportScraper;
 import com.example.psychapp.experiencereports.Objects.ExperienceReportObject;
 import com.example.psychapp.experiencereports.Objects.ExperienceSectionObject;
@@ -105,8 +106,8 @@ public class ExperienceReport extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
 
         setContentView(R.layout.activity_experience_report);
 
@@ -119,9 +120,49 @@ public class ExperienceReport extends AppCompatActivity {
                 .getSerializableExtra("experienceReportName")).toString();
         String experienceReportUrl = Objects.requireNonNull(getIntent()
                 .getSerializableExtra("experienceReportUrl")).toString();
+        ExperienceReportObject report = (ExperienceReportObject) getIntent()
+                .getSerializableExtra("experienceReport");
 
         ((TextView) findViewById(R.id.experienceReportTitle)).setTypeface(manjari);
 
+        if (report == null) {
+            report = getExperienceReport(experienceReportName, experienceReportUrl);
+        }
+
+        ((TextView) findViewById(R.id.experienceReportTitle)).setText(report.getTitle());
+        LinearLayout contentLayout = findViewById(R.id.experienceReportList);
+
+        for (ExperienceSectionObject section: report.getReport()) {
+//                    if (section.getBody() != null) {
+            if (section.getTitle() != null) {
+                TextView sectionTitle = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+                sectionTitle.setTypeface(manjari);
+                sectionTitle.setText(section.getTitle());
+                contentLayout.addView(sectionTitle);
+            }
+            if (section.getBody() != null) {
+                TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+                sectionBody.setTypeface(manjari);
+                sectionBody.setText(section.getBody());
+                contentLayout.addView(sectionBody);
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+                contentLayout.addView(divider);
+            }
+//                    } else {
+//                        TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
+//                        sectionBody.setTextSize(20);
+//                        sectionBody.setTypeface(manjari);
+//                        sectionBody.setText(section.getTitle());
+//                        contentLayout.addView(sectionBody);
+//                    }
+        }
+
+        setupNavbar();
+    }
+
+    private ExperienceReportObject getExperienceReport(String experienceReportName, String experienceReportUrl){
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         WebScraper webScraper = new WebScraper();
         String paragraphs = "";
         try {
@@ -133,42 +174,26 @@ public class ExperienceReport extends AppCompatActivity {
         if (!paragraphs.equals("")){
             ExperienceReportScraper reportScraper = new ExperienceReportScraper();
             try {
-                ExperienceReportObject report = reportScraper.execute(experienceReportName, paragraphs).get();
-                ((TextView) findViewById(R.id.experienceReportTitle)).setText(report.getTitle());
 
-                LinearLayout contentLayout = findViewById(R.id.experienceReportList);
-
-                for (ExperienceSectionObject section: report.getReport()) {
-//                    if (section.getBody() != null) {
-                        if (section.getTitle() != null) {
-                            TextView sectionTitle = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
-                            sectionTitle.setTypeface(manjari);
-                            sectionTitle.setText(section.getTitle());
-                            contentLayout.addView(sectionTitle);
-                        }
-                        if (section.getBody() != null) {
-                            TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
-                            sectionBody.setTypeface(manjari);
-                            sectionBody.setText(section.getBody());
-                            contentLayout.addView(sectionBody);
-                            ImageView divider = new ImageView(this);
-                            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-                            contentLayout.addView(divider);
-                        }
-//                    } else {
-//                        TextView sectionBody = new TextView(new ContextThemeWrapper(this, R.style.subheading), null, 0);
-//                        sectionBody.setTextSize(20);
-//                        sectionBody.setTypeface(manjari);
-//                        sectionBody.setText(section.getTitle());
-//                        contentLayout.addView(sectionBody);
-//                    }
-                }
+                return reportScraper.execute(experienceReportName, paragraphs).get();
 
 
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    private void setupNavbar(){
+        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+
+        NavegationBar navegationBar = new NavegationBar(ExperienceReport.this, navegationBarLayout);
+
+//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     @Override

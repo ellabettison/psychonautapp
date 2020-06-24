@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.psychapp.R;
+import com.example.psychapp.activities.ExperienceReportSearch;
 import com.example.psychapp.activities.HomeScreen;
 import com.example.psychapp.activities.OverdoseSelector;
 import com.example.psychapp.activities.PillReports;
@@ -22,6 +23,8 @@ public class NavegationBar {
 
     private AppCompatActivity packagageContext;
     private ViewGroup navegationBar;
+    private boolean erowidEnabled = false;
+
 
     public NavegationBar(AppCompatActivity packagageContext, ViewGroup navegationBar) {
 
@@ -39,8 +42,8 @@ public class NavegationBar {
         ImageButton image;
         //TODO: extract duplication
         System.out.printf("\n\n ##################### PACKAGE NAME %s \n\n", packagageContext.getLocalClassName());
-        switch (packagageContext.getLocalClassName()){
-            case("com.example.psychapp.activities.HomeScreen"):
+        switch (packagageContext.getLocalClassName()) {
+            case ("com.example.psychapp.activities.HomeScreen"):
                 image = navegationBar.findViewById(R.id.home_button);
                 image.setImageResource(R.drawable.home);
                 image.setImageTintList(null);
@@ -51,8 +54,8 @@ public class NavegationBar {
                 image.requestLayout();
 
                 break;
-                //TODO: set width using weird width method and weight = 0
-            case("com.example.psychapp.activities.OverdoseSelector"):
+            //TODO: set width using weird width method and weight = 0
+            case ("com.example.psychapp.activities.OverdoseSelector"):
                 image = navegationBar.findViewById(R.id.od_button);
                 image.setImageResource(R.drawable.overdose2);
                 image.setImageTintList(null);
@@ -63,31 +66,43 @@ public class NavegationBar {
                 image.requestLayout();
                 break;
 
-            case("com.example.psychapp.activities.PillReports"):
+            case ("com.example.psychapp.activities.PillReports"):
                 image = navegationBar.findViewById(R.id.pill_button);
                 image.setImageResource(R.drawable.pill_exp);
                 image.setImageTintList(null);
 
-                ViewGroup.LayoutParams params3= image.getLayoutParams();
+                ViewGroup.LayoutParams params3 = image.getLayoutParams();
                 params3.width = (int) px;
                 image.setLayoutParams(params3);
                 image.requestLayout();
                 break;
         }
+
+        navegationBar.findViewById(R.id.back_button).setOnClickListener(v-> packagageContext.finish());
+        navegationBar.findViewById(R.id.home_button).setOnClickListener(v -> homePress());
+        navegationBar.findViewById(R.id.od_button).setOnClickListener(v -> odPress());
+        navegationBar.findViewById(R.id.pill_button).setOnClickListener(v -> pillPress());
+        navegationBar.findViewById(R.id.experienceButton).setOnClickListener(v -> experiencePress());
+
     }
 
-    public void homePress(){
+    private void homePress(){
         Intent intent = new Intent(packagageContext, HomeScreen.class);
         packagageContext.startActivity(intent);
     }
 
-    public void odPress(){
+    private void odPress(){
         Intent intent = new Intent(packagageContext, OverdoseSelector.class);
         packagageContext.startActivity(intent);
     }
 
-    public void pillPress(){
+    private void pillPress(){
         Intent intent = new Intent(packagageContext, Splash.class);
+        packagageContext.startActivity(intent);
+    }
+
+    private void experiencePress(){
+        Intent intent = new Intent(packagageContext, ExperienceReportSearch.class);
         packagageContext.startActivity(intent);
     }
 

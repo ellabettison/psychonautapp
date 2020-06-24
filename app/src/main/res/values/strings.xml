@@ -53,4 +53,8 @@
     <string name="after_effects">after effects</string>
     <string name="substance_class">substance class</string>
     <string name="clickToExpand">click to expand summary</string>
+
+    <string name="title_activity_experience_report_search">ExperienceReportSearch</string>
+
+    <string name="title_activity_browse_substance_reports">BrowseSubstanceReports</string>
 </resources>

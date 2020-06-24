@@ -144,10 +144,10 @@ public class SubstanceSelector extends AppCompatActivity {
 
         NavegationBar navegationBar = new NavegationBar(SubstanceSelector.this, navegationBarLayout);
 
-        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
-        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
+//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private void createButtons() throws ExecutionException, InterruptedException {

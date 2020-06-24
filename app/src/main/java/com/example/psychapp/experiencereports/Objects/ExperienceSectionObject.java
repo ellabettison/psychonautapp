@@ -1,6 +1,8 @@
 package com.example.psychapp.experiencereports.Objects;
 
-public class ExperienceSectionObject {
+import java.io.Serializable;
+
+public class ExperienceSectionObject implements Serializable {
     private final String title;
     private final String body;
 

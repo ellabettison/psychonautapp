@@ -39,14 +39,20 @@ public class SummaryScraper {
 
         Document parsed = Jsoup.parse(output);
         Elements content = parsed.body().getElementsByClass("mw-parser-output").first()
-                .children().select("p").select("p:contains("+name+")");
-        Element elem = content.first();
+                .children().select("table[id=InfoTable]");
+        Element elem = content.first().nextElementSibling();
 
         StringBuilder description = new StringBuilder();
 
-        while (!elem.id().equals("toc")) {
-            description.append(elem.text()).append("\n\n");
-            elem = elem.nextElementSibling();
+        boolean cont = true;
+        while (cont) {
+            try{
+                description.append(elem.text()).append("\n\n");
+                elem = elem.nextElementSibling();
+                cont = !elem.id().equals("toc");
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            }
         }
         description.setLength(description.length()-2);
         String result = description.toString().replaceAll("\\[.]", "");

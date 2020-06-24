@@ -156,6 +156,7 @@ public class PillReports extends AppCompatActivity {
             Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_LONG);
             toast.show();
             try {
+//                toast.wait(500);
 //                progressBar.setVisibility(View.VISIBLE);
                 pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
                 getPills(url, --pnum);
@@ -183,6 +184,7 @@ public class PillReports extends AppCompatActivity {
             Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_LONG);
             toast.show();
             try {
+//                toast.wait(500);
 //                progressBar.setVisibility(View.VISIBLE);
                 pillReportScroll.fullScroll(ScrollView.FOCUS_UP);
                 getPills(url, ++pnum);
@@ -219,10 +221,10 @@ public class PillReports extends AppCompatActivity {
 
         NavegationBar navegationBar = new NavegationBar(PillReports.this, navegationBarLayout);
 
-        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
-        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
+//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
+//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
+//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
+//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
     }
 
     private void getPills(String url, int pnum) throws Exception {

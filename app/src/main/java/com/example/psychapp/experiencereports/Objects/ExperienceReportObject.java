@@ -1,8 +1,9 @@
 package com.example.psychapp.experiencereports.Objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ExperienceReportObject {
+public class ExperienceReportObject implements Serializable {
     private final String title;
     private final ArrayList<ExperienceSectionObject> report;
 

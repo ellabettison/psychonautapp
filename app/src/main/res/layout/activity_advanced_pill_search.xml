@@ -20,12 +20,14 @@
     <TextView
         android:id="@+id/advancedSearchLabel"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:paddingStart="30dp"
+        android:paddingTop="30dp"
         android:paddingEnd="30dp"
+        android:paddingBottom="30dp"
         android:text="@string/advanced_search"
-        android:textColor="#C0C0C0"
+        android:textColor="@color/text_light"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -61,6 +63,7 @@
                         android:layout_weight="1"
                         android:text="@string/logo"
                         android:textAlignment="textStart"
+                        android:textColor="@color/text_dark"
                         android:textSize="20sp" />
 
                     <EditText
@@ -75,7 +78,7 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
-                        android:textColor="#C0C0C0"
+                        android:textColor="@color/text_light"
                         android:textColorHint="#C0C0C0"
                         android:textSize="20sp" />
                 </TableRow>
@@ -95,6 +98,7 @@
                         android:layout_weight="1"
                         android:text="@string/colour"
                         android:textAlignment="textStart"
+                        android:textColor="@color/text_dark"
                         android:textSize="20sp" />
 
                     <EditText
@@ -109,7 +113,7 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
-                        android:textColor="#C0C0C0"
+                        android:textColor="@color/text_light"
                         android:textColorHint="#C0C0C0"
                         android:textSize="20sp" />
 
@@ -130,6 +134,7 @@
                         android:layout_weight="1"
                         android:text="@string/region"
                         android:textAlignment="textStart"
+                        android:textColor="@color/text_dark"
                         android:textSize="20sp" />
 
                     <Spinner
@@ -159,6 +164,7 @@
                         android:layout_weight="1"
                         android:text="@string/sub_region"
                         android:textAlignment="textStart"
+                        android:textColor="@color/text_dark"
                         android:textSize="20sp" />
 
                     <Spinner
@@ -188,6 +194,7 @@
                         android:layout_weight="1"
                         android:text="@string/state_province"
                         android:textAlignment="textStart"
+                        android:textColor="@color/text_dark"
                         android:textSize="20sp" />
 
                     <EditText
@@ -202,7 +209,7 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textAlignment="textStart"
-                        android:textColor="#C0C0C0"
+                        android:textColor="@color/text_light"
                         android:textColorHint="#C0C0C0" />
 
                 </TableRow>
@@ -220,14 +227,23 @@
     <Button
         android:id="@+id/searchButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:foregroundGravity="bottom"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:text="@string/search"
         android:textSize="25sp" />
+
+    <include
+        android:id="@+id/navegationBar"
+        layout="@layout/navegation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="0" />
 
 </LinearLayout>

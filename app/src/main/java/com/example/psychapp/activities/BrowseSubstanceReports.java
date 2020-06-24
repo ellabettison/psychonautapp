@@ -10,27 +10,31 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.psychapp.R;
 import com.example.psychapp.elements.NavegationBar;
-import com.example.psychapp.pillreports.PillScraperBuilder;
+import com.example.psychapp.experiencereports.ErowidExperienceReportScraper;
+import com.example.psychapp.experiencereports.Objects.ErowidExperienceName;
 
-import org.w3c.dom.Text;
-
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class AdvancedPillSearch extends AppCompatActivity {
+public class BrowseSubstanceReports extends AppCompatActivity {
+
+    String substanceName;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -76,7 +80,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-//            mControlsView.setVisibility(View.VISIBLE);
+            mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -103,84 +107,61 @@ public class AdvancedPillSearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_advanced_pill_search);
+        setContentView(R.layout.activity_browse_substance_reports);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-        ViewGroup content = findViewById(R.id.search);
-        for (int i = 0; i < content.getChildCount(); i++){
-            try{
-                ((TextView) content.getChildAt(i)).setTypeface(manjari);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-
-        ((TextView)findViewById(R.id.advancedSearchLabel)).setTypeface(manjari);
-
-        ((TextView)findViewById(R.id.logoLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.colourLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.regionLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.subRegionLabel)).setTypeface(manjari);
-        ((TextView)findViewById(R.id.stateLabel)).setTypeface(manjari);
-
-        ((EditText)findViewById(R.id.logoInput)).setTypeface(manjari);
-        ((EditText)findViewById(R.id.colourInput)).setTypeface(manjari);
-        ((EditText)findViewById(R.id.stateInput)).setTypeface(manjari);
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(view -> toggle());
+        mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle();
+            }
+        });
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        findViewById(R.id.searchButton).setOnClickListener(v -> search());
+        substanceName = Objects.requireNonNull(getIntent().getSerializableExtra("substanceName")).toString();
 
-        setupNavbar();
+        getExperienceReportNames(substanceName);
     }
 
-    private void setupNavbar(){
-        ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
+    private void getExperienceReportNames(String substanceName){
+        final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
+        ErowidExperienceReportScraper erowidExperienceReportScraper = new ErowidExperienceReportScraper();
+        ArrayList<ErowidExperienceName> experienceNames = erowidExperienceReportScraper.getExperiences(substanceName);
+        int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
 
-        NavegationBar navegationBar = new NavegationBar(AdvancedPillSearch.this, navegationBarLayout);
+        LinearLayout experienceList = findViewById(R.id.experiencesList);
 
-//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
-//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
-    }
+        for (ErowidExperienceName experience: experienceNames){
+            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            effectText.setTypeface(manjari);
+            effectText.setText(experience.getName());
+            experienceList.addView(effectText);
 
-    private void search(){
-        String logo = ((EditText) findViewById(R.id.logoInput)).getText().toString();
-        String colour = ((EditText) findViewById(R.id.colourInput)).getText().toString();
-        Spinner locationSpinner = findViewById(R.id.locationInput);
-        String regionName = String.valueOf(locationSpinner.getSelectedItem());
-        String regionId = String.valueOf(locationSpinner.getSelectedItemId());
-        if (regionId.equals("0")){
-            regionId = "all";
+            ImageView divider = new ImageView(this);
+            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+            experienceList.addView(divider);
+
+            effectText.setOnClickListener(v -> {
+                Intent intent = new Intent(BrowseSubstanceReports.this, ExperienceReport.class);
+                intent.putExtra("experienceReportName", effectText.getText());
+                intent.putExtra("experienceReportUrl", "");
+                intent.putExtra("experienceReport", erowidExperienceReportScraper.getExperience(experience));
+                startActivity(intent);
+            });
+
+            new NavegationBar(this, findViewById(R.id.navegationBar));
         }
-        Log.d("REGION NAMW", "search: " + regionName);
-        String subRegion = String.valueOf(((Spinner) findViewById(R.id.subRegionInput)).getSelectedItemId());
-        if (subRegion.equals("0")){
-            subRegion = "all";
-        }
-        String state = ((EditText) findViewById(R.id.stateInput)).getText().toString();
-
-        PillScraperBuilder builder = new PillScraperBuilder();
-        String url = builder.setLogo(logo).setColour(colour).setRegion(regionId)
-                .setState(state).setSub_region(subRegion).createPillScraper().generatePillScraper();
-
-        Intent intent = new Intent(AdvancedPillSearch.this, Splash.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-
     }
 
     @Override
@@ -207,7 +188,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
+        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
