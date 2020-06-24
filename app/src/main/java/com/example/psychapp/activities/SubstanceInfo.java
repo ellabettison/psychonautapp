@@ -357,52 +357,55 @@ public class SubstanceInfo extends AppCompatActivity {
         if (substanceObject.getRoas() != null && substanceObject.getRoas().size() > 0) {
             DurationObject durationObject = substanceObject.getRoas().get(roaNo).getDuration();
 
-            TextView onset = view.findViewById(R.id.onset);
-            if (durationObject.getOnset() != null) {
-                onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
-                onset.setTypeface(manjari);
-            } else {
-                onset.setVisibility(View.INVISIBLE);
-            }
+            if (durationObject != null) {
 
-            TextView comeup = view.findViewById(R.id.comeup);
-            if (durationObject.getComeup() != null) {
-                comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
-                comeup.setTypeface(manjari);
-            } else {
-                comeup.setVisibility(View.INVISIBLE);
-            }
+                TextView onset = view.findViewById(R.id.onset);
+                if (durationObject.getOnset() != null) {
+                    onset.setText(String.format("onset\n%s", durationObject.getOnset().toString()));
+                    onset.setTypeface(manjari);
+                } else {
+                    onset.setVisibility(View.INVISIBLE);
+                }
 
-            TextView peak = view.findViewById(R.id.peak);
-            if (durationObject.getPeak() != null) {
-                peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
-                peak.setTypeface(manjari);
-            } else {
-                peak.setVisibility(View.INVISIBLE);
-            }
+                TextView comeup = view.findViewById(R.id.comeup);
+                if (durationObject.getComeup() != null) {
+                    comeup.setText(String.format("comeup\n%s", durationObject.getComeup().toString()));
+                    comeup.setTypeface(manjari);
+                } else {
+                    comeup.setVisibility(View.INVISIBLE);
+                }
 
-            TextView offset = view.findViewById(R.id.offset);
-            if (durationObject.getOffset() != null) {
-                offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
-                offset.setTypeface(manjari);
-            } else {
-                offset.setVisibility(View.INVISIBLE);
-            }
+                TextView peak = view.findViewById(R.id.peak);
+                if (durationObject.getPeak() != null) {
+                    peak.setText(String.format("peak\n%s", durationObject.getPeak().toString()));
+                    peak.setTypeface(manjari);
+                } else {
+                    peak.setVisibility(View.INVISIBLE);
+                }
 
-            TextView aftereffects = view.findViewById(R.id.aftereffects);
-            if (durationObject.getAfterglow() != null) {
-                aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
-                aftereffects.setTypeface(manjari);
-            } else {
-                aftereffects.setVisibility(View.INVISIBLE);
-            }
+                TextView offset = view.findViewById(R.id.offset);
+                if (durationObject.getOffset() != null) {
+                    offset.setText(String.format("offset\n%s", durationObject.getOffset().toString()));
+                    offset.setTypeface(manjari);
+                } else {
+                    offset.setVisibility(View.INVISIBLE);
+                }
 
-            TextView total = view.findViewById(R.id.total);
-            if (durationObject.getTotal() != null) {
-                total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
-                total.setTypeface(manjari);
-            } else {
-                total.setVisibility(View.INVISIBLE);
+                TextView aftereffects = view.findViewById(R.id.aftereffects);
+                if (durationObject.getAfterglow() != null) {
+                    aftereffects.setText(String.format("after effects\n%s", durationObject.getAfterglow().toString()));
+                    aftereffects.setTypeface(manjari);
+                } else {
+                    aftereffects.setVisibility(View.INVISIBLE);
+                }
+
+                TextView total = view.findViewById(R.id.total);
+                if (durationObject.getTotal() != null) {
+                    total.setText(String.format("total\n%s", durationObject.getTotal().toString()));
+                    total.setTypeface(manjari);
+                } else {
+                    total.setVisibility(View.INVISIBLE);
+                }
             }
         }
 
@@ -445,11 +448,13 @@ public class SubstanceInfo extends AppCompatActivity {
                 parent.removeView(space);
             }
 
-        } catch (IndexOutOfBoundsException e) {
-            String alertMessage = "sorry, the substance could not be found";
-            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-            toast.show();
-            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+//            String alertMessage = "sorry, the substance could not be found";
+//            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+//            toast.show();
+//            finish();
         }
     }
 
