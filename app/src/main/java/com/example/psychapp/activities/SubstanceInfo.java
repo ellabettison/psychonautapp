@@ -351,7 +351,7 @@ public class SubstanceInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void getDuration(View view, int roaNo) {
+    protected void getDuration(LinearLayout view, int roaNo) {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         if (substanceObject.getRoas() != null && substanceObject.getRoas().size() > 0) {
@@ -406,6 +406,12 @@ public class SubstanceInfo extends AppCompatActivity {
                 } else {
                     total.setVisibility(View.INVISIBLE);
                 }
+                Log.d("nifef", "g\ne\ntDuration: DOING 1\n4\n5");
+            } else {
+                Log.d("nifef", "g\ne\ntDuration: DOING 2\n3\n4");
+                view.removeView(findViewById(R.id.topRow));
+                view.removeView(findViewById(R.id.bottomRow));
+                view.removeView(findViewById(R.id.centerLine));
             }
         }
 

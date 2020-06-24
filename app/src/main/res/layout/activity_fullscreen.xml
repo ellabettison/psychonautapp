@@ -25,50 +25,40 @@
             android:layout_width="match_parent"
             android:layout_height="110dp">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/searchText"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="40dp"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/layout_bg"
-                android:orientation="horizontal"
+                android:backgroundTint="@color/light_grey"
+                android:ems="10"
+                android:hint="@android:string/search_go"
+                android:inputType="textPersonName"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:singleLine="true"
+                android:textColor="#C0C0C0"
+                android:textColorHint="@android:color/secondary_text_light_nodisable" />
 
-                <EditText
-                    android:id="@+id/searchText"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/layout_bg"
-                    android:backgroundTint="@color/light_grey"
-                    android:ems="10"
-                    android:hint="@android:string/search_go"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:singleLine="true"
-                    android:textColor="#C0C0C0"
-                    android:textColorHint="@android:color/secondary_text_light_nodisable" />
+            <ImageButton
+                android:id="@+id/searchButton"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="25dp"
+                android:background="#00FFFFFF"
+                android:scaleType="centerInside"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/magnifier" />
 
-                <ImageButton
-                    android:id="@+id/searchButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="25dp"
-                    android:layout_weight="0"
-                    android:background="#00FFFFFF"
-                    android:scaleType="centerInside"
-                    android:tint="@color/colorPrimaryDark"
-                    app:srcCompat="@drawable/magnifier" />
-            </LinearLayout>
         </FrameLayout>
 
         <ScrollView

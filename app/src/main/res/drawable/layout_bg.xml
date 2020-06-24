@@ -19,7 +19,7 @@
 <!--    </item>-->
     <item>
         <shape>
-            <corners android:radius="10dp" />
+            <corners android:radius="5dp" />
             <solid android:color="#FFFFFF" />
         </shape>
     </item>

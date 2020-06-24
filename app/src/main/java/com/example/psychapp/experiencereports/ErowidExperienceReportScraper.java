@@ -1,6 +1,7 @@
 package com.example.psychapp.experiencereports;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.example.psychapp.activities.ExperienceReport;
 import com.example.psychapp.experiencereports.Objects.ErowidExperienceName;
@@ -85,38 +86,42 @@ public class ErowidExperienceReportScraper {
 
                     if (!doseTime.isEmpty()){
                         String doseString = doseTime.get(0).toString();
-                        if (doseString.contains("&nbsp")){
+                        Log.d("IFNEIF", "e\ne\ngetExperience: "+doseTime+"\ne\ne");
+                        if (doseString.contains("&nbsp") && doseTime.size()==2){
                             substanceInfo.append(doseString.split("; ")[1]).append(": ");
-                        } else if (doseString.equals("DOSE:")){
+                        } else if (doseString.equals("DOSE:") && doseTime.size()==2){
                             substanceInfo.append(doseTime.get(1).toString()).append(": ");
-                        } else {
-                            break;
                         }
                     }
 
                     Element doseSubstance = dose.select("td[class=\"dosechart-substance\"]").first();
-                    if (doseSubstance.childrenSize() > 0) {
+                    if (doseSubstance != null && doseSubstance.childrenSize() > 0) {
                         substanceInfo.append(doseSubstance.select("a").text());
+                    } else {
+                        continue;
                     }
 
                     Element doseAmount = dose.select("td[class=\"dosechart-amount\"]").first();
-                    if (!doseAmount.text().equals("")) {
+                    if (doseAmount != null && !doseAmount.text().equals("")) {
                         substanceInfo.append(" - ").append(doseAmount.text());
                     }
 
                     Element doseMethod = dose.select("td[class=\"dosechart-method\"]").first();
-                    if (!doseAmount.text().equals("")) {
+                    if (doseMethod != null && !doseMethod.text().equals("")) {
                         substanceInfo.append(" - ").append(doseMethod.text());
                     }
 
                     Element doseForm = dose.select("td[class=\"dosechart-form\"]").first();
-                    if (doseAmount.childrenSize() > 0) {
+                    if (doseForm != null && doseForm.childrenSize() > 0) {
                         substanceInfo.append(" - ").append(doseForm.select("b").text());
                     }
 
+                    Log.d("INI", "\ng\ne\ntExperience: " + substanceInfo.toString() + "\ne\ne");
+
                     experienceSections.add(new ExperienceSectionObject(null,
                             substanceInfo.toString()));
-                } catch (NullPointerException | IndexOutOfBoundsException ignored){
+                } catch (NullPointerException | IndexOutOfBoundsException e){
+                    e.printStackTrace();
                 }
             }
 
