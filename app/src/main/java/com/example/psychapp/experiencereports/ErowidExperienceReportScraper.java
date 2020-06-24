@@ -36,7 +36,6 @@ public class ErowidExperienceReportScraper {
             AssetManager am = context.getAssets();
             InputStream is = am.open("substance_numbers.txt");
             substanceToNumber = new ObjectMapper().readValue(is, new TypeReference<TreeMap<String, Object>>() {});
-            System.out.printf("MAP: %s", substanceToNumber.toString());
         } catch (IOException e){
             e.printStackTrace();
         }
