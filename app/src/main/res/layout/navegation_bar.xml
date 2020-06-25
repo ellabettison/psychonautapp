@@ -42,7 +42,7 @@
                 android:backgroundTint="#00FFFFFF"
                 android:padding="15dp"
                 android:scaleType="centerInside"
-                android:tint="@color/colorAccent"
+                android:tint="#80E8EDF6"
                 app:srcCompat="@drawable/homeicon" />
 
             <ImageButton
@@ -53,7 +53,7 @@
                 android:backgroundTint="#00FFFFFF"
                 android:padding="15dp"
                 android:scaleType="centerInside"
-                android:tint="@color/colorAccent"
+                android:tint="#80E8EDF6"
                 app:srcCompat="@drawable/pillicon" />
 
             <ImageButton
@@ -64,17 +64,19 @@
                 android:backgroundTint="#00FFFFFF"
                 android:padding="15dp"
                 android:scaleType="centerInside"
-                android:tint="@color/colorAccent"
+                android:tint="#80E8EDF6"
                 app:srcCompat="@drawable/odicon" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/experienceButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
                 android:padding="15dp"
-                android:tint="@color/colorAccent"
+                android:scaleType="centerInside"
+                android:tint="#80E8EDF6"
                 app:srcCompat="@drawable/book" />
         </LinearLayout>
     </FrameLayout>
