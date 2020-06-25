@@ -10,6 +10,8 @@ import com.example.psychapp.experiencereports.Objects.ExperienceSectionObject;
 import com.example.psychapp.pillreports.WebScraper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.commons.validator.GenericValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
@@ -146,7 +148,11 @@ public class ErowidExperienceReportScraper {
 
             for (TextNode section: parsed.textNodes()){
                 if (!section.isBlank()){
-                    experienceSections.add(new ExperienceSectionObject(null, section.text()));
+                    if (isTitle(section.toString())){
+                        experienceSections.add(new ExperienceSectionObject(section.text(), null));
+                    } else {
+                        experienceSections.add(new ExperienceSectionObject(null, section.text()));
+                    }
                 }
             }
 
@@ -156,6 +162,27 @@ public class ErowidExperienceReportScraper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static boolean isTitle(String section){
+        if (section.length() < 100){
+            if (section.contains("--")){
+                return true;
+            } else if (section.contains("T+") || section.contains("T +")
+                    || section.contains("t+") || section.contains("t +")){
+                return true;
+            } else {
+                if (!GenericValidator.isDate(section, "dd MMM yyyy", false)){
+                    if(!GenericValidator.isDate(section, "dd MM yyyy", false)){
+                        if(!GenericValidator.isDate(section, "MM dd yyyy", false)){
+                            return !GenericValidator.isDate(section, "MMM dd yyyy", false);
+                        }
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
     
 }
