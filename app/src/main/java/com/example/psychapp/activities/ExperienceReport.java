@@ -110,6 +110,7 @@ public class ExperienceReport extends AppCompatActivity {
         int dividerHeight = (int) (getResources().getDisplayMetrics().density * 10);
 
         setContentView(R.layout.activity_experience_report);
+        hide();
 
         mContentView = findViewById(R.id.fullscreen_content);
         mContentView.setOnClickListener(view -> toggle());

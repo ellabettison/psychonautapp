@@ -57,4 +57,5 @@
     <string name="title_activity_experience_report_search">ExperienceReportSearch</string>
 
     <string name="title_activity_browse_substance_reports">BrowseSubstanceReports</string>
+    <string name="treatment">treatment</string>
 </resources>

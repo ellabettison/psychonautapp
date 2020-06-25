@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F3F3F3"
+        android:background="@color/colorAccent"
         android:orientation="vertical">
 
         <TextView
@@ -45,9 +46,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
@@ -55,9 +56,18 @@
                     android:id="@+id/treatmentLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="treatment" />
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/treatment"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/layout_bg" />
 
                 <TextView
                     android:id="@+id/treatmentInfo"
@@ -67,7 +77,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/layout_bg"
                     android:padding="10dp"
                     android:textAlignment="center" />
 
@@ -75,9 +84,18 @@
                     android:id="@+id/symptomsLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="symptoms" />
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="symptoms"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/layout_bg" />
 
                 <LinearLayout
                     android:id="@+id/symptomsList"

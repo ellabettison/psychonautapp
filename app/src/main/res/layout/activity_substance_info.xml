@@ -55,9 +55,7 @@
                         android:layout_height="wrap_content"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#00FFFFFF"
-                        android:paddingLeft="30dp"
                         android:paddingTop="15dp"
-                        android:paddingRight="30dp"
                         android:paddingBottom="10dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/text_light"
@@ -65,13 +63,23 @@
 
                     <TextView
                         android:id="@+id/dosageLabel"
+                        style="@style/subheading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="30dp"
-                        android:paddingEnd="30dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/dosage"
-                        android:textColor="@color/text_light"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/layout_bg" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,10 +182,19 @@
                 style="@style/subheading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text="summary" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/layout_bg" />
 
             <ScrollView
                 android:id="@+id/contentScroll"
@@ -203,8 +220,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:background="@drawable/layout_bg"
-                        android:backgroundTint="@color/light_grey"
                         android:padding="10dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
@@ -217,6 +232,15 @@
                         android:id="@+id/interactionsLabel"
                         style="@style/subheading"
                         android:text="@string/interactions" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/layout_bg" />
 
                     <LinearLayout
                         android:id="@+id/interactions"
@@ -236,8 +260,6 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:background="@drawable/layout_bg"
-                            android:backgroundTint="@color/light_grey"
                             android:foregroundGravity="center"
                             android:gravity="center|top"
                             android:orientation="vertical"
@@ -266,8 +288,6 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="right"
                             android:layout_weight="1"
-                            android:background="@drawable/layout_bg"
-                            android:backgroundTint="@color/light_grey"
                             android:foregroundGravity="right"
                             android:gravity="right"
                             android:orientation="vertical"
@@ -292,14 +312,21 @@
                         style="@style/subheading"
                         android:text="@string/toxicity" />
 
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/layout_bg" />
+
                     <TextView
                         android:id="@+id/toxicity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@drawable/layout_bg"
-                        android:backgroundTint="@color/light_grey"
                         android:padding="10dp"
                         android:tag="@string/toxicity"
                         android:textAlignment="center"
@@ -310,6 +337,15 @@
                         android:id="@+id/effectsLabel"
                         style="@style/subheading"
                         android:text="@string/effects" />
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/layout_bg"
+                        android:layout_marginEnd="10dp" />
 
                     <LinearLayout
                         android:id="@+id/effects"
@@ -326,6 +362,15 @@
                         android:id="@+id/experienceReportsLabel"
                         style="@style/subheading"
                         android:text="@string/experience_reports" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/layout_bg" />
 
                     <LinearLayout
                         android:id="@+id/experiences"

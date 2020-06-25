@@ -107,6 +107,7 @@ public class AdvancedPillSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_advanced_pill_search);
+        hide();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
