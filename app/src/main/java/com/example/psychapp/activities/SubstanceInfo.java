@@ -138,7 +138,7 @@ public class SubstanceInfo extends AppCompatActivity {
 
         try {
             getSubstanceInfo();
-        } catch (ExecutionException | InterruptedException | NullPointerException e) {
+        } catch (InterruptedException | NullPointerException e) {
             String alertMessage = "sorry, the substance could not be found";
             Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
             toast.show();
@@ -154,14 +154,6 @@ public class SubstanceInfo extends AppCompatActivity {
         overdoseButton2.setOnClickListener(v -> {
             callOdPage();
         });
-
-
-
-//        for (View roa: roas){
-//            if (roa != null) {
-//                roa.setMinimumWidth(500);
-//            }
-//        }
 
         TextView summary = findViewById(R.id.summary);
         SummaryScraper summaryScraper = new SummaryScraper();
@@ -242,63 +234,60 @@ public class SubstanceInfo extends AppCompatActivity {
 
         HorizontalScrollView scrollView = findViewById(R.id.roaScroll);
 
-        View roa1 = findViewById(R.id.roa1);
-        View roa2 = findViewById(R.id.roa2);
-        View roa3 = findViewById(R.id.roa3);
-        ArrayList<View> roas = new ArrayList<>(Arrays.asList(roa1, roa2, roa3));
+        if (scrollView!= null) {
 
-        int[] roaLoc1 = new int[2];
-        roa1.getLocationOnScreen(roaLoc1);
-        int centre = roaLoc1[0];
+            View roa1 = findViewById(R.id.roa1);
+            View roa2 = findViewById(R.id.roa2);
+            View roa3 = findViewById(R.id.roa3);
+            ArrayList<View> roas = new ArrayList<>(Arrays.asList(roa1, roa2, roa3));
 
-        TextView dosageLabel = findViewById(R.id.dosageLabel);
+            int[] roaLoc1 = new int[2];
+            roa1.getLocationOnScreen(roaLoc1);
+            int centre = roaLoc1[0];
 
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            for (View roa: roas){
-                if (roa != null) {
-                    int[] roaLoc = new int[2];
-                    roa.getLocationOnScreen(roaLoc);
-                    if (roaLoc[0]-300 < centre && roaLoc[0]+300 > centre) {
-                        dosageLabel.setText(String.format("dosage - %s", roa.getTag()));
+            TextView dosageLabel = findViewById(R.id.dosageLabel);
+
+            scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+                for (View roa : roas) {
+                    if (roa != null) {
+                        int[] roaLoc = new int[2];
+                        roa.getLocationOnScreen(roaLoc);
+                        if (roaLoc[0] - 300 < centre && roaLoc[0] + 300 > centre) {
+                            dosageLabel.setText(String.format("dosage - %s", roa.getTag()));
+                        }
                     }
                 }
+            });
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+
+            // convert roaBorder from dp to px
+            float roaBorder = 20f;
+            Resources r = getResources();
+            float px = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    roaBorder,
+                    r.getDisplayMetrics()
+            );
+
+            // set width of roa info
+            for (View roa : roas) {
+                if (roa != null) {
+                    ViewGroup.LayoutParams params = roa.getLayoutParams();
+                    params.width = (int) (width - (px * 2));
+                    roa.setLayoutParams(params);
+                    roa.requestLayout();
+                }
+
             }
-        });
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-
-        // convert roaBorder from dp to px
-        float roaBorder = 20f;
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                roaBorder,
-                r.getDisplayMetrics()
-        );
-
-        // set width of roa info
-        for (View roa: roas){
-            if (roa != null) {
-                ViewGroup.LayoutParams params = roa.getLayoutParams();
-                params.width = (int) (width - (px*2));
-                roa.setLayoutParams(params);
-                roa.requestLayout();
-            }
-
         }
     }
 
     private void setupNavbar(){
         ViewGroup navegationBarLayout = findViewById(R.id.navegationBar);
-
-        NavegationBar navegationBar = new NavegationBar(SubstanceInfo.this, navegationBarLayout);
-
-//        navegationBarLayout.findViewById(R.id.home_button).setOnClickListener(v -> navegationBar.homePress());
-//        navegationBarLayout.findViewById(R.id.od_button).setOnClickListener(v -> navegationBar.odPress());
-//        navegationBarLayout.findViewById(R.id.pill_button).setOnClickListener(v -> navegationBar.pillPress());
-//        navegationBarLayout.findViewById(R.id.back_button).setOnClickListener(v -> finish());
+        new NavegationBar(SubstanceInfo.this, navegationBarLayout);
     }
 
     private void getExperienceNames() throws ExecutionException, InterruptedException {
@@ -334,7 +323,9 @@ public class SubstanceInfo extends AppCompatActivity {
 
             }
         } else {
-            ((ViewGroup) findViewById(R.id.contentLayout)).removeView(experienceReportsLabel);
+            LinearLayout layout = findViewById(R.id.contentLayout);
+            layout.removeView(experienceReportsLabel);
+            layout.removeView(findViewById(R.id.experienceLine));
         }
     }
 
@@ -417,7 +408,7 @@ public class SubstanceInfo extends AppCompatActivity {
 
     }
 
-    protected void getSubstanceInfo() throws ExecutionException, InterruptedException {
+    protected void getSubstanceInfo() throws InterruptedException {
         APIClient apiClient = new APIClient();
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = queryBuilder.queryByName(substanceName).withName().withRoas()
@@ -426,41 +417,47 @@ public class SubstanceInfo extends AppCompatActivity {
         try {
             substanceObject = apiClient.execute(query).get().get(0);
             TextView dosageLabel = findViewById(R.id.dosageLabel);
-            dosageLabel.setText(String.format("dosage - %s", substanceObject.getRoas().get(0).getName()));
-            getDosage(findViewById(R.id.roa1), 0);
-            getEffects();
-            getInteractions();
-            getDuration(findViewById(R.id.roa1), 0);
-            getToxicity();
-            getExperienceNames();
-            if (substanceObject.getRoas().size()>1){
-                getDosage(findViewById(R.id.roa2), 1);
-                getDuration(findViewById(R.id.roa2), 1);
+            if (substanceObject.getRoas().size() > 0) {
+                dosageLabel.setText(String.format("dosage - %s", substanceObject.getRoas().get(0).getName()));
+                getDosage(findViewById(R.id.roa1), 0);
+                getEffects();
+                getInteractions();
+                getDuration(findViewById(R.id.roa1), 0);
+                getToxicity();
+                getExperienceNames();
+                if (substanceObject.getRoas().size() > 1) {
+                    getDosage(findViewById(R.id.roa2), 1);
+                    getDuration(findViewById(R.id.roa2), 1);
+                } else {
+                    View roa2 = findViewById(R.id.roa2);
+                    Space space = findViewById(R.id.space1);
+                    ViewGroup parent = (ViewGroup) roa2.getParent();
+                    parent.removeView(roa2);
+                    parent.removeView(space);
+                }
+                if (substanceObject.getRoas().size() > 2) {
+                    getDosage(findViewById(R.id.roa3), 2);
+                    getDuration(findViewById(R.id.roa3), 2);
+                } else {
+                    View roa3 = findViewById(R.id.roa3);
+                    Space space = findViewById(R.id.space2);
+                    ViewGroup parent = (ViewGroup) roa3.getParent();
+                    parent.removeView(roa3);
+                    parent.removeView(space);
+                }
             } else {
-                View roa2 = findViewById(R.id.roa2);
-                Space space = findViewById(R.id.space1);
-                ViewGroup parent = (ViewGroup) roa2.getParent();
-                parent.removeView(roa2);
-                parent.removeView(space);
-            }
-            if (substanceObject.getRoas().size()>2){
-                getDosage(findViewById(R.id.roa3), 2);
-                getDuration(findViewById(R.id.roa3), 2);
-            } else {
-                View roa3 = findViewById(R.id.roa3);
-                Space space = findViewById(R.id.space2);
-                ViewGroup parent = (ViewGroup) roa3.getParent();
-                parent.removeView(roa3);
-                parent.removeView(space);
+                LinearLayout contentLayout = findViewById(R.id.substanceInfoContent);
+                contentLayout.removeView(findViewById(R.id.roaScroll));
+                contentLayout.removeView(findViewById(R.id.dosageLabel));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
 
-//            String alertMessage = "sorry, the substance could not be found";
-//            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
-//            toast.show();
-//            finish();
+            String alertMessage = "sorry, the substance could not be found";
+            Toast toast = Toast.makeText(this, alertMessage, Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
     }
 
@@ -482,8 +479,8 @@ public class SubstanceInfo extends AppCompatActivity {
             // remove toxicity info
             ViewGroup contentLayout = findViewById(R.id.contentLayout);
             contentLayout.removeView(toxicityList);
-            TextView toxicityLabel = findViewById(R.id.toxicityLabel);
-            contentLayout.removeView(toxicityLabel);
+            contentLayout.removeView(findViewById(R.id.toxicityLabel));
+            contentLayout.removeView(findViewById(R.id.toxicityLine));
         }
 
     }
@@ -535,6 +532,7 @@ public class SubstanceInfo extends AppCompatActivity {
                 ViewGroup contentLayout = findViewById(R.id.contentLayout);
                 contentLayout.removeView(interactions);
                 contentLayout.removeView(interactionsLabel);
+                contentLayout.removeView(findViewById(R.id.interactionsLine));
             }
         }
     }
@@ -544,14 +542,19 @@ public class SubstanceInfo extends AppCompatActivity {
         final Typeface manjari = ResourcesCompat.getFont(this, R.font.manjari_bold);
 
         LinearLayout contentLayout = findViewById(R.id.effects);
-        for (EffectObject effect : substanceObject.getEffects()) {
-            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
-            effectText.setTypeface(manjari);
-            effectText.setText(effect.getName().toLowerCase());
-            contentLayout.addView(effectText);
-            ImageView divider = new ImageView(this);
-            divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
-            contentLayout.addView(divider);
+        if (substanceObject.getEffects() != null) {
+            for (EffectObject effect : substanceObject.getEffects()) {
+                TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+                effectText.setTypeface(manjari);
+                effectText.setText(effect.getName().toLowerCase());
+                contentLayout.addView(effectText);
+                ImageView divider = new ImageView(this);
+                divider.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight));
+                contentLayout.addView(divider);
+            }
+        } else {
+            contentLayout.removeView(findViewById(R.id.effectsLabel));
+            contentLayout.removeView(findViewById(R.id.effectsLine));
         }
     }
 

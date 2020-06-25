@@ -14,6 +14,7 @@ import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -143,7 +144,9 @@ public class BrowseSubstanceReports extends AppCompatActivity {
         LinearLayout experienceList = findViewById(R.id.experiencesList);
 
         for (ErowidExperienceName experience: experienceNames){
-            TextView effectText = new TextView(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+//            Button effectText = new Button(new ContextThemeWrapper(this, R.style.EffectLabel), null, 0);
+            Button effectText = new Button(this);
+            effectText.setTextSize(15);
             effectText.setTypeface(manjari);
             effectText.setText(experience.getName());
             experienceList.addView(effectText);

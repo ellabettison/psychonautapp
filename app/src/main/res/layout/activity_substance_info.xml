@@ -27,6 +27,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/substanceInfoContent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -53,10 +54,11 @@
                         android:id="@+id/substanceName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
                         android:background="#00FFFFFF"
                         android:backgroundTint="#00FFFFFF"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="10dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/text_light"
                         android:textSize="25sp" />
@@ -72,14 +74,6 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:tint="@color/colorPrimaryDark"
-                        app:srcCompat="@drawable/layout_bg" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -187,7 +181,7 @@
                 android:text="summary" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/summaryLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
@@ -234,7 +228,7 @@
                         android:text="@string/interactions" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/interactionsLine"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
@@ -313,7 +307,7 @@
                         android:text="@string/toxicity" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/toxicityLine"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
@@ -339,13 +333,13 @@
                         android:text="@string/effects" />
 
                     <ImageView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/effectsLine"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:tint="@color/colorPrimaryDark"
-                        app:srcCompat="@drawable/layout_bg"
-                        android:layout_marginEnd="10dp" />
+                        app:srcCompat="@drawable/layout_bg" />
 
                     <LinearLayout
                         android:id="@+id/effects"
@@ -364,7 +358,7 @@
                         android:text="@string/experience_reports" />
 
                     <ImageView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/experienceLine"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="10dp"

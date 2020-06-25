@@ -162,6 +162,7 @@ public class SubstanceSelector extends AppCompatActivity {
         header.setTypeface(manjari);
 
         if (substances != null) {
+            LinearLayout ll = findViewById(R.id.substanceList);
             for (int i = 0; i < substances.size(); i++) {
                 if (!substances.get(i).getEffects().isEmpty()) {
                     Button btn = new Button(this);
@@ -169,7 +170,6 @@ public class SubstanceSelector extends AppCompatActivity {
                     btn.setTypeface(manjari);
                     btn.setText(substances.get(i).getName().toLowerCase());
 
-                    LinearLayout ll = findViewById(R.id.substanceList);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout
                             .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     ll.addView(btn, lp);
